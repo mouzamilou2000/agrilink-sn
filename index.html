@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,7 +12,6 @@
   --terre: #2D4A1E;
   --terre-fonce: #1A2E12;
   --soleil: #E8A020;
-  --soleil-clair: #FEF3DC;
   --ciel: #F0F4EC;
   --blanc: #FAFAF7;
   --nuit: #1A2614;
@@ -22,520 +19,838 @@
   --vert: #5A8A3C;
   --gris: #8A9180;
   --bordure: #D6DDD0;
+  --sidebar-w: 260px;
 }
+
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Noto Sans',sans-serif; background:var(--blanc); color:var(--nuit); min-height:100vh; overflow-x:hidden; }
-.shell { display:flex; flex-direction:column; max-width:420px; margin:0 auto; min-height:100vh; background:var(--blanc); box-shadow:0 0 80px rgba(0,0,0,0.13); position:relative; overflow:hidden; }
-.screen { display:none; flex-direction:column; min-height:100vh; }
-.screen.active { display:flex; }
+html { scroll-behavior:smooth; }
+body { font-family:'Noto Sans',sans-serif; background:var(--ciel); color:var(--nuit); min-height:100vh; }
 
-/* LANDING */
-#screen-landing { background:var(--terre-fonce); position:relative; overflow:hidden; }
-.landing-bg-pattern { position:absolute; inset:0; background-image:radial-gradient(circle at 20% 20%,rgba(232,160,32,0.08) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(90,138,60,0.12) 0%,transparent 50%); pointer-events:none; }
-.landing-header { padding:52px 24px 0; position:relative; z-index:2; display:flex; align-items:center; gap:10px; }
-.landing-logo { width:38px; height:38px; background:var(--soleil); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; }
-.landing-brand { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:var(--blanc); }
-.landing-hero { padding:36px 24px 28px; position:relative; z-index:2; }
-.landing-eyebrow { display:inline-flex; align-items:center; gap:6px; background:rgba(232,160,32,0.15); border:1px solid rgba(232,160,32,0.3); border-radius:20px; padding:5px 12px; font-size:12px; font-weight:500; color:var(--soleil); margin-bottom:16px; }
-.landing-title { font-family:'Space Grotesk',sans-serif; font-size:36px; font-weight:800; color:var(--blanc); line-height:1.15; letter-spacing:-1px; margin-bottom:14px; }
-.landing-title span { color:var(--soleil); }
-.landing-subtitle { font-size:15px; color:rgba(255,255,255,0.6); line-height:1.65; }
-.carousel-wrap { position:relative; z-index:2; padding:0 0 24px; overflow:hidden; }
-.carousel-track { display:flex; gap:14px; padding:4px 24px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; scroll-behavior:smooth; }
-.carousel-track::-webkit-scrollbar { display:none; }
-.carousel-card { flex-shrink:0; width:200px; background:rgba(255,255,255,0.07); border:1.5px solid rgba(255,255,255,0.1); border-radius:18px; padding:18px 16px; scroll-snap-align:start; cursor:pointer; }
-.carousel-card.featured { background:rgba(232,160,32,0.12); border-color:rgba(232,160,32,0.35); }
-.c-emoji { font-size:42px; display:block; margin-bottom:12px; }
-.c-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; color:var(--blanc); margin-bottom:4px; }
-.c-origin { font-size:12px; color:rgba(255,255,255,0.5); margin-bottom:12px; }
-.c-price { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; color:var(--soleil); }
-.c-price span { font-size:11px; font-weight:400; color:rgba(255,255,255,0.4); }
-.c-badge { display:inline-block; background:rgba(90,138,60,0.25); border-radius:6px; padding:3px 8px; font-size:11px; color:#90CC6A; margin-top:8px; }
-.carousel-dots { display:flex; justify-content:center; gap:6px; margin-top:16px; }
-.dot { width:6px; height:6px; border-radius:3px; background:rgba(255,255,255,0.2); transition:width 0.3s,background 0.3s; cursor:pointer; }
-.dot.active { width:20px; background:var(--soleil); }
-.landing-stats { display:flex; margin:0 24px 28px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:16px; overflow:hidden; position:relative; z-index:2; }
-.l-stat { flex:1; padding:14px 10px; text-align:center; border-right:1px solid rgba(255,255,255,0.06); }
-.l-stat:last-child { border-right:none; }
-.l-stat-num { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--soleil); }
-.l-stat-label { font-size:11px; color:rgba(255,255,255,0.45); margin-top:2px; }
-.landing-cta-wrap { padding:0 24px 20px; position:relative; z-index:2; }
-.btn-cta-main { width:100%; background:var(--soleil); color:var(--nuit); border:none; border-radius:16px; padding:18px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 8px 24px rgba(232,160,32,0.35); }
-.landing-login-link { text-align:center; padding:14px 24px 40px; font-size:14px; color:rgba(255,255,255,0.45); position:relative; z-index:2; }
-.landing-login-link button { background:none; border:none; color:var(--soleil); font-weight:600; font-size:14px; cursor:pointer; text-decoration:underline; }
+/* ══════════════════════
+   ÉCRANS (pages)
+══════════════════════ */
+.screen { display:none; min-height:100vh; }
+.screen.active { display:block; }
 
-/* AUTH */
-#screen-auth { background:var(--blanc); }
-.auth-top { background:var(--terre); padding:52px 24px 36px; position:relative; overflow:hidden; }
-.auth-top::after { content:'🌾'; position:absolute; right:-10px; bottom:-20px; font-size:120px; opacity:0.06; pointer-events:none; }
-.auth-back { background:rgba(255,255,255,0.12); border:none; border-radius:8px; padding:7px 12px; color:var(--blanc); font-size:14px; cursor:pointer; margin-bottom:24px; display:inline-flex; align-items:center; gap:6px; }
-.auth-title { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:800; color:var(--blanc); line-height:1.2; letter-spacing:-0.5px; }
-.auth-subtitle { font-size:14px; color:rgba(255,255,255,0.6); margin-top:6px; }
-.auth-tabs { display:flex; margin:24px 24px 0; background:var(--ciel); border-radius:12px; padding:4px; gap:4px; }
-.auth-tab { flex:1; padding:10px; border:none; border-radius:9px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:none; color:var(--gris); transition:background 0.2s,color 0.2s; }
+/* ══════════════════════
+   LANDING — responsive
+══════════════════════ */
+#screen-landing {
+  background: var(--terre-fonce);
+  min-height: 100vh;
+  display: none;
+  flex-direction: column;
+}
+#screen-landing.active { display:flex; }
+
+.land-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 40px;
+  position: relative; z-index:2;
+}
+.land-logo { display:flex; align-items:center; gap:10px; }
+.land-logo-icon { width:40px; height:40px; background:var(--soleil); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:22px; }
+.land-logo-text { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; color:var(--blanc); }
+.land-nav-btns { display:flex; gap:10px; }
+.btn-outline { background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.2); border-radius:10px; padding:9px 18px; color:var(--blanc); font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; cursor:pointer; }
+.btn-solid { background:var(--soleil); border:none; border-radius:10px; padding:9px 18px; color:var(--nuit); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px; cursor:pointer; }
+
+/* Hero section */
+.land-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 60px 40px 40px;
+  flex:1;
+  align-items: center;
+  position: relative; z-index:2;
+}
+.land-bg { position:absolute; inset:0; background-image:radial-gradient(circle at 10% 50%,rgba(232,160,32,0.06) 0%,transparent 50%),radial-gradient(circle at 90% 20%,rgba(90,138,60,0.1) 0%,transparent 50%); pointer-events:none; }
+
+.land-left {}
+.land-eyebrow { display:inline-flex; align-items:center; gap:6px; background:rgba(232,160,32,0.15); border:1px solid rgba(232,160,32,0.3); border-radius:20px; padding:5px 14px; font-size:13px; font-weight:500; color:var(--soleil); margin-bottom:20px; }
+.land-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(36px,5vw,64px); font-weight:800; color:var(--blanc); line-height:1.1; letter-spacing:-2px; margin-bottom:20px; }
+.land-title span { color:var(--soleil); }
+.land-desc { font-size:17px; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:32px; max-width:480px; }
+.land-ctas { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-cta-big { background:var(--soleil); border:none; border-radius:14px; padding:16px 28px; color:var(--nuit); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; cursor:pointer; box-shadow:0 8px 24px rgba(232,160,32,0.3); }
+.btn-cta-ghost { background:rgba(255,255,255,0.08); border:1.5px solid rgba(255,255,255,0.15); border-radius:14px; padding:16px 28px; color:var(--blanc); font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; cursor:pointer; }
+
+/* Stats */
+.land-stats { display:flex; gap:32px; margin-top:40px; }
+.l-stat-num { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:800; color:var(--soleil); }
+.l-stat-label { font-size:13px; color:rgba(255,255,255,0.5); margin-top:2px; }
+
+/* Carousel côté droit */
+.land-right { display:flex; flex-direction:column; gap:14px; }
+.preview-card {
+  background:rgba(255,255,255,0.06);
+  border:1.5px solid rgba(255,255,255,0.1);
+  border-radius:18px; padding:18px 20px;
+  display:flex; align-items:center; gap:14px;
+  transition: transform 0.2s, border-color 0.2s;
+  cursor:pointer;
+}
+.preview-card:hover { transform:translateX(-4px); border-color:rgba(232,160,32,0.4); }
+.preview-card.featured { background:rgba(232,160,32,0.1); border-color:rgba(232,160,32,0.3); }
+.preview-emoji { font-size:36px; flex-shrink:0; }
+.preview-info { flex:1; }
+.preview-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--blanc); }
+.preview-origin { font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px; }
+.preview-price { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; color:var(--soleil); text-align:right; }
+.preview-price span { font-size:11px; font-weight:400; color:rgba(255,255,255,0.4); display:block; }
+
+/* Footer landing */
+.land-footer { padding:24px 40px; border-top:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.land-footer p { font-size:13px; color:rgba(255,255,255,0.35); }
+
+/* ══════════════════════
+   AUTH PAGE — responsive
+══════════════════════ */
+#screen-auth { display:none; }
+#screen-auth.active { display:grid; grid-template-columns:1fr 1fr; min-height:100vh; }
+
+.auth-left {
+  background:var(--terre);
+  padding:48px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  position:relative; overflow:hidden;
+}
+.auth-left::after { content:'🌾'; position:absolute; right:-20px; bottom:-30px; font-size:160px; opacity:0.05; pointer-events:none; }
+.auth-left-logo { display:flex; align-items:center; gap:10px; margin-bottom:48px; }
+.auth-left-logo-icon { width:36px; height:36px; background:var(--soleil); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.auth-left-logo-text { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:var(--blanc); }
+.auth-left-title { font-family:'Space Grotesk',sans-serif; font-size:36px; font-weight:800; color:var(--blanc); line-height:1.2; letter-spacing:-1px; margin-bottom:14px; }
+.auth-left-title span { color:var(--soleil); }
+.auth-left-desc { font-size:15px; color:rgba(255,255,255,0.6); line-height:1.7; }
+.auth-left-features { margin-top:32px; display:flex; flex-direction:column; gap:12px; }
+.auth-feature { display:flex; align-items:center; gap:12px; font-size:14px; color:rgba(255,255,255,0.75); }
+.auth-feature-icon { width:32px; height:32px; background:rgba(255,255,255,0.1); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.auth-left-back { background:none; border:none; color:rgba(255,255,255,0.5); font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px; padding:0; }
+.auth-left-back:hover { color:var(--blanc); }
+
+.auth-right {
+  background:var(--blanc);
+  padding:48px;
+  display:flex; flex-direction:column; justify-content:center;
+  overflow-y:auto;
+}
+.auth-right-title { font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:800; color:var(--nuit); margin-bottom:6px; letter-spacing:-0.5px; }
+.auth-right-sub { font-size:14px; color:var(--gris); margin-bottom:28px; }
+
+.auth-tabs { display:flex; background:var(--ciel); border-radius:12px; padding:4px; gap:4px; margin-bottom:24px; }
+.auth-tab { flex:1; padding:10px; border:none; border-radius:9px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:none; color:var(--gris); transition:all 0.2s; }
 .auth-tab.active { background:var(--blanc); color:var(--terre); box-shadow:0 1px 4px rgba(0,0,0,0.08); }
-.auth-form { padding:20px 24px; flex:1; }
+
 .role-choice { display:flex; gap:12px; margin-bottom:20px; }
-.role-card { flex:1; padding:16px 10px; border:2px solid var(--bordure); border-radius:14px; background:var(--blanc); cursor:pointer; text-align:center; transition:border-color 0.15s,background 0.15s; }
+.role-card { flex:1; padding:14px 10px; border:2px solid var(--bordure); border-radius:14px; background:var(--blanc); cursor:pointer; text-align:center; transition:all 0.15s; }
 .role-card.selected { border-color:var(--terre); background:var(--ciel); }
-.role-card-icon { font-size:28px; display:block; margin-bottom:6px; }
+.role-card-icon { font-size:26px; display:block; margin-bottom:6px; }
 .role-card-label { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; color:var(--nuit); }
 .role-card-sub { font-size:11px; color:var(--gris); margin-top:2px; }
+
 .f-group { margin-bottom:16px; }
 .f-label { display:block; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:7px; }
 .f-input { width:100%; border:1.5px solid var(--bordure); border-radius:12px; padding:13px 15px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); transition:border-color 0.15s; }
 .f-input:focus { border-color:var(--terre); }
+.f-select { width:100%; border:1.5px solid var(--bordure); border-radius:12px; padding:13px 15px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9180' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; }
 .phone-wrap { display:flex; gap:8px; }
 .phone-prefix { background:var(--ciel); border:1.5px solid var(--bordure); border-radius:12px; padding:13px 14px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--nuit); white-space:nowrap; display:flex; align-items:center; gap:6px; }
 .phone-wrap .f-input { flex:1; }
-.f-select { width:100%; border:1.5px solid var(--bordure); border-radius:12px; padding:13px 15px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9180' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; }
 .f-hint { font-size:12px; color:var(--gris); margin-top:5px; }
 .cgu-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:20px; }
-.cgu-check { width:20px; height:20px; border:2px solid var(--bordure); border-radius:6px; cursor:pointer; flex-shrink:0; margin-top:1px; background:var(--blanc); display:flex; align-items:center; justify-content:center; transition:background 0.15s,border-color 0.15s; }
+.cgu-check { width:20px; height:20px; border:2px solid var(--bordure); border-radius:6px; cursor:pointer; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
 .cgu-check.checked { background:var(--terre); border-color:var(--terre); }
 .cgu-text { font-size:13px; color:var(--gris); line-height:1.5; }
 .cgu-text button { background:none; border:none; color:var(--terre); font-weight:600; font-size:13px; cursor:pointer; text-decoration:underline; }
-.btn-auth { width:100%; background:var(--terre); color:var(--blanc); border:none; border-radius:14px; padding:16px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; cursor:pointer; box-shadow:0 4px 16px rgba(45,74,30,0.25); }
+.btn-auth { width:100%; background:var(--terre); color:var(--blanc); border:none; border-radius:14px; padding:15px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; cursor:pointer; box-shadow:0 4px 16px rgba(45,74,30,0.2); transition:all 0.15s; }
+.btn-auth:hover { background:var(--terre-fonce); }
 .btn-auth:disabled { background:var(--bordure); color:var(--gris); box-shadow:none; cursor:not-allowed; }
 
 /* OTP */
-#screen-otp { background:var(--blanc); align-items:center; justify-content:center; padding:40px 24px; }
-.otp-icon { font-size:64px; margin-bottom:20px; text-align:center; }
-.otp-title { font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:800; color:var(--nuit); text-align:center; letter-spacing:-0.5px; margin-bottom:8px; }
-.otp-sub { font-size:14px; color:var(--gris); text-align:center; line-height:1.6; margin-bottom:32px; }
-.otp-inputs { display:flex; gap:10px; justify-content:center; margin-bottom:28px; }
-.otp-box { width:52px; height:60px; border:2px solid var(--bordure); border-radius:14px; font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; text-align:center; outline:none; background:var(--blanc); color:var(--nuit); transition:border-color 0.15s; }
+#screen-otp { display:none; }
+#screen-otp.active { display:grid; grid-template-columns:1fr 1fr; min-height:100vh; }
+.otp-left { background:var(--terre); padding:48px; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
+.otp-left::after { content:'📱'; position:absolute; right:-20px; bottom:-20px; font-size:160px; opacity:0.06; pointer-events:none; }
+.otp-left-title { font-family:'Space Grotesk',sans-serif; font-size:32px; font-weight:800; color:var(--blanc); letter-spacing:-1px; margin-bottom:12px; }
+.otp-left-desc { font-size:15px; color:rgba(255,255,255,0.6); line-height:1.7; }
+.otp-right { background:var(--blanc); padding:48px; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+.otp-icon { font-size:56px; margin-bottom:20px; }
+.otp-title { font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:800; color:var(--nuit); margin-bottom:8px; }
+.otp-sub { font-size:14px; color:var(--gris); text-align:center; line-height:1.6; margin-bottom:28px; }
+.otp-inputs { display:flex; gap:12px; justify-content:center; margin-bottom:24px; }
+.otp-box { width:56px; height:64px; border:2px solid var(--bordure); border-radius:14px; font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; text-align:center; outline:none; background:var(--blanc); color:var(--nuit); transition:border-color 0.15s; }
 .otp-box:focus { border-color:var(--terre); }
-.otp-resend { text-align:center; font-size:14px; color:var(--gris); margin-bottom:24px; }
-.otp-resend button { background:none; border:none; color:var(--terre); font-weight:600; font-size:14px; cursor:pointer; }
+.otp-resend { font-size:14px; color:var(--gris); margin-bottom:20px; text-align:center; }
+.otp-resend button { background:none; border:none; color:var(--terre); font-weight:600; cursor:pointer; }
 
-/* TOPBAR & NAV */
-.topbar { padding:16px 20px 12px; display:flex; align-items:center; justify-content:space-between; background:var(--blanc); border-bottom:1.5px solid var(--bordure); position:sticky; top:0; z-index:10; }
-.topbar-title { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:var(--terre); }
-.notif-btn { width:36px; height:36px; border-radius:10px; background:var(--ciel); border:none; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; position:relative; }
+/* ══════════════════════
+   APP LAYOUT — sidebar + main
+══════════════════════ */
+.app-layout {
+  display: none;
+  min-height: 100vh;
+}
+.app-layout.active { display:flex; }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--terre-fonce);
+  display: flex; flex-direction:column;
+  position: fixed; top:0; left:0; bottom:0;
+  z-index: 30;
+  transition: transform 0.3s;
+}
+.sidebar-logo { padding:24px 20px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,0.06); }
+.sidebar-logo-icon { width:36px; height:36px; background:var(--soleil); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.sidebar-logo-text { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; color:var(--blanc); }
+.sidebar-nav { flex:1; padding:16px 12px; display:flex; flex-direction:column; gap:4px; }
+.sidebar-item { display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:12px; cursor:pointer; border:none; background:none; color:rgba(255,255,255,0.6); font-size:14px; font-family:'Noto Sans',sans-serif; width:100%; text-align:left; transition:all 0.15s; }
+.sidebar-item:hover { background:rgba(255,255,255,0.06); color:var(--blanc); }
+.sidebar-item.active { background:rgba(232,160,32,0.15); color:var(--soleil); }
+.sidebar-item.active .s-icon { filter:none; }
+.s-icon { font-size:20px; flex-shrink:0; }
+.sidebar-section-label { padding:16px 14px 6px; font-size:11px; font-weight:600; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:0.1em; }
+.sidebar-bottom { padding:16px 12px; border-top:1px solid rgba(255,255,255,0.06); }
+.sidebar-user { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; }
+.sidebar-avatar { width:36px; height:36px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.sidebar-user-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--blanc); }
+.sidebar-user-role { font-size:11px; color:rgba(255,255,255,0.45); }
+
+/* MAIN CONTENT */
+.main-content {
+  margin-left: var(--sidebar-w);
+  flex:1;
+  display:flex; flex-direction:column;
+  min-height:100vh;
+  background:var(--ciel);
+}
+
+/* TOPBAR MAIN */
+.main-topbar {
+  background:var(--blanc);
+  border-bottom:1.5px solid var(--bordure);
+  padding:16px 32px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:20;
+}
+.main-topbar-title { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; color:var(--nuit); }
+.main-topbar-right { display:flex; align-items:center; gap:12px; }
+.topbar-btn { width:38px; height:38px; border-radius:10px; background:var(--ciel); border:none; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; position:relative; }
 .notif-dot { position:absolute; top:6px; right:6px; width:8px; height:8px; background:var(--argile); border-radius:50%; border:1.5px solid var(--blanc); }
-.scroll-content { flex:1; overflow-y:auto; padding-bottom:80px; }
-.bottom-nav { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:420px; background:var(--blanc); border-top:1.5px solid var(--bordure); display:flex; padding:8px 0 12px; z-index:20; }
-.nav-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; padding:4px 0; border:none; background:none; color:var(--gris); font-size:11px; font-family:'Noto Sans',sans-serif; }
-.nav-item.active { color:var(--terre); }
-.nav-icon { font-size:22px; }
 
-/* CARDS */
-.section-label { padding:20px 20px 10px; font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.08em; }
-.product-card { margin:0 20px 12px; background:var(--blanc); border:1.5px solid var(--bordure); border-radius:16px; padding:16px; cursor:pointer; transition:border-color 0.15s,box-shadow 0.15s; }
-.product-card:hover { border-color:var(--vert); box-shadow:0 4px 16px rgba(45,74,30,0.08); }
-.card-top { display:flex; align-items:flex-start; gap:14px; }
-.card-emoji { width:52px; height:52px; border-radius:12px; background:var(--ciel); display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0; }
-.card-info { flex:1; }
-.card-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; color:var(--nuit); }
-.card-farmer { font-size:13px; color:var(--gris); margin-top:2px; }
-.card-price { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; color:var(--terre); text-align:right; }
-.card-price span { font-size:11px; font-weight:400; color:var(--gris); display:block; }
-.card-meta { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+/* PANELS (vues dans main) */
+.panel { display:none; padding:32px; }
+.panel.active { display:block; }
+
+/* Stats dashboard */
+.dash-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
+.dash-stat { background:var(--blanc); border-radius:16px; padding:20px 24px; border:1.5px solid var(--bordure); }
+.dash-stat-num { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:800; color:var(--terre); }
+.dash-stat-label { font-size:13px; color:var(--gris); margin-top:4px; }
+.dash-stat-sub { font-size:12px; color:var(--vert); margin-top:6px; font-weight:500; }
+
+/* Hero band */
+.hero-band { background:var(--terre); border-radius:18px; padding:24px 28px; display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+.hero-band h2 { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--blanc); }
+.hero-band p { font-size:14px; color:rgba(255,255,255,0.6); margin-top:4px; }
+.hero-band-btn { background:var(--soleil); border:none; border-radius:12px; padding:12px 20px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--nuit); cursor:pointer; white-space:nowrap; }
+
+/* Products grid */
+.products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+.product-card { background:var(--blanc); border:1.5px solid var(--bordure); border-radius:16px; padding:20px; cursor:pointer; transition:all 0.15s; }
+.product-card:hover { border-color:var(--vert); box-shadow:0 4px 20px rgba(45,74,30,0.1); transform:translateY(-2px); }
+.card-emoji-big { font-size:40px; margin-bottom:14px; display:block; }
+.card-name { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:var(--nuit); margin-bottom:4px; }
+.card-farmer { font-size:13px; color:var(--gris); margin-bottom:14px; }
+.card-price { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; color:var(--terre); margin-bottom:12px; }
+.card-price span { font-size:13px; font-weight:400; color:var(--gris); }
+.card-tags { display:flex; gap:6px; flex-wrap:wrap; }
 .tag { padding:4px 10px; border-radius:20px; font-size:12px; font-weight:500; }
 .tag-green { background:#E8F2E2; color:var(--terre); }
 .tag-yellow { background:#FEF3DC; color:#A06010; }
-.tag-red { background:#FDE8E0; color:var(--argile); }
 .tag-blue { background:#E0EAF5; color:#2A5580; }
-.hero-band { margin:16px 20px; background:var(--terre); border-radius:18px; padding:20px; display:flex; align-items:center; justify-content:space-between; }
-.hero-band-text h2 { font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:700; color:var(--blanc); line-height:1.3; }
-.hero-band-text p { font-size:13px; color:rgba(255,255,255,0.65); margin-top:4px; }
-.hero-band-cta { background:var(--soleil); border:none; border-radius:10px; padding:10px 14px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; color:var(--nuit); cursor:pointer; white-space:nowrap; flex-shrink:0; }
-.stats-row { display:flex; gap:12px; padding:0 20px; margin-bottom:4px; }
-.stat-card { flex:1; background:var(--ciel); border-radius:14px; padding:14px 12px; text-align:center; }
-.stat-num { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:var(--terre); }
-.stat-label { font-size:11px; color:var(--gris); margin-top:2px; }
+.tag-red { background:#FDE8E0; color:var(--argile); }
 
-/* DETAIL */
-.detail-header { background:var(--terre); padding:24px 20px 32px; }
-.back-btn { background:rgba(255,255,255,0.15); border:none; border-radius:8px; padding:8px 12px; color:var(--blanc); font-size:14px; cursor:pointer; margin-bottom:16px; display:inline-flex; align-items:center; gap:6px; }
-.detail-emoji-big { font-size:56px; display:block; margin-bottom:12px; }
-.detail-title { font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; color:var(--blanc); }
-.detail-farmer-row { display:flex; align-items:center; gap:8px; margin-top:8px; }
-.farmer-avatar { width:32px; height:32px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; }
-.farmer-name { color:rgba(255,255,255,0.85); font-size:14px; }
-.detail-body { padding:20px; }
+/* Section label */
+.section-label { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px; }
+
+/* Detail produit */
+.detail-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.detail-left { background:var(--blanc); border-radius:18px; padding:32px; border:1.5px solid var(--bordure); }
+.detail-emoji-xl { font-size:72px; display:block; margin-bottom:16px; }
+.detail-title { font-family:'Space Grotesk',sans-serif; font-size:30px; font-weight:800; color:var(--nuit); margin-bottom:6px; }
+.detail-farmer-row { display:flex; align-items:center; gap:10px; margin-bottom:24px; }
+.farmer-avatar { width:38px; height:38px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.farmer-info { font-size:14px; color:var(--gris); }
+.farmer-info strong { color:var(--nuit); font-weight:600; display:block; }
 .info-row { display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--bordure); }
 .info-label { font-size:13px; color:var(--gris); }
 .info-value { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--nuit); }
-.info-value.price { color:var(--terre); font-size:18px; }
-.map-placeholder { background:var(--ciel); border-radius:14px; height:140px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; margin:16px 0; border:1.5px dashed var(--bordure); cursor:pointer; }
-.rules-box { background:#FEF3DC; border-radius:14px; padding:16px; margin:16px 0; border-left:4px solid var(--soleil); }
-.rules-title { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:#A06010; margin-bottom:8px; }
+.info-value.price { color:var(--terre); font-size:20px; }
+.detail-right { display:flex; flex-direction:column; gap:16px; }
+.rules-box { background:#FEF3DC; border-radius:16px; padding:20px; border-left:4px solid var(--soleil); }
+.rules-title { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:#A06010; margin-bottom:10px; }
 .rules-list { list-style:none; }
-.rules-list li { font-size:13px; color:#7A4A10; padding:3px 0 3px 20px; position:relative; }
+.rules-list li { font-size:13px; color:#7A4A10; padding:4px 0 4px 20px; position:relative; line-height:1.5; }
 .rules-list li::before { content:'•'; position:absolute; left:6px; color:var(--soleil); }
-.cta-primary { width:100%; background:var(--terre); color:var(--blanc); border:none; border-radius:14px; padding:16px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; cursor:pointer; margin-top:8px; }
-.cta-secondary { width:100%; background:var(--ciel); color:var(--terre); border:1.5px solid var(--bordure); border-radius:14px; padding:14px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; cursor:pointer; margin-top:10px; }
+.map-box { background:var(--ciel); border-radius:16px; height:160px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; border:1.5px dashed var(--bordure); cursor:pointer; }
+.cta-primary { width:100%; background:var(--terre); color:var(--blanc); border:none; border-radius:14px; padding:15px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; cursor:pointer; transition:all 0.15s; }
+.cta-primary:hover { background:var(--terre-fonce); }
+.cta-secondary { width:100%; background:var(--blanc); color:var(--terre); border:1.5px solid var(--bordure); border-radius:14px; padding:13px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; cursor:pointer; margin-top:10px; }
 
-/* CHAT */
-.chat-header { padding:16px 20px; background:var(--blanc); border-bottom:1.5px solid var(--bordure); display:flex; align-items:center; gap:12px; }
-.chat-avatar { width:42px; height:42px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; }
-.chat-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; }
-.chat-status { font-size:12px; color:var(--vert); }
-.chat-messages { flex:1; padding:16px 20px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; }
-.msg { max-width:78%; padding:12px 14px; border-radius:16px; font-size:14px; line-height:1.5; }
+/* Chat */
+.chat-layout { display:grid; grid-template-columns:300px 1fr; gap:0; background:var(--blanc); border-radius:18px; border:1.5px solid var(--bordure); overflow:hidden; height:calc(100vh - 160px); }
+.chat-sidebar { border-right:1.5px solid var(--bordure); overflow-y:auto; }
+.chat-sidebar-header { padding:20px; border-bottom:1.5px solid var(--bordure); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; }
+.chat-conv-item { padding:14px 20px; border-bottom:1px solid var(--bordure); cursor:pointer; display:flex; gap:12px; align-items:center; transition:background 0.15s; }
+.chat-conv-item:hover { background:var(--ciel); }
+.chat-conv-item.active { background:#E8F2E2; }
+.chat-conv-avatar { width:40px; height:40px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.chat-conv-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; }
+.chat-conv-preview { font-size:12px; color:var(--gris); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.chat-main { display:flex; flex-direction:column; }
+.chat-header { padding:16px 20px; border-bottom:1.5px solid var(--bordure); display:flex; align-items:center; gap:12px; }
+.chat-header-avatar { width:38px; height:38px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.chat-header-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; }
+.chat-header-status { font-size:12px; color:var(--vert); }
+.chat-messages { flex:1; padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; }
+.msg { max-width:65%; padding:12px 16px; border-radius:16px; font-size:14px; line-height:1.5; }
 .msg-them { background:var(--ciel); color:var(--nuit); border-bottom-left-radius:4px; align-self:flex-start; }
 .msg-me { background:var(--terre); color:var(--blanc); border-bottom-right-radius:4px; align-self:flex-end; }
 .msg-time { font-size:11px; color:var(--gris); margin-top:4px; }
 .msg-time.right { text-align:right; }
-.confirm-bubble { background:#E8F2E2; border:1.5px solid var(--vert); border-radius:14px; padding:14px; margin:4px 0; font-size:13px; color:var(--terre); }
+.confirm-bubble { background:#E8F2E2; border:1.5px solid var(--vert); border-radius:14px; padding:14px; font-size:13px; color:var(--terre); }
 .confirm-bubble strong { font-family:'Space Grotesk',sans-serif; display:block; margin-bottom:6px; }
-.chat-input-row { padding:12px 16px; background:var(--blanc); border-top:1.5px solid var(--bordure); display:flex; gap:8px; align-items:flex-end; }
-.chat-input { flex:1; border:1.5px solid var(--bordure); border-radius:12px; padding:10px 14px; font-size:14px; font-family:'Noto Sans',sans-serif; resize:none; outline:none; background:var(--blanc); color:var(--nuit); }
-.send-btn { width:40px; height:40px; background:var(--terre); border:none; border-radius:10px; color:var(--blanc); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.voice-btn { width:40px; height:40px; background:var(--ciel); border:1.5px solid var(--bordure); border-radius:10px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.chat-input-row { padding:16px 20px; border-top:1.5px solid var(--bordure); display:flex; gap:10px; align-items:flex-end; }
+.chat-input { flex:1; border:1.5px solid var(--bordure); border-radius:12px; padding:11px 15px; font-size:14px; font-family:'Noto Sans',sans-serif; resize:none; outline:none; background:var(--blanc); transition:border-color 0.15s; }
+.chat-input:focus { border-color:var(--vert); }
+.send-btn { width:42px; height:42px; background:var(--terre); border:none; border-radius:11px; color:var(--blanc); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.voice-btn { width:42px; height:42px; background:var(--ciel); border:1.5px solid var(--bordure); border-radius:11px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 
-/* COMMANDES */
-.order-card { margin:0 20px 12px; background:var(--blanc); border:1.5px solid var(--bordure); border-radius:16px; padding:16px; cursor:pointer; }
-.order-top { display:flex; justify-content:space-between; align-items:flex-start; }
-.order-product { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; }
-.order-date { font-size:12px; color:var(--gris); margin-top:2px; }
-.status-pill { padding:4px 10px; border-radius:20px; font-size:12px; font-weight:600; }
+/* Commandes */
+.orders-table { background:var(--blanc); border-radius:18px; border:1.5px solid var(--bordure); overflow:hidden; }
+.orders-table-header { display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; gap:16px; padding:14px 20px; background:var(--ciel); border-bottom:1.5px solid var(--bordure); font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.06em; }
+.order-row { display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; gap:16px; padding:16px 20px; border-bottom:1px solid var(--bordure); align-items:center; cursor:pointer; transition:background 0.15s; }
+.order-row:hover { background:var(--ciel); }
+.order-row:last-child { border-bottom:none; }
+.order-product-cell { display:flex; align-items:center; gap:10px; }
+.order-emoji { font-size:24px; }
+.order-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--nuit); }
+.order-qty { font-size:12px; color:var(--gris); margin-top:2px; }
+.status-pill { padding:5px 12px; border-radius:20px; font-size:12px; font-weight:600; display:inline-block; }
 .status-pending { background:#FEF3DC; color:#A06010; }
 .status-confirmed { background:#E8F2E2; color:var(--terre); }
 .status-delivered { background:#E0EAF5; color:#2A5580; }
-.order-bottom { display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:12px; border-top:1px solid var(--bordure); }
-.order-farmer { font-size:13px; color:var(--gris); }
-.order-amount { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--terre); }
+.order-amount-cell { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--terre); }
 
-/* PUBLISH */
-.form-group { margin-bottom:16px; }
-.form-label { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px; display:block; }
-.form-input { width:100%; border:1.5px solid var(--bordure); border-radius:12px; padding:12px 14px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); }
-.emoji-picker { display:flex; gap:8px; flex-wrap:wrap; }
-.emoji-opt { width:48px; height:48px; border:1.5px solid var(--bordure); border-radius:10px; background:var(--ciel); font-size:24px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+/* Publish form */
+.publish-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.publish-form-card { background:var(--blanc); border-radius:18px; padding:28px; border:1.5px solid var(--bordure); }
+.publish-preview-card { background:var(--terre); border-radius:18px; padding:28px; }
+.publish-preview-title { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:20px; }
+.form-group { margin-bottom:18px; }
+.form-label { display:block; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:7px; }
+.form-input { width:100%; border:1.5px solid var(--bordure); border-radius:12px; padding:12px 15px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); transition:border-color 0.15s; }
+.form-input:focus { border-color:var(--vert); }
+.emoji-picker { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+.emoji-opt { width:44px; height:44px; border:1.5px solid var(--bordure); border-radius:10px; background:var(--ciel); font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
 .emoji-opt.selected { border-color:var(--vert); background:#E8F2E2; }
-.voice-record-area { background:var(--ciel); border:1.5px dashed var(--bordure); border-radius:14px; padding:20px; text-align:center; cursor:pointer; margin-bottom:16px; }
-.voice-record-area .mic-icon { font-size:36px; margin-bottom:8px; }
-.voice-record-area p { font-size:13px; color:var(--gris); }
-.voice-record-area strong { color:var(--terre); font-size:14px; display:block; margin-bottom:4px; }
+.voice-area { background:var(--ciel); border:1.5px dashed var(--bordure); border-radius:14px; padding:24px; text-align:center; cursor:pointer; margin-bottom:20px; transition:all 0.15s; }
+.voice-area:hover { background:#E8F2E2; border-color:var(--vert); }
 
-/* PROFIL */
-.profile-header { background:var(--terre); padding:32px 20px 24px; text-align:center; }
-.profile-avatar-big { width:80px; height:80px; background:var(--soleil); border-radius:50%; margin:0 auto 12px; display:flex; align-items:center; justify-content:center; font-size:40px; border:3px solid rgba(255,255,255,0.3); }
-.profile-name { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--blanc); }
-.profile-role { font-size:13px; color:rgba(255,255,255,0.65); margin-top:4px; }
-.profile-score { display:flex; align-items:center; justify-content:center; gap:4px; margin-top:10px; font-size:14px; color:var(--soleil); font-weight:600; }
-.profile-section { padding:20px 20px 0; }
-.profile-section-title { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px; }
+/* Profil */
+.profile-layout { display:grid; grid-template-columns:320px 1fr; gap:24px; }
+.profile-card { background:var(--blanc); border-radius:18px; border:1.5px solid var(--bordure); overflow:hidden; }
+.profile-card-header { background:var(--terre); padding:32px 24px; text-align:center; }
+.profile-avatar-xl { width:80px; height:80px; background:var(--soleil); border-radius:50%; margin:0 auto 14px; display:flex; align-items:center; justify-content:center; font-size:40px; border:3px solid rgba(255,255,255,0.3); }
+.profile-card-name { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--blanc); }
+.profile-card-role { font-size:13px; color:rgba(255,255,255,0.6); margin-top:4px; }
+.profile-card-score { display:flex; align-items:center; justify-content:center; gap:4px; margin-top:10px; font-size:14px; color:var(--soleil); font-weight:600; }
+.profile-card-body { padding:20px 24px; }
 .profile-item { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--bordure); cursor:pointer; }
-.profile-item-icon { width:40px; height:40px; background:var(--ciel); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-.profile-item-text { flex:1; }
+.profile-item:last-child { border-bottom:none; }
+.profile-item-icon { width:38px; height:38px; background:var(--ciel); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
 .profile-item-label { font-weight:500; font-size:15px; color:var(--nuit); }
 .profile-item-sub { font-size:12px; color:var(--gris); margin-top:2px; }
-.profile-arrow { color:var(--gris); font-size:18px; }
+.profile-stats-card { background:var(--blanc); border-radius:18px; border:1.5px solid var(--bordure); padding:24px; }
 
-/* MODAL & TOAST */
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:100; display:none; align-items:flex-end; justify-content:center; }
+/* Vide et chargement */
+.loading { text-align:center; padding:60px 20px; color:var(--gris); font-size:15px; }
+.empty-state { text-align:center; padding:60px 20px; }
+.empty-icon { font-size:48px; margin-bottom:12px; }
+.empty-state p { font-size:15px; color:var(--gris); line-height:1.6; }
+
+/* Modal */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:100; display:none; align-items:center; justify-content:center; }
 .modal-overlay.open { display:flex; }
-.modal-sheet { background:var(--blanc); border-radius:24px 24px 0 0; padding:24px 20px 32px; width:100%; max-width:420px; }
-.modal-handle { width:40px; height:4px; background:var(--bordure); border-radius:2px; margin:0 auto 20px; }
+.modal-box { background:var(--blanc); border-radius:20px; padding:32px; width:100%; max-width:440px; box-shadow:0 20px 60px rgba(0,0,0,0.2); }
 .modal-title { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--nuit); margin-bottom:8px; }
 .modal-sub { font-size:14px; color:var(--gris); line-height:1.6; margin-bottom:20px; }
-.penalty-box { background:#FDE8E0; border-radius:12px; padding:14px; margin-bottom:20px; border-left:4px solid var(--argile); }
+.penalty-box { background:#FDE8E0; border-radius:12px; padding:16px; margin-bottom:20px; border-left:4px solid var(--argile); }
 .penalty-title { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--argile); margin-bottom:6px; }
 .penalty-text { font-size:13px; color:#8B3820; line-height:1.5; }
-.toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:var(--nuit); color:var(--blanc); padding:12px 20px; border-radius:12px; font-size:14px; font-weight:500; z-index:200; opacity:0; transition:opacity 0.3s; white-space:nowrap; pointer-events:none; }
+
+/* Toast */
+.toast { position:fixed; bottom:30px; right:30px; background:var(--nuit); color:var(--blanc); padding:14px 22px; border-radius:14px; font-size:14px; font-weight:500; z-index:200; opacity:0; transition:opacity 0.3s; pointer-events:none; box-shadow:0 8px 24px rgba(0,0,0,0.2); }
 .toast.show { opacity:1; }
-.loading { text-align:center; padding:40px 20px; color:var(--gris); font-size:14px; }
-.empty-state { text-align:center; padding:60px 20px; color:var(--gris); }
-.empty-state .empty-icon { font-size:48px; margin-bottom:12px; }
-.empty-state p { font-size:14px; line-height:1.6; }
+
+/* ══════════════════════
+   RESPONSIVE MOBILE
+══════════════════════ */
+@media (max-width: 768px) {
+  /* Landing */
+  .land-nav { padding:16px 20px; }
+  .land-nav-btns .btn-outline { display:none; }
+  .land-hero { grid-template-columns:1fr; padding:32px 20px 20px; gap:32px; }
+  .land-right { display:none; }
+  .land-title { font-size:36px; }
+  .land-stats { gap:20px; }
+  .land-ctas { flex-direction:column; }
+  .btn-cta-big, .btn-cta-ghost { width:100%; text-align:center; }
+  .land-footer { flex-direction:column; gap:8px; text-align:center; padding:20px; }
+
+  /* Auth */
+  #screen-auth.active { grid-template-columns:1fr; }
+  .auth-left { display:none; }
+  .auth-right { padding:32px 24px; }
+
+  /* OTP */
+  #screen-otp.active { grid-template-columns:1fr; }
+  .otp-left { display:none; }
+  .otp-right { padding:40px 24px; }
+
+  /* App layout */
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main-content { margin-left:0; }
+  .main-topbar { padding:14px 20px; }
+  .panel { padding:16px; }
+  .dash-stats { grid-template-columns:1fr 1fr; }
+  .products-grid { grid-template-columns:1fr; }
+  .detail-layout { grid-template-columns:1fr; }
+  .chat-layout { grid-template-columns:1fr; height:auto; }
+  .chat-sidebar { display:none; }
+  .orders-table-header { grid-template-columns:2fr 1fr 1fr; }
+  .orders-table-header span:nth-child(2), .orders-table-header span:nth-child(5) { display:none; }
+  .order-row { grid-template-columns:2fr 1fr 1fr; }
+  .order-row > *:nth-child(2), .order-row > *:nth-child(5) { display:none; }
+  .publish-layout { grid-template-columns:1fr; }
+  .publish-preview-card { display:none; }
+  .profile-layout { grid-template-columns:1fr; }
+
+  /* Bottom nav mobile */
+  .mobile-bottom-nav { display:flex !important; }
+  .main-content { padding-bottom:64px; }
+}
+
+.mobile-bottom-nav {
+  display:none;
+  position:fixed; bottom:0; left:0; right:0;
+  background:var(--blanc); border-top:1.5px solid var(--bordure);
+  z-index:25; padding:8px 0 12px;
+}
+.mobile-nav-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; padding:4px 0; border:none; background:none; color:var(--gris); font-size:11px; font-family:'Noto Sans',sans-serif; }
+.mobile-nav-item.active { color:var(--terre); }
+.mobile-nav-icon { font-size:22px; }
+.hamburger { display:none; background:none; border:none; font-size:22px; cursor:pointer; }
+@media (max-width:768px) { .hamburger { display:block; } }
 </style>
 </head>
 <body>
-<div class="shell">
 
-<!-- LANDING -->
-<div class="screen active" id="screen-landing">
-  <div class="landing-bg-pattern"></div>
-  <div class="landing-header">
-    <div class="landing-logo">🌾</div>
-    <div class="landing-brand">AgriLink SN</div>
-  </div>
-  <div class="landing-hero">
-    <div class="landing-eyebrow">🇸🇳 Made in Sénégal</div>
-    <h1 class="landing-title">De la terre<br>à <span>ta table</span></h1>
-    <p class="landing-subtitle">Commandez directement auprès des producteurs locaux. Frais, vérifié, livré à 6h du matin.</p>
-  </div>
-  <div class="carousel-wrap">
-    <div class="carousel-track" id="carouselTrack">
-      <div class="carousel-card featured"><span class="c-emoji">🧅</span><div class="c-name">Oignons Bok</div><div class="c-origin">📍 Saint-Louis</div><div class="c-price">8 500 <span>FCFA / sac</span></div><span class="c-badge">✅ Vérifié</span></div>
-      <div class="carousel-card"><span class="c-emoji">🥕</span><div class="c-name">Carottes fraîches</div><div class="c-origin">📍 Thiès</div><div class="c-price">3 200 <span>FCFA / cagette</span></div><span class="c-badge">✅ Vérifié</span></div>
-      <div class="carousel-card"><span class="c-emoji">🍅</span><div class="c-name">Tomates cerises</div><div class="c-origin">📍 Dakar</div><div class="c-price">4 000 <span>FCFA / plateau</span></div><span class="c-badge">🔥 Derniers stocks</span></div>
-      <div class="carousel-card"><span class="c-emoji">🥬</span><div class="c-name">Chou vert</div><div class="c-origin">📍 Louga</div><div class="c-price">1 800 <span>FCFA / pièce</span></div><span class="c-badge">✅ Vérifié</span></div>
-      <div class="carousel-card"><span class="c-emoji">🌽</span><div class="c-name">Maïs doux</div><div class="c-origin">📍 Kaolack</div><div class="c-price">2 500 <span>FCFA / régime</span></div><span class="c-badge">✅ Vérifié</span></div>
+<!-- ══════════════════════════
+     LANDING
+══════════════════════════ -->
+<div class="screen" id="screen-landing">
+  <div class="land-bg"></div>
+  <nav class="land-nav">
+    <div class="land-logo">
+      <div class="land-logo-icon">🌾</div>
+      <div class="land-logo-text">AgriLink SN</div>
     </div>
-    <div class="carousel-dots" id="carouselDots">
-      <div class="dot active" onclick="scrollToCard(0)"></div>
-      <div class="dot" onclick="scrollToCard(1)"></div>
-      <div class="dot" onclick="scrollToCard(2)"></div>
-      <div class="dot" onclick="scrollToCard(3)"></div>
-      <div class="dot" onclick="scrollToCard(4)"></div>
+    <div class="land-nav-btns">
+      <button class="btn-outline" onclick="goTo('screen-auth'); switchTab('login')">Se connecter</button>
+      <button class="btn-solid" onclick="goTo('screen-auth'); switchTab('register')">Commencer</button>
+    </div>
+  </nav>
+
+  <div class="land-hero">
+    <div class="land-left">
+      <div class="land-eyebrow">🇸🇳 Made in Sénégal</div>
+      <h1 class="land-title">De la terre<br>à <span>ta table</span></h1>
+      <p class="land-desc">Connectez-vous directement avec les producteurs locaux. Produits frais, prix justes, livrés à 6h du matin.</p>
+      <div class="land-ctas">
+        <button class="btn-cta-big" onclick="goTo('screen-auth'); switchTab('register')">Commencer gratuitement →</button>
+        <button class="btn-cta-ghost" onclick="goTo('screen-auth'); switchTab('login')">J'ai déjà un compte</button>
+      </div>
+      <div class="land-stats">
+        <div><div class="l-stat-num" id="land-stat-prod">--</div><div class="l-stat-label">Producteurs actifs</div></div>
+        <div><div class="l-stat-num" id="land-stat-items">--</div><div class="l-stat-label">Produits disponibles</div></div>
+        <div><div class="l-stat-num">4.8★</div><div class="l-stat-label">Satisfaction clients</div></div>
+      </div>
+    </div>
+    <div class="land-right">
+      <div class="preview-card featured"><span class="preview-emoji">🧅</span><div class="preview-info"><div class="preview-name">Oignons Bok</div><div class="preview-origin">📍 Saint-Louis · ✅ Vérifié</div></div><div class="preview-price">8 500<span>FCFA / sac</span></div></div>
+      <div class="preview-card"><span class="preview-emoji">🥕</span><div class="preview-info"><div class="preview-name">Carottes fraîches</div><div class="preview-origin">📍 Thiès · ✅ Vérifié</div></div><div class="preview-price">3 200<span>FCFA / cagette</span></div></div>
+      <div class="preview-card"><span class="preview-emoji">🍅</span><div class="preview-info"><div class="preview-name">Tomates cerises</div><div class="preview-origin">📍 Dakar · 🔥 Derniers stocks</div></div><div class="preview-price">4 000<span>FCFA / plateau</span></div></div>
+      <div class="preview-card"><span class="preview-emoji">🥬</span><div class="preview-info"><div class="preview-name">Chou vert</div><div class="preview-origin">📍 Louga · ✅ Vérifié</div></div><div class="preview-price">1 800<span>FCFA / pièce</span></div></div>
     </div>
   </div>
-  <div class="landing-stats">
-    <div class="l-stat"><div class="l-stat-num" id="stat-producteurs">--</div><div class="l-stat-label">Producteurs</div></div>
-    <div class="l-stat"><div class="l-stat-num" id="stat-produits">--</div><div class="l-stat-label">Produits</div></div>
-    <div class="l-stat"><div class="l-stat-num">4.8★</div><div class="l-stat-label">Satisfaction</div></div>
+
+  <div class="land-footer">
+    <p>© 2026 AgriLink SN · Paiement cash à la livraison · Producteurs vérifiés</p>
+    <p>Fait avec ❤️ pour les agriculteurs sénégalais</p>
   </div>
-  <div class="landing-cta-wrap">
-    <button class="btn-cta-main" onclick="goTo('screen-auth'); switchTab('register')">Commencer maintenant →</button>
-  </div>
-  <div class="landing-login-link">Déjà un compte ? <button onclick="goTo('screen-auth'); switchTab('login')">Se connecter</button></div>
 </div>
 
-<!-- AUTH -->
+<!-- ══════════════════════════
+     AUTH
+══════════════════════════ -->
 <div class="screen" id="screen-auth">
-  <div class="auth-top">
-    <button class="auth-back" onclick="goBack()">← Retour</button>
-    <div class="auth-title" id="authTitle">Créer un compte</div>
-    <div class="auth-subtitle" id="authSubtitle">Rejoignez AgriLink SN gratuitement</div>
-  </div>
-  <div class="auth-tabs">
-    <button class="auth-tab active" id="tab-register" onclick="switchTab('register')">S'inscrire</button>
-    <button class="auth-tab" id="tab-login" onclick="switchTab('login')">Se connecter</button>
-  </div>
-
-  <!-- INSCRIPTION -->
-  <div class="auth-form" id="form-register">
-    <div style="margin-bottom:18px">
-      <div class="f-label">Je suis</div>
-      <div class="role-choice">
-        <div class="role-card selected" id="role-acheteur" onclick="selectRole('acheteur')"><span class="role-card-icon">🏪</span><div class="role-card-label">Acheteur</div><div class="role-card-sub">Restaurant, hôtel, cantine</div></div>
-        <div class="role-card" id="role-agriculteur" onclick="selectRole('agriculteur')"><span class="role-card-icon">👨‍🌾</span><div class="role-card-label">Producteur</div><div class="role-card-sub">Agriculteur, maraîcher</div></div>
-      </div>
-    </div>
-    <div class="f-group"><label class="f-label">Nom complet</label><input class="f-input" type="text" placeholder="Ex: Mamadou Diallo" id="reg-name"></div>
-    <div class="f-group">
-      <label class="f-label">Numéro de téléphone</label>
-      <div class="phone-wrap"><div class="phone-prefix">🇸🇳 +221</div><input class="f-input" type="tel" placeholder="77 000 00 00" id="reg-phone" maxlength="9"></div>
-      <div class="f-hint">Utilisé pour vous identifier sur la plateforme</div>
-    </div>
-    <div class="f-group">
-      <label class="f-label">Région</label>
-      <select class="f-select" id="reg-region">
-        <option value="">Choisir votre région</option>
-        <option>Dakar</option><option>Thiès</option><option>Saint-Louis</option>
-        <option>Kaolack</option><option>Louga</option><option>Ziguinchor</option>
-        <option>Tambacounda</option><option>Diourbel</option><option>Fatick</option>
-        <option>Kolda</option><option>Matam</option><option>Kaffrine</option>
-        <option>Kédougou</option><option>Sédhiou</option>
-      </select>
-    </div>
-    <div class="cgu-row">
-      <div class="cgu-check" id="cgu-check" onclick="toggleCgu()"></div>
-      <div class="cgu-text">J'accepte les <button onclick="showToast('Règles : paiement cash à livraison, annulation 12h avant, 3 annulations = suspension')">règles d'utilisation</button> d'AgriLink SN</div>
-    </div>
-    <button class="btn-auth" id="btn-register" onclick="doRegister()">Créer mon compte →</button>
-  </div>
-
-  <!-- CONNEXION -->
-  <div class="auth-form" id="form-login" style="display:none">
-    <div class="f-group">
-      <label class="f-label">Numéro de téléphone</label>
-      <div class="phone-wrap"><div class="phone-prefix">🇸🇳 +221</div><input class="f-input" type="tel" placeholder="77 000 00 00" id="login-phone" maxlength="9"></div>
-    </div>
-    <div style="height:12px"></div>
-    <button class="btn-auth" onclick="doLogin()">Se connecter →</button>
-    <div style="text-align:center;margin-top:20px;font-size:13px;color:var(--gris)">Pas encore de compte ? <button onclick="switchTab('register')" style="background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer">S'inscrire</button></div>
-  </div>
-</div>
-
-<!-- OTP -->
-<div class="screen" id="screen-otp">
-  <div class="otp-icon">📱</div>
-  <div class="otp-title">Vérification</div>
-  <div class="otp-sub">Entrez le code à 4 chiffres envoyé au<br><strong id="otp-phone-display">+221 77 000 00 00</strong><br><span style="font-size:12px;color:#aaa">(Pour le test : entrez 1234)</span></div>
-  <div class="otp-inputs">
-    <input class="otp-box" type="tel" maxlength="1" id="otp1" oninput="otpNext(this,'otp2')">
-    <input class="otp-box" type="tel" maxlength="1" id="otp2" oninput="otpNext(this,'otp3')">
-    <input class="otp-box" type="tel" maxlength="1" id="otp3" oninput="otpNext(this,'otp4')">
-    <input class="otp-box" type="tel" maxlength="1" id="otp4" oninput="otpComplete(this)">
-  </div>
-  <div class="otp-resend">Pas reçu ? <button onclick="showToast('Code renvoyé ✓')">Renvoyer</button></div>
-  <div style="padding:0 24px;width:100%">
-    <button class="btn-auth" onclick="verifyOtp()">Confirmer →</button>
-    <button class="cta-secondary" style="margin-top:12px" onclick="goBack()">← Modifier le numéro</button>
-  </div>
-</div>
-
-<!-- DASHBOARD ACHETEUR -->
-<div class="screen" id="screen-home">
-  <div class="topbar">
+  <div class="auth-left">
     <div>
-      <div style="font-size:12px;color:var(--gris)" id="greeting">Bonjour 👋</div>
-      <div class="topbar-title">🌾 AgriLink SN</div>
-    </div>
-    <button class="notif-btn" onclick="showToast('Notifications')">🔔<div class="notif-dot"></div></button>
-  </div>
-  <div class="scroll-content">
-    <div class="stats-row" style="margin-top:16px">
-      <div class="stat-card"><div class="stat-num" id="home-stat-prod">--</div><div class="stat-label">Producteurs</div></div>
-      <div class="stat-card"><div class="stat-num" id="home-stat-items">--</div><div class="stat-label">Produits dispo</div></div>
-      <div class="stat-card"><div class="stat-num">4.8★</div><div class="stat-label">Note moyenne</div></div>
-    </div>
-    <div class="hero-band">
-      <div class="hero-band-text"><h2>Livraison à 6h du matin</h2><p>Commandez avant 18h, recevez frais demain</p></div>
-      <button class="hero-band-cta" onclick="scrollToProducts()">Voir les produits</button>
-    </div>
-    <div class="section-label">Disponible maintenant</div>
-    <div id="products-list"><div class="loading">⏳ Chargement des produits...</div></div>
-  </div>
-  <div class="bottom-nav">
-    <button class="nav-item active"><span class="nav-icon">🏠</span>Accueil</button>
-    <button class="nav-item" onclick="goTo('screen-orders'); loadOrders()"><span class="nav-icon">📋</span>Commandes</button>
-    <button class="nav-item" onclick="goTo('screen-chat')"><span class="nav-icon">💬</span>Messages</button>
-    <button class="nav-item" onclick="goTo('screen-profile')"><span class="nav-icon">👤</span>Profil</button>
-  </div>
-</div>
-
-<!-- DETAIL PRODUIT -->
-<div class="screen" id="screen-detail">
-  <div class="detail-header">
-    <button class="back-btn" onclick="goBack()">← Retour</button>
-    <span class="detail-emoji-big" id="detail-emoji">🧅</span>
-    <div class="detail-title" id="detail-nom">Produit</div>
-    <div class="detail-farmer-row">
-      <div class="farmer-avatar">👨‍🌾</div>
-      <div><div class="farmer-name" id="detail-farmer">Agriculteur</div><div style="font-size:12px;color:rgba(255,255,255,0.5)" id="detail-farmer-info">Région</div></div>
-    </div>
-  </div>
-  <div class="scroll-content">
-    <div class="detail-body">
-      <div class="info-row"><div class="info-label">Prix unitaire</div><div class="info-value price" id="detail-prix">--</div></div>
-      <div class="info-row"><div class="info-label">Quantité disponible</div><div class="info-value" id="detail-quantite">--</div></div>
-      <div class="info-row"><div class="info-label">Livraison possible</div><div class="info-value" id="detail-livraison">--</div></div>
-      <div class="info-row"><div class="info-label">Paiement</div><div class="info-value">💵 Cash à la livraison</div></div>
-      <div class="info-row"><div class="info-label">Annulation gratuite</div><div class="info-value">Jusqu'à 12h avant</div></div>
-      <div class="map-placeholder" onclick="showToast('📍 Localisation GPS du producteur')"><span>📍</span><p>Voir la localisation du producteur</p></div>
-      <div class="rules-box">
-        <div class="rules-title">⚠️ Règles de commande</div>
-        <ul class="rules-list">
-          <li>Annulation gratuite jusqu'à 12h avant la livraison</li>
-          <li>Annulation tardive = frais de transport à votre charge</li>
-          <li>3 annulations = compte suspendu temporairement</li>
-          <li>Inspection obligatoire à la réception avant paiement</li>
-        </ul>
+      <div class="auth-left-logo">
+        <div class="auth-left-logo-icon">🌾</div>
+        <div class="auth-left-logo-text">AgriLink SN</div>
       </div>
-      <button class="cta-primary" onclick="goTo('screen-chat')">💬 Négocier & Commander</button>
-      <button class="cta-secondary" onclick="showToast('Producteur sauvegardé ⭐')">☆ Sauvegarder ce producteur</button>
-    </div>
-  </div>
-</div>
-
-<!-- CHAT -->
-<div class="screen" id="screen-chat">
-  <div class="chat-header">
-    <button style="background:var(--ciel);border:none;border-radius:8px;padding:6px 10px;font-size:20px;cursor:pointer" onclick="goBack()">←</button>
-    <div class="chat-avatar">👨‍🌾</div>
-    <div><div class="chat-name" id="chat-farmer-name">Producteur</div><div class="chat-status">● En ligne</div></div>
-  </div>
-  <div class="chat-messages" id="chatMessages">
-    <div><div class="msg msg-them">Assalamu Alaikum ! Je suis disponible. Qu'est-ce que vous souhaitez commander ?</div><div class="msg-time">maintenant</div></div>
-  </div>
-  <div class="chat-input-row">
-    <button class="voice-btn" onclick="showToast('🎤 Message vocal en wolof')">🎤</button>
-    <textarea class="chat-input" placeholder="Écrivez votre message..." rows="1" id="chatInput"></textarea>
-    <button class="send-btn" onclick="sendMessage()">➤</button>
-  </div>
-</div>
-
-<!-- COMMANDES -->
-<div class="screen" id="screen-orders">
-  <div class="topbar">
-    <button style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--gris)" onclick="goBack()">←</button>
-    <div class="topbar-title">Mes Commandes</div>
-    <div style="width:36px"></div>
-  </div>
-  <div class="scroll-content" style="padding-top:8px">
-    <div id="orders-list"><div class="loading">⏳ Chargement...</div></div>
-  </div>
-  <div class="bottom-nav">
-    <button class="nav-item" onclick="goTo('screen-home')"><span class="nav-icon">🏠</span>Accueil</button>
-    <button class="nav-item active"><span class="nav-icon">📋</span>Commandes</button>
-    <button class="nav-item" onclick="goTo('screen-chat')"><span class="nav-icon">💬</span>Messages</button>
-    <button class="nav-item" onclick="goTo('screen-profile')"><span class="nav-icon">👤</span>Profil</button>
-  </div>
-</div>
-
-<!-- PUBLICATION AGRICULTEUR -->
-<div class="screen" id="screen-publish">
-  <div class="topbar">
-    <button style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--gris)" onclick="goTo('screen-home')">←</button>
-    <div class="topbar-title">Publier une récolte</div>
-    <div style="width:36px"></div>
-  </div>
-  <div class="scroll-content" style="padding:20px">
-    <div class="voice-record-area" onclick="showToast('🎤 Parlez en wolof — annonce publiée automatiquement')">
-      <div class="mic-icon">🎤</div>
-      <strong>Annonce vocale en wolof</strong>
-      <p>Appuyez et décrivez votre récolte. Pas besoin d'écrire.</p>
-    </div>
-    <div style="text-align:center;color:var(--gris);font-size:13px;margin:12px 0">— ou remplissez le formulaire —</div>
-    <div class="form-group">
-      <label class="form-label">Produit</label>
-      <div class="emoji-picker" id="emoji-picker">
-        <div class="emoji-opt selected" onclick="selectEmoji(this,'🧅')">🧅</div>
-        <div class="emoji-opt" onclick="selectEmoji(this,'🥕')">🥕</div>
-        <div class="emoji-opt" onclick="selectEmoji(this,'🍅')">🍅</div>
-        <div class="emoji-opt" onclick="selectEmoji(this,'🥬')">🥬</div>
-        <div class="emoji-opt" onclick="selectEmoji(this,'🌽')">🌽</div>
-        <div class="emoji-opt" onclick="selectEmoji(this,'🥔')">🥔</div>
-        <div class="emoji-opt" onclick="selectEmoji(this,'🧄')">🧄</div>
-        <div class="emoji-opt" onclick="selectEmoji(this,'🫑')">🫑</div>
+      <div class="auth-left-title">Rejoignez la<br><span>marketplace</span><br>agricole du Sénégal</div>
+      <div class="auth-left-desc">Plus de 47 producteurs vérifiés vous attendent. Commandez frais, payez à la livraison.</div>
+      <div class="auth-left-features">
+        <div class="auth-feature"><div class="auth-feature-icon">✅</div>Producteurs vérifiés sur le terrain</div>
+        <div class="auth-feature"><div class="auth-feature-icon">💵</div>Paiement cash à la livraison</div>
+        <div class="auth-feature"><div class="auth-feature-icon">🚚</div>Livraison à 6h du matin</div>
+        <div class="auth-feature"><div class="auth-feature-icon">🎤</div>Interface vocale en wolof</div>
       </div>
-      <input class="form-input" style="margin-top:10px" type="text" placeholder="Nom du produit" id="pub-nom">
     </div>
-    <div class="form-group"><label class="form-label">Quantité disponible</label><input class="form-input" type="text" placeholder="Ex: 120 sacs de 30kg" id="pub-quantite"></div>
-    <div class="form-group"><label class="form-label">Prix (FCFA)</label><input class="form-input" type="number" placeholder="Ex: 8500" id="pub-prix"></div>
-    <div class="form-group"><label class="form-label">Unité</label><input class="form-input" type="text" placeholder="Ex: sac, cagette, plateau" id="pub-unite"></div>
-    <div class="form-group"><label class="form-label">Heure de livraison</label><input class="form-input" type="text" placeholder="Ex: Demain à 6h00" id="pub-livraison"></div>
-    <button class="cta-primary" onclick="publierRecolte()">Publier ma récolte</button>
+    <button class="auth-left-back" onclick="goTo('screen-landing')">← Retour à l'accueil</button>
+  </div>
+  <div class="auth-right">
+    <div class="auth-right-title" id="authTitle">Créer un compte</div>
+    <div class="auth-right-sub" id="authSubtitle">Rejoignez AgriLink SN gratuitement</div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-register" onclick="switchTab('register')">S'inscrire</button>
+      <button class="auth-tab" id="tab-login" onclick="switchTab('login')">Se connecter</button>
+    </div>
+
+    <!-- Inscription -->
+    <div id="form-register">
+      <div class="f-group">
+        <div class="f-label">Je suis</div>
+        <div class="role-choice">
+          <div class="role-card selected" id="role-acheteur" onclick="selectRole('acheteur')"><span class="role-card-icon">🏪</span><div class="role-card-label">Acheteur</div><div class="role-card-sub">Restaurant, hôtel, cantine</div></div>
+          <div class="role-card" id="role-agriculteur" onclick="selectRole('agriculteur')"><span class="role-card-icon">👨‍🌾</span><div class="role-card-label">Producteur</div><div class="role-card-sub">Agriculteur, maraîcher</div></div>
+        </div>
+      </div>
+      <div class="f-group"><label class="f-label">Nom complet</label><input class="f-input" type="text" placeholder="Ex: Mamadou Diallo" id="reg-name"></div>
+      <div class="f-group">
+        <label class="f-label">Numéro de téléphone</label>
+        <div class="phone-wrap"><div class="phone-prefix">🇸🇳 +221</div><input class="f-input" type="tel" placeholder="77 000 00 00" id="reg-phone" maxlength="9"></div>
+        <div class="f-hint">Utilisé pour vous identifier sur la plateforme</div>
+      </div>
+      <div class="f-group">
+        <label class="f-label">Région</label>
+        <select class="f-select" id="reg-region">
+          <option value="">Choisir votre région</option>
+          <option>Dakar</option><option>Thiès</option><option>Saint-Louis</option>
+          <option>Kaolack</option><option>Louga</option><option>Ziguinchor</option>
+          <option>Tambacounda</option><option>Diourbel</option><option>Fatick</option>
+          <option>Kolda</option><option>Matam</option><option>Kaffrine</option>
+          <option>Kédougou</option><option>Sédhiou</option>
+        </select>
+      </div>
+      <div class="cgu-row">
+        <div class="cgu-check" id="cgu-check" onclick="toggleCgu()"></div>
+        <div class="cgu-text">J'accepte les <button onclick="showToast('Règles : paiement cash à livraison, annulation 12h avant')">règles d'utilisation</button> d'AgriLink SN</div>
+      </div>
+      <button class="btn-auth" id="btn-register" onclick="doRegister()">Créer mon compte →</button>
+      <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--gris)">Déjà un compte ? <button onclick="switchTab('login')" style="background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer">Se connecter</button></div>
+    </div>
+
+    <!-- Connexion -->
+    <div id="form-login" style="display:none">
+      <div class="f-group">
+        <label class="f-label">Numéro de téléphone</label>
+        <div class="phone-wrap"><div class="phone-prefix">🇸🇳 +221</div><input class="f-input" type="tel" placeholder="77 000 00 00" id="login-phone" maxlength="9"></div>
+      </div>
+      <div style="height:12px"></div>
+      <button class="btn-auth" onclick="doLogin()">Se connecter →</button>
+      <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--gris)">Pas de compte ? <button onclick="switchTab('register')" style="background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer">S'inscrire</button></div>
+    </div>
   </div>
 </div>
 
-<!-- PROFIL -->
-<div class="screen" id="screen-profile">
-  <div class="profile-header">
-    <div class="profile-avatar-big">👤</div>
-    <div class="profile-name" id="profil-nom">--</div>
-    <div class="profile-role" id="profil-role">--</div>
-    <div class="profile-score">⭐ ⭐ ⭐ ⭐ ⭐ · 5/5</div>
+<!-- ══════════════════════════
+     OTP
+══════════════════════════ -->
+<div class="screen" id="screen-otp">
+  <div class="otp-left">
+    <div class="otp-left-title">Vérification par SMS</div>
+    <div class="otp-left-desc">Nous envoyons un code de vérification à votre numéro pour confirmer votre identité et sécuriser votre compte AgriLink SN.</div>
   </div>
-  <div class="scroll-content">
-    <div class="profile-section">
-      <div class="profile-section-title">Mon compte</div>
-      <div class="profile-item"><div class="profile-item-icon">📱</div><div class="profile-item-text"><div class="profile-item-label">Téléphone</div><div class="profile-item-sub" id="profil-tel">--</div></div></div>
-      <div class="profile-item"><div class="profile-item-icon">📍</div><div class="profile-item-text"><div class="profile-item-label">Région</div><div class="profile-item-sub" id="profil-region">--</div></div></div>
-      <div class="profile-item"><div class="profile-item-icon">🛡️</div><div class="profile-item-text"><div class="profile-item-label">Score de réputation</div><div class="profile-item-sub" style="color:var(--vert)">Excellent · 0 pénalité</div></div></div>
+  <div class="otp-right">
+    <div class="otp-icon">📱</div>
+    <div class="otp-title">Entrez votre code</div>
+    <div class="otp-sub">Code envoyé au<br><strong id="otp-phone-display">+221 77 000 00 00</strong><br><span style="font-size:12px;color:#bbb">(Pour le test : entrez 1234)</span></div>
+    <div class="otp-inputs">
+      <input class="otp-box" type="tel" maxlength="1" id="otp1" oninput="otpNext(this,'otp2')">
+      <input class="otp-box" type="tel" maxlength="1" id="otp2" oninput="otpNext(this,'otp3')">
+      <input class="otp-box" type="tel" maxlength="1" id="otp3" oninput="otpNext(this,'otp4')">
+      <input class="otp-box" type="tel" maxlength="1" id="otp4" oninput="otpComplete(this)">
     </div>
-    <div class="profile-section" style="margin-top:8px">
-      <div class="profile-section-title">Application</div>
-      <div class="profile-item" onclick="deconnexion()"><div class="profile-item-icon">🚪</div><div class="profile-item-text"><div class="profile-item-label">Déconnexion</div></div><div class="profile-arrow">›</div></div>
+    <div class="otp-resend">Pas reçu ? <button onclick="showToast('Code renvoyé ✓')">Renvoyer</button></div>
+    <div style="width:100%;max-width:320px">
+      <button class="btn-auth" onclick="verifyOtp()">Confirmer →</button>
+      <button class="cta-secondary" style="margin-top:10px" onclick="goTo('screen-auth')">← Modifier le numéro</button>
     </div>
-  </div>
-  <div class="bottom-nav">
-    <button class="nav-item" onclick="goTo('screen-home')"><span class="nav-icon">🏠</span>Accueil</button>
-    <button class="nav-item" onclick="goTo('screen-orders'); loadOrders()"><span class="nav-icon">📋</span>Commandes</button>
-    <button class="nav-item" onclick="goTo('screen-chat')"><span class="nav-icon">💬</span>Messages</button>
-    <button class="nav-item active"><span class="nav-icon">👤</span>Profil</button>
   </div>
 </div>
 
-</div><!-- end shell -->
+<!-- ══════════════════════════
+     APP LAYOUT
+══════════════════════════ -->
+<div class="app-layout" id="app-layout">
 
-<!-- MODAL ANNULATION -->
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">🌾</div>
+      <div class="sidebar-logo-text">AgriLink SN</div>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav-acheteur">
+      <div class="sidebar-section-label">Menu principal</div>
+      <button class="sidebar-item active" onclick="showPanel('panel-home')"><span class="s-icon">🏠</span>Accueil</button>
+      <button class="sidebar-item" onclick="showPanel('panel-produits')"><span class="s-icon">🥬</span>Produits</button>
+      <button class="sidebar-item" onclick="showPanel('panel-chat')"><span class="s-icon">💬</span>Messages</button>
+      <button class="sidebar-item" onclick="showPanel('panel-commandes'); loadOrders()"><span class="s-icon">📋</span>Commandes</button>
+      <div class="sidebar-section-label">Compte</div>
+      <button class="sidebar-item" onclick="showPanel('panel-profil')"><span class="s-icon">👤</span>Mon profil</button>
+      <button class="sidebar-item" onclick="deconnexion()"><span class="s-icon">🚪</span>Déconnexion</button>
+    </nav>
+    <nav class="sidebar-nav" id="sidebar-nav-agriculteur" style="display:none">
+      <div class="sidebar-section-label">Menu principal</div>
+      <button class="sidebar-item active" onclick="showPanel('panel-publish')"><span class="s-icon">➕</span>Publier une récolte</button>
+      <button class="sidebar-item" onclick="showPanel('panel-chat')"><span class="s-icon">💬</span>Messages</button>
+      <button class="sidebar-item" onclick="showPanel('panel-commandes'); loadOrders()"><span class="s-icon">📋</span>Mes ventes</button>
+      <div class="sidebar-section-label">Compte</div>
+      <button class="sidebar-item" onclick="showPanel('panel-profil')"><span class="s-icon">👤</span>Mon profil</button>
+      <button class="sidebar-item" onclick="deconnexion()"><span class="s-icon">🚪</span>Déconnexion</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">👤</div>
+        <div><div class="sidebar-user-name" id="sidebar-name">--</div><div class="sidebar-user-role" id="sidebar-role">--</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <div class="main-topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <button class="hamburger" onclick="toggleSidebar()">☰</button>
+        <div class="main-topbar-title" id="main-topbar-title">Accueil</div>
+      </div>
+      <div class="main-topbar-right">
+        <button class="topbar-btn" onclick="showToast('Notifications')">🔔<div class="notif-dot"></div></button>
+        <button class="topbar-btn" onclick="showPanel('panel-profil')">👤</button>
+      </div>
+    </div>
+
+    <!-- PANEL ACCUEIL -->
+    <div class="panel active" id="panel-home">
+      <div class="dash-stats">
+        <div class="dash-stat"><div class="dash-stat-num" id="ds-prod">--</div><div class="dash-stat-label">Producteurs actifs</div><div class="dash-stat-sub">↑ En ligne</div></div>
+        <div class="dash-stat"><div class="dash-stat-num" id="ds-items">--</div><div class="dash-stat-label">Produits disponibles</div><div class="dash-stat-sub">↑ Aujourd'hui</div></div>
+        <div class="dash-stat"><div class="dash-stat-num">4.8★</div><div class="dash-stat-label">Note moyenne</div><div class="dash-stat-sub">Sur 5 étoiles</div></div>
+      </div>
+      <div class="hero-band">
+        <div><h2>Livraison à 6h du matin 🌅</h2><p>Commandez avant 18h, recevez vos produits frais dès l'aube</p></div>
+        <button class="hero-band-btn" onclick="showPanel('panel-produits')">Voir les produits →</button>
+      </div>
+      <div class="section-label">Produits récents</div>
+      <div class="products-grid" id="home-products"><div class="loading">⏳ Chargement...</div></div>
+    </div>
+
+    <!-- PANEL PRODUITS -->
+    <div class="panel" id="panel-produits">
+      <div class="section-label">Tous les produits disponibles</div>
+      <div class="products-grid" id="all-products"><div class="loading">⏳ Chargement...</div></div>
+    </div>
+
+    <!-- PANEL DETAIL -->
+    <div class="panel" id="panel-detail">
+      <button style="background:none;border:none;color:var(--gris);font-size:14px;cursor:pointer;margin-bottom:20px;display:flex;align-items:center;gap:6px" onclick="showPanel('panel-produits')">← Retour aux produits</button>
+      <div class="detail-layout">
+        <div class="detail-left">
+          <span class="detail-emoji-xl" id="d-emoji">🥬</span>
+          <div class="detail-title" id="d-nom">Produit</div>
+          <div class="detail-farmer-row">
+            <div class="farmer-avatar">👨‍🌾</div>
+            <div class="farmer-info"><strong id="d-farmer">Agriculteur</strong><span id="d-farmer-info">Région</span></div>
+          </div>
+          <div class="info-row"><div class="info-label">Prix unitaire</div><div class="info-value price" id="d-prix">--</div></div>
+          <div class="info-row"><div class="info-label">Quantité disponible</div><div class="info-value" id="d-quantite">--</div></div>
+          <div class="info-row"><div class="info-label">Livraison</div><div class="info-value" id="d-livraison">--</div></div>
+          <div class="info-row"><div class="info-label">Paiement</div><div class="info-value">💵 Cash à la livraison</div></div>
+          <div class="info-row"><div class="info-label">Annulation gratuite</div><div class="info-value">Jusqu'à 12h avant</div></div>
+          <div class="map-box" onclick="showToast('📍 Localisation GPS du producteur')"><span style="font-size:32px">📍</span><p style="font-size:13px;color:var(--gris)">Voir la localisation du producteur</p></div>
+        </div>
+        <div class="detail-right">
+          <div class="rules-box">
+            <div class="rules-title">⚠️ Règles de commande</div>
+            <ul class="rules-list">
+              <li>Annulation gratuite jusqu'à 12h avant la livraison</li>
+              <li>Annulation tardive = frais de transport à votre charge</li>
+              <li>3 annulations = compte suspendu temporairement</li>
+              <li>Inspection obligatoire à la réception avant paiement</li>
+            </ul>
+          </div>
+          <button class="cta-primary" onclick="showPanel('panel-chat')">💬 Négocier & Commander</button>
+          <button class="cta-secondary" onclick="showToast('Producteur sauvegardé ⭐')">☆ Sauvegarder ce producteur</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL CHAT -->
+    <div class="panel" id="panel-chat">
+      <div class="chat-layout">
+        <div class="chat-sidebar">
+          <div class="chat-sidebar-header">💬 Messages</div>
+          <div class="chat-conv-item active">
+            <div class="chat-conv-avatar">👨‍🌾</div>
+            <div><div class="chat-conv-name">Mamadou Diallo</div><div class="chat-conv-preview">Reçu ! Je prépare votre commande...</div></div>
+          </div>
+        </div>
+        <div class="chat-main">
+          <div class="chat-header">
+            <div class="chat-header-avatar">👨‍🌾</div>
+            <div><div class="chat-header-name" id="chat-farmer-name">Mamadou Diallo</div><div class="chat-header-status">● En ligne · Saint-Louis</div></div>
+          </div>
+          <div class="chat-messages" id="chatMessages">
+            <div><div class="msg msg-them">Assalamu Alaikum ! Je suis disponible. Qu'est-ce que vous souhaitez commander ?</div><div class="msg-time">08:14</div></div>
+            <div style="align-self:flex-end;text-align:right"><div class="msg msg-me">Bonjour ! Je voudrais 20 sacs d'oignons pour demain matin.</div><div class="msg-time right">08:17</div></div>
+            <div><div class="msg msg-them">D'accord pour 20 sacs. 8 500 FCFA/sac = 170 000 FCFA. Livraison à 6h00. C'est bon ?</div><div class="msg-time">08:19</div></div>
+            <div class="confirm-bubble"><strong>✅ Bon de commande enregistré</strong>20 sacs d'oignons · 170 000 FCFA · Livraison demain 6h00<br><span style="font-size:12px;color:var(--gris);margin-top:4px;display:block">Annulation gratuite jusqu'à 18h00 ce soir</span></div>
+          </div>
+          <div class="chat-input-row">
+            <button class="voice-btn" onclick="showToast('🎤 Message vocal en wolof')">🎤</button>
+            <textarea class="chat-input" placeholder="Écrivez votre message..." rows="1" id="chatInput"></textarea>
+            <button class="send-btn" onclick="sendMessage()">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL COMMANDES -->
+    <div class="panel" id="panel-commandes">
+      <div class="section-label">Mes commandes</div>
+      <div class="orders-table">
+        <div class="orders-table-header">
+          <span>Produit</span><span>Producteur</span><span>Montant</span><span>Statut</span><span>Date</span>
+        </div>
+        <div id="orders-list"><div class="loading">⏳ Chargement...</div></div>
+      </div>
+    </div>
+
+    <!-- PANEL PUBLICATION -->
+    <div class="panel" id="panel-publish">
+      <div class="publish-layout">
+        <div class="publish-form-card">
+          <div class="section-label" style="margin-bottom:20px">Nouvelle récolte</div>
+          <div class="voice-area" onclick="showToast('🎤 Parlez en wolof — annonce publiée automatiquement')">
+            <div style="font-size:32px;margin-bottom:8px">🎤</div>
+            <strong style="color:var(--terre);font-size:14px;display:block;margin-bottom:4px">Annonce vocale en wolof</strong>
+            <p style="font-size:13px;color:var(--gris)">Appuyez et décrivez votre récolte. Pas besoin d'écrire.</p>
+          </div>
+          <div style="text-align:center;color:var(--gris);font-size:13px;margin:12px 0">— ou remplissez le formulaire —</div>
+          <div class="form-group">
+            <label class="form-label">Produit</label>
+            <div class="emoji-picker">
+              <div class="emoji-opt selected" onclick="selectEmoji(this,'🧅')">🧅</div>
+              <div class="emoji-opt" onclick="selectEmoji(this,'🥕')">🥕</div>
+              <div class="emoji-opt" onclick="selectEmoji(this,'🍅')">🍅</div>
+              <div class="emoji-opt" onclick="selectEmoji(this,'🥬')">🥬</div>
+              <div class="emoji-opt" onclick="selectEmoji(this,'🌽')">🌽</div>
+              <div class="emoji-opt" onclick="selectEmoji(this,'🥔')">🥔</div>
+              <div class="emoji-opt" onclick="selectEmoji(this,'🧄')">🧄</div>
+              <div class="emoji-opt" onclick="selectEmoji(this,'🫑')">🫑</div>
+            </div>
+            <input class="form-input" style="margin-top:10px" type="text" placeholder="Nom du produit" id="pub-nom">
+          </div>
+          <div class="form-group"><label class="form-label">Quantité</label><input class="form-input" type="text" placeholder="Ex: 120 sacs de 30kg" id="pub-quantite"></div>
+          <div class="form-group"><label class="form-label">Prix (FCFA)</label><input class="form-input" type="number" placeholder="Ex: 8500" id="pub-prix"></div>
+          <div class="form-group"><label class="form-label">Unité</label><input class="form-input" type="text" placeholder="Ex: sac, cagette, plateau" id="pub-unite"></div>
+          <div class="form-group"><label class="form-label">Heure de livraison</label><input class="form-input" type="text" placeholder="Ex: Demain à 6h00" id="pub-livraison"></div>
+          <button class="cta-primary" onclick="publierRecolte()">Publier ma récolte</button>
+        </div>
+        <div class="publish-preview-card">
+          <div class="publish-preview-title">Aperçu de votre annonce</div>
+          <div style="font-size:48px;margin-bottom:12px" id="prev-emoji">🧅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--blanc);margin-bottom:6px" id="prev-nom">Nom du produit</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px" id="prev-region">Votre région</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:var(--soleil)" id="prev-prix">-- FCFA</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px" id="prev-unite">par unité</div>
+          <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1)">
+            <div style="font-size:13px;color:rgba(255,255,255,0.6)" id="prev-livraison">Heure de livraison : --</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:6px" id="prev-quantite">Quantité : --</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANEL PROFIL -->
+    <div class="panel" id="panel-profil">
+      <div class="profile-layout">
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <div class="profile-avatar-xl">👤</div>
+            <div class="profile-card-name" id="profil-nom">--</div>
+            <div class="profile-card-role" id="profil-role">--</div>
+            <div class="profile-card-score">⭐ ⭐ ⭐ ⭐ ⭐ · 5/5</div>
+          </div>
+          <div class="profile-card-body">
+            <div class="profile-item"><div class="profile-item-icon">📱</div><div><div class="profile-item-label">Téléphone</div><div class="profile-item-sub" id="profil-tel">--</div></div></div>
+            <div class="profile-item"><div class="profile-item-icon">📍</div><div><div class="profile-item-label">Région</div><div class="profile-item-sub" id="profil-region">--</div></div></div>
+            <div class="profile-item"><div class="profile-item-icon">🛡️</div><div><div class="profile-item-label">Réputation</div><div class="profile-item-sub" style="color:var(--vert)">Excellent · 0 pénalité</div></div></div>
+            <div class="profile-item" onclick="deconnexion()" style="cursor:pointer"><div class="profile-item-icon">🚪</div><div><div class="profile-item-label">Déconnexion</div></div></div>
+          </div>
+        </div>
+        <div class="profile-stats-card">
+          <div class="section-label" style="margin-bottom:20px">Mon activité</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div class="dash-stat"><div class="dash-stat-num" id="p-commandes">0</div><div class="dash-stat-label">Commandes</div></div>
+            <div class="dash-stat"><div class="dash-stat-num">0</div><div class="dash-stat-label">Annulations</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- BOTTOM NAV MOBILE -->
+  <nav class="mobile-bottom-nav" id="mobile-nav-acheteur">
+    <button class="mobile-nav-item active" onclick="showPanel('panel-home')"><span class="mobile-nav-icon">🏠</span>Accueil</button>
+    <button class="mobile-nav-item" onclick="showPanel('panel-produits')"><span class="mobile-nav-icon">🥬</span>Produits</button>
+    <button class="mobile-nav-item" onclick="showPanel('panel-chat')"><span class="mobile-nav-icon">💬</span>Messages</button>
+    <button class="mobile-nav-item" onclick="showPanel('panel-commandes');loadOrders()"><span class="mobile-nav-icon">📋</span>Commandes</button>
+    <button class="mobile-nav-item" onclick="showPanel('panel-profil')"><span class="mobile-nav-icon">👤</span>Profil</button>
+  </nav>
+  <nav class="mobile-bottom-nav" id="mobile-nav-agriculteur" style="display:none">
+    <button class="mobile-nav-item active" onclick="showPanel('panel-publish')"><span class="mobile-nav-icon">➕</span>Publier</button>
+    <button class="mobile-nav-item" onclick="showPanel('panel-chat')"><span class="mobile-nav-icon">💬</span>Messages</button>
+    <button class="mobile-nav-item" onclick="showPanel('panel-commandes');loadOrders()"><span class="mobile-nav-icon">📋</span>Ventes</button>
+    <button class="mobile-nav-item" onclick="showPanel('panel-profil')"><span class="mobile-nav-icon">👤</span>Profil</button>
+  </nav>
+</div>
+
+<!-- MODAL -->
 <div class="modal-overlay" id="cancelModal" onclick="closeModal(event)">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
+  <div class="modal-box">
     <div class="modal-title">⚠️ Annuler cette commande ?</div>
     <div class="modal-sub">Cette annulation est <strong>tardive</strong> — moins de 12h avant la livraison.</div>
-    <div class="penalty-box">
-      <div class="penalty-title">Conséquences</div>
-      <div class="penalty-text">• Frais de transport à votre charge<br>• <strong>1 point négatif</strong> sur votre réputation<br>• À 3 points : suspension temporaire</div>
-    </div>
+    <div class="penalty-box"><div class="penalty-title">Conséquences</div><div class="penalty-text">• Frais de transport à votre charge<br>• <strong>1 point négatif</strong> sur votre réputation<br>• À 3 points : suspension temporaire</div></div>
     <button class="cta-primary" style="background:var(--argile)" onclick="confirmCancel()">Confirmer l'annulation</button>
     <button class="cta-secondary" onclick="closeModal()">Garder ma commande</button>
   </div>
@@ -544,68 +859,68 @@ body { font-family:'Noto Sans',sans-serif; background:var(--blanc); color:var(--
 <div class="toast" id="toast"></div>
 
 <script>
-// ════════════════════════════
-// SUPABASE CONFIG
-// ════════════════════════════
+// ══════════════════════
+// SUPABASE
+// ══════════════════════
 const SUPABASE_URL = 'https://ohymrkgpxtfirrkqrhlt.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oeW1ya2dweHRmaXJya3FyaGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MDE0MzYsImV4cCI6MjEwMDk3NzQzNn0.Slvpt0A150g6-TKZcLfVijCU-ne6aqp-ISc9cvXAZZ0';
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ════════════════════════════
-// ÉTAT GLOBAL
-// ════════════════════════════
+// ══════════════════════
+// ÉTAT
+// ══════════════════════
 let currentUser = null;
 let selectedRole = 'acheteur';
 let selectedEmoji = '🧅';
-let selectedProduit = null;
 let cguChecked = false;
-let navHistory = [];
 
-// ════════════════════════════
-// NAVIGATION
-// ════════════════════════════
+// ══════════════════════
+// NAVIGATION SCREENS
+// ══════════════════════
 function goTo(id) {
-  const cur = document.querySelector('.screen.active');
-  if (cur) { navHistory.push(cur.id); cur.classList.remove('active'); }
-  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.screen, .app-layout').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id) || document.getElementById('app-layout');
+  if (el) el.classList.add('active');
   window.scrollTo(0,0);
 }
-function goBack() {
-  if (!navHistory.length) { goTo('screen-landing'); return; }
-  document.querySelector('.screen.active').classList.remove('active');
-  document.getElementById(navHistory.pop()).classList.add('active');
+
+// ══════════════════════
+// NAVIGATION PANELS
+// ══════════════════════
+const panelTitles = {
+  'panel-home':'Accueil','panel-produits':'Produits','panel-detail':'Détail produit',
+  'panel-chat':'Messages','panel-commandes':'Commandes','panel-publish':'Publier une récolte','panel-profil':'Mon profil'
+};
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  document.getElementById('main-topbar-title').textContent = panelTitles[id] || '';
+  // Sidebar active state
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  // Mobile nav active
+  document.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
+  // Close sidebar on mobile
+  document.getElementById('sidebar').classList.remove('open');
+  window.scrollTo(0,0);
+  if (id === 'panel-produits') loadAllProducts();
+  if (id === 'panel-home') { loadHomeProducts(); loadStats(); }
 }
 
-// ════════════════════════════
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
+
+// ══════════════════════
 // TOAST
-// ════════════════════════════
+// ══════════════════════
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-// ════════════════════════════
-// CAROUSEL
-// ════════════════════════════
-const track = document.getElementById('carouselTrack');
-const dots = document.querySelectorAll('.dot');
-let currentCard = 0;
-function scrollToCard(i) {
-  currentCard = i;
-  const cards = track.querySelectorAll('.carousel-card');
-  if (cards[i]) track.scrollTo({ left: cards[i].offsetLeft - 24, behavior:'smooth' });
-  dots.forEach((d,j) => d.classList.toggle('active', j===i));
-}
-setInterval(() => {
-  const n = track.querySelectorAll('.carousel-card').length;
-  scrollToCard((currentCard + 1) % n);
-}, 3000);
-
-// ════════════════════════════
-// AUTH — TABS
-// ════════════════════════════
+// ══════════════════════
+// AUTH TABS
+// ══════════════════════
 function switchTab(tab) {
   const isReg = tab === 'register';
   document.getElementById('form-register').style.display = isReg ? 'block' : 'none';
@@ -627,9 +942,9 @@ function toggleCgu() {
   document.getElementById('cgu-check').classList.toggle('checked', cguChecked);
 }
 
-// ════════════════════════════
-// INSCRIPTION — SUPABASE
-// ════════════════════════════
+// ══════════════════════
+// INSCRIPTION
+// ══════════════════════
 async function doRegister() {
   const nom = document.getElementById('reg-name').value.trim();
   const tel = document.getElementById('reg-phone').value.trim();
@@ -638,262 +953,23 @@ async function doRegister() {
   if (tel.length < 9) { showToast('⚠️ Numéro invalide'); return; }
   if (!region) { showToast('⚠️ Choisissez votre région'); return; }
   if (!cguChecked) { showToast('⚠️ Acceptez les règles'); return; }
-
   const btn = document.getElementById('btn-register');
-  btn.textContent = 'Création en cours...'; btn.disabled = true;
-
-  // Vérifie si le numéro existe déjà
-  const { data: existing } = await db.from('utilisateurs').select('id').eq('telephone', tel).single();
-  if (existing) {
-    showToast('⚠️ Ce numéro est déjà inscrit. Connectez-vous.');
-    btn.textContent = 'Créer mon compte →'; btn.disabled = false;
-    switchTab('login'); return;
-  }
-
-  // Crée l'utilisateur dans Supabase
-  const { data, error } = await db.from('utilisateurs').insert([{
-    nom, telephone: tel, role: selectedRole, region
-  }]).select().single();
-
+  btn.textContent = 'Création...'; btn.disabled = true;
+  const { data: ex } = await db.from('utilisateurs').select('id').eq('telephone', tel).maybeSingle();
+  if (ex) { showToast('⚠️ Numéro déjà inscrit. Connectez-vous.'); btn.textContent = 'Créer mon compte →'; btn.disabled = false; switchTab('login'); return; }
+  const { data, error } = await db.from('utilisateurs').insert([{ nom, telephone: tel, role: selectedRole, region }]).select().single();
   btn.textContent = 'Créer mon compte →'; btn.disabled = false;
-
   if (error) { showToast('❌ Erreur : ' + error.message); return; }
-
   currentUser = data;
   document.getElementById('otp-phone-display').textContent = '+221 ' + tel;
   goTo('screen-otp');
   setTimeout(() => document.getElementById('otp1').focus(), 300);
 }
 
-// ════════════════════════════
-// CONNEXION — SUPABASE
-// ════════════════════════════
+// ══════════════════════
+// CONNEXION
+// ══════════════════════
 async function doLogin() {
   const tel = document.getElementById('login-phone').value.trim();
   if (tel.length < 9) { showToast('⚠️ Numéro invalide'); return; }
-
-  const { data, error } = await db.from('utilisateurs').select('*').eq('telephone', tel).single();
-  if (error || !data) { showToast('❌ Numéro non trouvé. Inscrivez-vous d\'abord.'); return; }
-
-  currentUser = data;
-  document.getElementById('otp-phone-display').textContent = '+221 ' + tel;
-  goTo('screen-otp');
-  setTimeout(() => document.getElementById('otp1').focus(), 300);
-}
-
-// ════════════════════════════
-// OTP (simulé pour le test)
-// ════════════════════════════
-function otpNext(el, nextId) { if (el.value.length === 1) document.getElementById(nextId).focus(); }
-function otpComplete(el) { if (el.value.length === 1) verifyOtp(); }
-function verifyOtp() {
-  const code = ['otp1','otp2','otp3','otp4'].map(id => document.getElementById(id).value).join('');
-  if (code.length < 4) { showToast('⚠️ Entrez les 4 chiffres'); return; }
-  if (code !== '1234') { showToast('❌ Code incorrect. Essayez 1234'); return; }
-  afterLogin();
-}
-
-function afterLogin() {
-  if (!currentUser) return;
-  // Mettre à jour le profil
-  document.getElementById('profil-nom').textContent = currentUser.nom;
-  document.getElementById('profil-role').textContent = currentUser.role === 'acheteur' ? '🏪 Acheteur' : '👨‍🌾 Producteur';
-  document.getElementById('profil-tel').textContent = '+221 ' + currentUser.telephone;
-  document.getElementById('profil-region').textContent = currentUser.region;
-  document.getElementById('greeting').textContent = 'Bonjour, ' + currentUser.nom.split(' ')[0] + ' 👋';
-
-  if (currentUser.role === 'agriculteur') {
-    goTo('screen-publish');
-  } else {
-    goTo('screen-home');
-    loadProducts();
-    loadStats();
-  }
-}
-
-// ════════════════════════════
-// PRODUITS — SUPABASE
-// ════════════════════════════
-async function loadProducts() {
-  const list = document.getElementById('products-list');
-  list.innerHTML = '<div class="loading">⏳ Chargement des produits...</div>';
-
-  const { data, error } = await db.from('produits')
-    .select('*, utilisateurs(nom, region, score_reputation)')
-    .eq('disponible', true)
-    .order('created_at', { ascending: false });
-
-  if (error) { list.innerHTML = '<div class="loading">❌ Erreur de chargement</div>'; return; }
-
-  if (!data || data.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">🌱</div><p>Aucun produit disponible pour l'instant.<br>Les producteurs publient bientôt leurs récoltes.</p></div>`;
-    return;
-  }
-
-  list.innerHTML = data.map(p => `
-    <div class="product-card" onclick="ouvrirDetail(${JSON.stringify(p).replace(/"/g,'&quot;')})">
-      <div class="card-top">
-        <div class="card-emoji">${p.emoji}</div>
-        <div class="card-info">
-          <div class="card-name">${p.nom}</div>
-          <div class="card-farmer">${p.utilisateurs?.nom || 'Producteur'} · ${p.utilisateurs?.region || p.region}</div>
-        </div>
-        <div class="card-price">${p.prix.toLocaleString()} <span>FCFA / ${p.unite}</span></div>
-      </div>
-      <div class="card-meta">
-        <span class="tag tag-green">✅ Vérifié</span>
-        <span class="tag tag-yellow">📦 ${p.quantite}</span>
-        <span class="tag tag-blue">🚚 ${p.heure_livraison}</span>
-      </div>
-    </div>
-  `).join('');
-}
-
-function ouvrirDetail(p) {
-  selectedProduit = p;
-  document.getElementById('detail-emoji').textContent = p.emoji;
-  document.getElementById('detail-nom').textContent = p.nom;
-  document.getElementById('detail-farmer').textContent = p.utilisateurs?.nom || 'Producteur';
-  document.getElementById('detail-farmer-info').textContent = (p.utilisateurs?.region || p.region) + ' · ⭐ ' + (p.utilisateurs?.score_reputation || 5) + '/5';
-  document.getElementById('detail-prix').textContent = p.prix.toLocaleString() + ' FCFA / ' + p.unite;
-  document.getElementById('detail-quantite').textContent = p.quantite;
-  document.getElementById('detail-livraison').textContent = p.heure_livraison;
-  document.getElementById('chat-farmer-name').textContent = p.utilisateurs?.nom || 'Producteur';
-  goTo('screen-detail');
-}
-
-async function loadStats() {
-  const { count: nbProd } = await db.from('utilisateurs').select('*', {count:'exact'}).eq('role','agriculteur');
-  const { count: nbItems } = await db.from('produits').select('*', {count:'exact'}).eq('disponible', true);
-  document.getElementById('stat-producteurs').textContent = nbProd || 0;
-  document.getElementById('stat-produits').textContent = nbItems || 0;
-  document.getElementById('home-stat-prod').textContent = nbProd || 0;
-  document.getElementById('home-stat-items').textContent = nbItems || 0;
-  document.getElementById('stat-producteurs').textContent = nbProd || 0;
-}
-
-// Landing stats
-async function loadLandingStats() {
-  const { count: nbProd } = await db.from('utilisateurs').select('*', {count:'exact'}).eq('role','agriculteur');
-  const { count: nbItems } = await db.from('produits').select('*', {count:'exact'}).eq('disponible', true);
-  document.getElementById('stat-producteurs').textContent = (nbProd || 0) + '+';
-  document.getElementById('stat-produits').textContent = nbItems || 0;
-}
-loadLandingStats();
-
-// ════════════════════════════
-// PUBLICATION RÉCOLTE
-// ════════════════════════════
-async function publierRecolte() {
-  if (!currentUser) { showToast('⚠️ Connectez-vous d\'abord'); return; }
-  const nom = document.getElementById('pub-nom').value.trim();
-  const quantite = document.getElementById('pub-quantite').value.trim();
-  const prix = parseInt(document.getElementById('pub-prix').value);
-  const unite = document.getElementById('pub-unite').value.trim();
-  const livraison = document.getElementById('pub-livraison').value.trim();
-
-  if (!nom || !quantite || !prix || !unite || !livraison) {
-    showToast('⚠️ Remplissez tous les champs'); return;
-  }
-
-  const { error } = await db.from('produits').insert([{
-    agriculteur_id: currentUser.id,
-    nom, emoji: selectedEmoji, quantite, prix, unite,
-    region: currentUser.region,
-    heure_livraison: livraison
-  }]);
-
-  if (error) { showToast('❌ Erreur : ' + error.message); return; }
-
-  showToast('✅ Récolte publiée ! Les acheteurs peuvent vous contacter.');
-  document.getElementById('pub-nom').value = '';
-  document.getElementById('pub-quantite').value = '';
-  document.getElementById('pub-prix').value = '';
-  document.getElementById('pub-unite').value = '';
-  document.getElementById('pub-livraison').value = '';
-}
-
-// ════════════════════════════
-// COMMANDES — SUPABASE
-// ════════════════════════════
-async function loadOrders() {
-  if (!currentUser) return;
-  const list = document.getElementById('orders-list');
-  list.innerHTML = '<div class="loading">⏳ Chargement...</div>';
-
-  const { data, error } = await db.from('commandes')
-    .select('*, produits(nom, emoji, utilisateurs(nom))')
-    .eq('acheteur_id', currentUser.id)
-    .order('created_at', { ascending: false });
-
-  if (error || !data || data.length === 0) {
-    list.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><p>Aucune commande pour l'instant.<br>Commandez un produit depuis l'accueil.</p></div>`;
-    return;
-  }
-
-  const statutLabel = { en_attente:'En attente', confirme:'Confirmé', livre:'Livré ✓', annule:'Annulé' };
-  const statutClass = { en_attente:'status-pending', confirme:'status-confirmed', livre:'status-delivered', annule:'status-pending' };
-
-  list.innerHTML = '<div class="section-label">Mes commandes</div>' + data.map(c => `
-    <div class="order-card">
-      <div class="order-top">
-        <div>
-          <div class="order-product">${c.produits?.emoji || '📦'} ${c.produits?.nom || 'Produit'} × ${c.quantite_commandee}</div>
-          <div class="order-date">${c.heure_livraison}</div>
-        </div>
-        <div class="status-pill ${statutClass[c.statut]}">${statutLabel[c.statut]}</div>
-      </div>
-      <div class="order-bottom">
-        <div class="order-farmer">👨‍🌾 ${c.produits?.utilisateurs?.nom || 'Producteur'}</div>
-        <div class="order-amount">${c.montant_total.toLocaleString()} FCFA</div>
-      </div>
-    </div>
-  `).join('');
-}
-
-// ════════════════════════════
-// CHAT
-// ════════════════════════════
-async function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const text = input.value.trim();
-  if (!text) return;
-  const msgs = document.getElementById('chatMessages');
-  const div = document.createElement('div');
-  div.style.cssText = 'align-self:flex-end;text-align:right';
-  div.innerHTML = `<div class="msg msg-me">${text}</div><div class="msg-time right">maintenant</div>`;
-  msgs.appendChild(div); input.value = ''; msgs.scrollTop = msgs.scrollHeight;
-
-  // Réponse automatique simulée
-  setTimeout(() => {
-    const r = document.createElement('div');
-    r.innerHTML = `<div class="msg msg-them">Reçu ! Je prépare votre commande. Inshallah à l'heure prévue. 🙏</div><div class="msg-time">maintenant</div>`;
-    msgs.appendChild(r); msgs.scrollTop = msgs.scrollHeight;
-  }, 1200);
-}
-
-// ════════════════════════════
-// DÉCONNEXION
-// ════════════════════════════
-function deconnexion() {
-  currentUser = null;
-  showToast('Déconnecté avec succès');
-  setTimeout(() => goTo('screen-landing'), 800);
-}
-
-// ════════════════════════════
-// DIVERS
-// ════════════════════════════
-function selectEmoji(el, emoji) {
-  document.querySelectorAll('.emoji-opt').forEach(e => e.classList.remove('selected'));
-  el.classList.add('selected');
-  selectedEmoji = emoji;
-}
-function scrollToProducts() { document.getElementById('products-list').scrollIntoView({ behavior:'smooth' }); }
-function openModal() { document.getElementById('cancelModal').classList.add('open'); }
-function closeModal(e) { if (!e || e.target===document.getElementById('cancelModal')) document.getElementById('cancelModal').classList.remove('open'); }
-function confirmCancel() { closeModal(); showToast('Commande annulée — 1 point de pénalité enregistré'); }
-</script>
-</body>
-</html>
-
+  const { data, error } = await db.from('ut
