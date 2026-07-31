@@ -781,45 +781,481 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
   }
 }
 </style>
+<style>
+  /* ============================================================
+     LANDING / AUTH PAGE - AGRILINK SN
+     ============================================================ */
+
+  .landing-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    min-height: 100vh;
+    background: #f8fafc;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  @media (max-width: 960px) {
+    .landing-container {
+      grid-template-columns: 1fr;
+    }
+    .landing-hero-side {
+      min-height: 400px !important;
+    }
+  }
+
+  /* --- CÔTÉ GAUCHE : HERO HERO & CARROUSEL --- */
+  .landing-hero-side {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px;
+    color: #ffffff;
+  }
+
+  .landing-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 1.2s ease-in-out, transform 8s linear;
+    transform: scale(1.05);
+  }
+
+  .landing-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(16, 85, 47, 0.88) 100%);
+  }
+
+  .landing-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 580px;
+  }
+
+  .landing-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+  }
+
+  .landing-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .landing-title {
+    font-size: 2.8rem;
+    line-height: 1.15;
+    font-weight: 800;
+    margin-bottom: 15px;
+  }
+
+  .landing-title span {
+    color: #4ade80;
+  }
+
+  .landing-subtitle {
+    font-size: 1.1rem;
+    color: #e2e8f0;
+    line-height: 1.6;
+    margin-bottom: 30px;
+  }
+
+  /* CARROUSEL DES PRODUITS REELS SUR LA LANDING */
+  .landing-products-mini {
+    position: relative;
+    z-index: 2;
+    margin-top: 20px;
+  }
+
+  .mini-products-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #86efac;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .mini-products-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+  }
+
+  .mini-product-card {
+    flex: 0 0 160px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 8px;
+    transition: transform 0.3s ease, background 0.3s ease;
+    cursor: pointer;
+  }
+
+  .mini-product-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .mini-product-card img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+
+  .mini-product-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mini-product-price {
+    font-size: 0.8rem;
+    color: #4ade80;
+    font-weight: 700;
+  }
+
+  /* INDICATEURS CARROUSEL */
+  .landing-dots {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .landing-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .landing-dot.active {
+    width: 28px;
+    border-radius: 10px;
+    background: #4ade80;
+  }
+
+
+  /* --- CÔTÉ DROIT : FORMULAIRE & ARGUMENTS --- */
+  .landing-form-side {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+  }
+
+  .form-header h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 6px;
+  }
+
+  .form-header p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+  }
+
+  /* CARTES D'ARGUMENTS AVEC SURVOL */
+  .features-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .feature-item {
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #334155;
+    transition: all 0.25s ease;
+  }
+
+  .feature-item:hover {
+    border-color: #22c55e;
+    background: #f0fdf4;
+    transform: translateY(-2px);
+  }
+
+  .feature-icon {
+    font-size: 1.2rem;
+  }
+
+  /* SÉLECTEUR D'RÔLE */
+  .role-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .role-option {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  .role-option.active, .role-option:hover {
+    border-color: #16a34a;
+    background: #f0fdf4;
+  }
+
+  .role-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+
+  .role-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #0f172a;
+  }
+
+  .role-desc {
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+
+  /* INPUTS ET BOUTON */
+  .input-group {
+    margin-bottom: 16px;
+  }
+
+  .input-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 6px;
+  }
+
+  .custom-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .custom-input:focus {
+    border-color: #16a34a;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
+  }
+
+  .btn-primary-lg {
+    width: 100%;
+    background: #16a34a;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+  }
+
+  .btn-primary-lg:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+  }
+
+  /* FOOTER COMPACT SUR LA LANDING */
+  .landing-footer-mini {
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #64748b;
+  }
+</style>
+
 </head>
 <body>
 
 <!-- LANDING -->
-<div class="screen" id="scr-land">
-  <div class="l-bg"></div>
-  <nav class="l-nav">
-    <div class="l-logo"><div class="l-logo-ic">🌾</div><div class="l-logo-tx">AgriLink SN</div></div>
-    <div class="l-btns">
-      <button class="btn-out" onclick="goTo('scr-auth');switchTab('login')">Se connecter</button>
-      <button class="btn-sol" onclick="goTo('scr-auth');switchTab('register')">Commencer</button>
-    </div>
-  </nav>
-  <div class="l-hero">
-    <div>
-      <div class="l-eyebrow">🇸🇳 Made in Sénégal</div>
-      <h1 class="l-title">De la terre<br>à <span>ta table</span></h1>
-      <p class="l-desc">Connectez-vous directement avec les producteurs locaux. Produits frais, prix justes, livrés à 6h du matin.</p>
-      <div class="l-ctas">
-        <button class="btn-big" onclick="goTo('scr-auth');switchTab('register')">Commencer gratuitement →</button>
-        <button class="btn-ghost" onclick="goTo('scr-auth');switchTab('login')">J'ai déjà un compte</button>
+<div class="landing-container">
+
+  <!-- ================= CÔTÉ GAUCHE : VISUEL, CARROUSEL ET PRODUITS ================= -->
+  <div class="landing-hero-side">
+    <div class="landing-hero-bg" id="landing-bg" style="background-image: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80');"></div>
+    <div class="landing-hero-overlay"></div>
+
+    <div class="landing-hero-content">
+      <div class="landing-brand">
+        🌾 AgriLink SN
       </div>
-      <div class="l-stats">
-        <div><div class="ls-num" id="ls-prod">--</div><div class="ls-lbl">Producteurs actifs</div></div>
-        <div><div class="ls-num" id="ls-items">--</div><div class="ls-lbl">Produits disponibles</div></div>
-        <div><div class="ls-num">4.8★</div><div class="ls-lbl">Satisfaction</div></div>
+
+      <div class="landing-badge">
+        🇸🇳 Le marché agricole direct du Sénégal
+      </div>
+
+      <h1 class="landing-title" id="landing-title-text">
+        Des récoltes fraîches, <span>sans intermédiaire</span>
+      </h1>
+
+      <p class="landing-subtitle" id="landing-sub-text">
+        Achetez vos oignons, tomates et carottes directement auprès des producteurs de Saint-Louis, Thiès et Niayes.
+      </p>
+
+      <div class="landing-dots">
+        <div class="landing-dot active" onclick="setLandingSlide(0)"></div>
+        <div class="landing-dot" onclick="setLandingSlide(1)"></div>
+        <div class="landing-dot" onclick="setLandingSlide(2)"></div>
       </div>
     </div>
-    <div class="l-right">
-      <div class="prev-card ft"><span class="prev-em">🧅</span><div class="prev-inf"><div class="prev-nm">Oignons Bok</div><div class="prev-or">📍 Saint-Louis · ✅ Vérifié</div></div><div class="prev-pr">8 500<span>FCFA/sac</span></div></div>
-      <div class="prev-card"><span class="prev-em">🥕</span><div class="prev-inf"><div class="prev-nm">Carottes fraîches</div><div class="prev-or">📍 Thiès · ✅ Vérifié</div></div><div class="prev-pr">3 200<span>FCFA/cagette</span></div></div>
-      <div class="prev-card"><span class="prev-em">🍅</span><div class="prev-inf"><div class="prev-nm">Tomates cerises</div><div class="prev-or">📍 Dakar · 🔥 Derniers stocks</div></div><div class="prev-pr">4 000<span>FCFA/plateau</span></div></div>
-      <div class="prev-card"><span class="prev-em">🥬</span><div class="prev-inf"><div class="prev-nm">Chou vert</div><div class="prev-or">📍 Louga · ✅ Vérifié</div></div><div class="prev-pr">1 800<span>FCFA/pièce</span></div></div>
+
+    <!-- CARROUSEL DE VRAIS PRODUITS DÈS L'OUVERTURE -->
+    <div class="landing-products-mini">
+      <div class="mini-products-title">🔥 En direct des champs aujourd'hui</div>
+      
+      <div class="mini-products-scroll">
+        
+        <div class="mini-product-card">
+          <img src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8cf?auto=format&fit=crop&w=400&q=80" alt="Oignons">
+          <div class="mini-product-name">Oignons Bok</div>
+          <div class="mini-product-price">8 500 F / sac</div>
+        </div>
+
+        <div class="mini-product-card">
+          <img src="https://images.unsplash.com/photo-1598170845058-12ef4a457939?auto=format&fit=crop&w=400&q=80" alt="Carottes">
+          <div class="mini-product-name">Carottes Bio</div>
+          <div class="mini-product-price">3 200 F / cagette</div>
+        </div>
+
+        <div class="mini-product-card">
+          <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80" alt="Tomates">
+          <div class="mini-product-name">Tomates Niayes</div>
+          <div class="mini-product-price">4 000 F / plateau</div>
+        </div>
+
+        <div class="mini-product-card">
+          <img src="https://images.unsplash.com/photo-1556801712-76c8eb07ebd1?auto=format&fit=crop&w=400&q=80" alt="Piments">
+          <div class="mini-product-name">Piment Rung</div>
+          <div class="mini-product-price">6 500 F / sac</div>
+        </div>
+
+      </div>
     </div>
   </div>
-  <div class="l-foot">
-    <p>© 2026 AgriLink SN · Paiement cash à la livraison · Producteurs vérifiés</p>
-    <p>Fait avec ❤️ pour les agriculteurs sénégalais</p>
+
+
+  <!-- ================= CÔTÉ DROIT : FORMULAIRE & POURQUOI CHOISIR ================= -->
+  <div class="landing-form-side">
+    
+    <div class="form-header">
+      <h2>Rejoignez AgriLink SN</h2>
+      <p>Créez votre compte en 30 secondes pour acheter ou vendre.</p>
+    </div>
+
+    <!-- ARGUMENTS CLÉS AVEC SURVOL (POURQUOI CHOISIR) -->
+    <div class="features-list">
+      <div class="feature-item">
+        <span class="feature-icon">✅</span>
+        <span>Producteurs vérifiés</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">💵</span>
+        <span>Paiement à la livraison</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🚚</span>
+        <span>Livré dès 6h du matin</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎙️</span>
+        <span>Annonces vocales Wolof</span>
+      </div>
+    </div>
+
+    <!-- SÉLECTION DU RÔLE -->
+    <div class="input-group">
+      <label class="input-label">Vous êtes :</label>
+      <div class="role-selector">
+        <div class="role-option active">
+          <div class="role-icon">🏪</div>
+          <div class="role-title">Acheteur</div>
+          <div class="role-desc">Restaurant, Ménage, Hôtel</div>
+        </div>
+        <div class="role-option">
+          <div class="role-icon">👨‍🌾</div>
+          <div class="role-title">Producteur</div>
+          <div class="role-desc">Agriculteur local</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAMPS DE SAISIE -->
+    <div class="input-group">
+      <label class="input-label">Numéro WhatsApp / Téléphone</label>
+      <input type="tel" class="custom-input" placeholder="+221 77 000 00 00">
+    </div>
+
+    <div class="input-group">
+      <label class="input-label">Région</label>
+      <select class="custom-input">
+        <option>Dakar</option>
+        <option>Thiès / Niayes</option>
+        <option>Saint-Louis</option>
+        <option>Kaolack</option>
+        <option>Louga</option>
+      </select>
+    </div>
+
+    <button class="btn-primary-lg">Continuer vers l'application ➔</button>
+
+    <!-- FOOTER COMPLET SUR LA LANDING -->
+    <div class="landing-footer-mini">
+      <span>© 2026 AgriLink SN</span>
+      <span>🇸🇳 Fait avec ❤️ pour le Sénégal</span>
+      <a href="#" style="color: #16a34a; text-decoration: none; font-weight: 600;">Aide & FAQ</a>
+    </div>
+
   </div>
+
 </div>
 
 <!-- AUTH -->
