@@ -386,6 +386,102 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
 .car-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s}
 .car-dot.active{width:22px;border-radius:4px;background:var(--soleil)}
 
+  /* ── DASHBOARD ACHETEUR ── */
+.dash-welcome{
+  background:linear-gradient(135deg,var(--terre) 0%,var(--vert) 100%);
+  border-radius:18px;padding:24px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:22px;position:relative;overflow:hidden;
+}
+.dash-welcome::after{content:'🌾';position:absolute;right:-10px;bottom:-20px;font-size:100px;opacity:.08;pointer-events:none}
+.dash-welcome-left h2{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--blanc);margin-bottom:4px}
+.dash-welcome-left p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.5}
+.dash-welcome-time{background:rgba(255,255,255,.12);border-radius:12px;padding:10px 16px;text-align:center;flex-shrink:0}
+.dash-welcome-time .time{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--blanc)}
+.dash-welcome-time .date{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}
+
+/* Recherche */
+.search-bar{
+  display:flex;align-items:center;gap:10px;
+  background:var(--blanc);border:1.5px solid var(--bord);
+  border-radius:14px;padding:12px 16px;
+  margin-bottom:16px;
+  transition:border-color .15s,box-shadow .15s;
+}
+.search-bar:focus-within{border-color:var(--vert);box-shadow:0 0 0 3px rgba(90,138,60,.1)}
+.search-icon{font-size:18px;flex-shrink:0;color:var(--gris)}
+.search-input{flex:1;border:none;outline:none;font-size:15px;font-family:'Noto Sans',sans-serif;color:var(--nuit);background:transparent}
+.search-input::placeholder{color:var(--gris)}
+.search-clear{background:var(--ciel);border:none;border-radius:8px;padding:5px 10px;font-size:12px;color:var(--gris);cursor:pointer;display:none}
+.search-clear.show{display:block}
+
+/* Filtres */
+.filters-wrap{display:flex;gap:8px;margin-bottom:22px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.filters-wrap::-webkit-scrollbar{display:none}
+.filter-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:20px;
+  border:1.5px solid var(--bord);background:var(--blanc);
+  font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:13px;
+  color:var(--gris);cursor:pointer;white-space:nowrap;
+  transition:all .15s;flex-shrink:0;
+}
+.filter-chip:hover{border-color:var(--vert);color:var(--terre)}
+.filter-chip.active{background:var(--terre);border-color:var(--terre);color:var(--blanc)}
+
+/* Cartes produits améliorées */
+.p-grid-new{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.pcard-new{
+  background:var(--blanc);border:1.5px solid var(--bord);
+  border-radius:18px;overflow:hidden;cursor:pointer;
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.pcard-new:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(45,74,30,.12);border-color:var(--vert)}
+.pcard-top{height:130px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;background:var(--ciel);transition:background .2s}
+.pcard-new:hover .pcard-top{background:#E8F2E2}
+.pcard-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.pcard-badge.new{background:var(--soleil);color:var(--nuit)}
+.pcard-badge.hot{background:var(--argile);color:var(--blanc)}
+.pcard-badge.fresh{background:var(--vert);color:var(--blanc)}
+.pcard-fav{position:absolute;top:10px;right:10px;width:28px;height:28px;background:var(--blanc);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:all .2s}
+.pcard-fav:hover{transform:scale(1.2)}
+.pcard-body{padding:14px 16px 16px}
+.pcard-cat{font-size:11px;font-weight:500;color:var(--vert);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.pcard-nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--nuit);margin-bottom:4px}
+.pcard-farm{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gris);margin-bottom:12px}
+.pcard-farm-av{width:20px;height:20px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.pcard-bot{display:flex;align-items:center;justify-content:space-between}
+.pcard-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--terre)}
+.pcard-pr span{font-size:11px;font-weight:400;color:var(--gris)}
+.pcard-action{background:var(--terre);border:none;border-radius:10px;padding:8px 14px;color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.pcard-action:hover{background:var(--soleil);color:var(--nuit)}
+.pcard-info-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.pcard-tag{padding:3px 8px;border-radius:6px;font-size:11px;font-weight:500}
+
+/* Section rapide accès */
+.quick-access{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.qa-item{background:var(--blanc);border:1.5px solid var(--bord);border-radius:14px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .2s}
+.qa-item:hover{border-color:var(--vert);background:var(--ciel);transform:translateY(-2px)}
+.qa-icon{font-size:26px;margin-bottom:6px}
+.qa-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--nuit)}
+.qa-sub{font-size:11px;color:var(--gris);margin-top:2px}
+
+/* Aucun résultat */
+.no-results{text-align:center;padding:40px 20px;color:var(--gris)}
+.no-results-icon{font-size:40px;margin-bottom:10px}
+.no-results p{font-size:14px;line-height:1.6}
+
+@media(max-width:900px){
+  .dash-welcome{flex-direction:column;gap:14px;align-items:flex-start}
+  .quick-access{grid-template-columns:repeat(2,1fr)}
+  .p-grid-new{grid-template-columns:1fr 1fr}
+  .pcard-top{height:100px;font-size:44px}
+}
+@media(max-width:480px){
+  .p-grid-new{grid-template-columns:1fr}
+}
+
 <!-- PRODUITS ANIMÉS -->
 <div class="prods-section">
   <div class="prods-title">Produits frais disponibles maintenant</div>
@@ -892,14 +988,78 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
         <button class="tb-btn" onclick="showPanel('p-prof')">👤</button>
       </div>
     </div>
-
     <!-- ACCUEIL -->
-    <div class="panel active" id="p-home">
-      <div class="d-stats">
-        <div class="d-stat"><div class="d-sn" id="ds-p">--</div><div class="d-sl">Producteurs actifs</div><div class="d-ss">↑ En ligne</div></div>
-        <div class="d-stat"><div class="d-sn" id="ds-i">--</div><div class="d-sl">Produits disponibles</div><div class="d-ss">↑ Aujourd'hui</div></div>
-        <div class="d-stat"><div class="d-sn">4.8★</div><div class="d-sl">Note moyenne</div><div class="d-ss">Sur 5 étoiles</div></div>
-      </div>
+    <!-- ACCUEIL -->
+    
+<div class="panel active" id="p-home">
+
+  <!-- Carte de bienvenue -->
+  <div class="dash-welcome">
+    <div class="dash-welcome-left">
+      <h2>Bonjour, <span id="dw-name">--</span> 👋</h2>
+      <p>Voici les produits frais disponibles aujourd'hui.<br>Livraison garantie à 6h du matin.</p>
+    </div>
+    <div class="dash-welcome-time">
+      <div class="time" id="dw-time">--:--</div>
+      <div class="date" id="dw-date">--</div>
+    </div>
+  </div>
+
+  <!-- Accès rapide -->
+  <div class="quick-access">
+    <div class="qa-item" onclick="showPanel('p-prod')">
+      <div class="qa-icon">🥬</div>
+      <div class="qa-label">Produits</div>
+      <div class="qa-sub">Voir tout</div>
+    </div>
+    <div class="qa-item" onclick="showPanel('p-orders');loadOrders()">
+      <div class="qa-icon">📋</div>
+      <div class="qa-label">Commandes</div>
+      <div class="qa-sub" id="qa-nb-cmd">0 en cours</div>
+    </div>
+    <div class="qa-item" onclick="showPanel('p-chat')">
+      <div class="qa-icon">💬</div>
+      <div class="qa-label">Messages</div>
+      <div class="qa-sub">Chat direct</div>
+    </div>
+    <div class="qa-item" onclick="showPanel('p-prof')">
+      <div class="qa-icon">👤</div>
+      <div class="qa-label">Mon profil</div>
+      <div class="qa-sub">⭐ 5/5</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="d-stats" style="margin-bottom:22px">
+    <div class="d-stat"><div class="d-sn" id="ds-p">--</div><div class="d-sl">Producteurs actifs</div><div class="d-ss">↑ En ligne</div></div>
+    <div class="d-stat"><div class="d-sn" id="ds-i">--</div><div class="d-sl">Produits disponibles</div><div class="d-ss">↑ Aujourd'hui</div></div>
+    <div class="d-stat"><div class="d-sn">4.8★</div><div class="d-sl">Note moyenne</div><div class="d-ss">Sur 5 étoiles</div></div>
+  </div>
+
+  <!-- Recherche -->
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" type="text" placeholder="Rechercher oignons, tomates, carottes..." id="dash-search" oninput="filterDashProducts()">
+    <button class="search-clear" id="search-clear-btn" onclick="clearSearch()">✕ Effacer</button>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters-wrap">
+    <div class="filter-chip active" onclick="setFilter('tous',this)">🌿 Tous</div>
+    <div class="filter-chip" onclick="setFilter('Dakar',this)">📍 Dakar</div>
+    <div class="filter-chip" onclick="setFilter('Saint-Louis',this)">📍 Saint-Louis</div>
+    <div class="filter-chip" onclick="setFilter('Thiès',this)">📍 Thiès</div>
+    <div class="filter-chip" onclick="setFilter('Kaolack',this)">📍 Kaolack</div>
+    <div class="filter-chip" onclick="setFilter('Louga',this)">📍 Louga</div>
+    <div class="filter-chip" onclick="setFilter('Ziguinchor',this)">📍 Ziguinchor</div>
+  </div>
+
+  <!-- Produits -->
+  <div class="sec-lbl">Produits disponibles maintenant</div>
+  <div class="p-grid-new" id="hp"></div>
+
+</div>
+      
       <div class="h-band">
         <div><h2>Livraison à 6h du matin 🌅</h2><p>Commandez avant 18h, recevez vos produits frais dès l'aube</p></div>
         <button class="h-btn" onclick="showPanel('p-prod')">Voir les produits →</button>
@@ -1200,11 +1360,95 @@ function renderProds(data,el){
     </div>`).join('');
 }
 
+let allDashProds=[];
+let activeFilter='tous';
+
 async function loadHome(){
   const el=document.getElementById('hp');
-  el.innerHTML='<div class="loading">⏳ Chargement...</div>';
-  const{data}=await db.from('produits').select('*,utilisateurs(nom,region,score_reputation)').eq('disponible',true).order('created_at',{ascending:false}).limit(6);
-  renderProds(data,el);
+  el.innerHTML='<div class="loading">⏳ Chargement des produits...</div>';
+  const{data}=await db.from('produits')
+    .select('*,utilisateurs(nom,region,score_reputation)')
+    .eq('disponible',true)
+    .order('created_at',{ascending:false});
+  allDashProds=data||[];
+  renderDashProds(allDashProds);
+  // Horloge
+  updateClock();
+  setInterval(updateClock,1000);
+  // Nom bienvenue
+  if(CU) document.getElementById('dw-name').textContent=CU.nom.split(' ')[0];
+}
+
+function updateClock(){
+  const now=new Date();
+  const h=String(now.getHours()).padStart(2,'0');
+  const m=String(now.getMinutes()).padStart(2,'0');
+  const days=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const months=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+  const te=document.getElementById('dw-time');
+  const de=document.getElementById('dw-date');
+  if(te)te.textContent=h+':'+m;
+  if(de)de.textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
+}
+
+function renderDashProds(data){
+  const el=document.getElementById('hp');
+  if(!data||!data.length){
+    el.innerHTML='<div class="no-results"><div class="no-results-icon">🔍</div><p>Aucun produit trouvé.<br>Essayez un autre filtre ou une autre recherche.</p></div>';
+    return;
+  }
+  const badges=['new','hot','fresh'];
+  const badgeLabels={new:'Nouveau',hot:'🔥 Populaire',fresh:'✅ Frais'};
+  el.innerHTML=data.map((p,i)=>{
+    const badge=i%3===1?'hot':i%3===2?'fresh':'new';
+    return `
+    <div class="pcard-new" onclick='openDet(${JSON.stringify(p)})'>
+      <div class="pcard-top">
+        ${p.emoji}
+        <span class="pcard-badge ${badge}">${badgeLabels[badge]}</span>
+        <button class="pcard-fav" onclick="event.stopPropagation();this.textContent=this.textContent==='🤍'?'❤️':'🤍'">🤍</button>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-cat">📍 ${p.utilisateurs?.region||p.region}</div>
+        <div class="pcard-nm">${p.nom}</div>
+        <div class="pcard-farm">
+          <div class="pcard-farm-av">👨‍🌾</div>
+          ${p.utilisateurs?.nom||'Producteur'} · ⭐ ${p.utilisateurs?.score_reputation||5}/5
+        </div>
+        <div class="pcard-info-row">
+          <span class="pcard-tag tg">📦 ${p.quantite}</span>
+          <span class="pcard-tag tb">🚚 ${p.heure_livraison}</span>
+        </div>
+        <div class="pcard-bot">
+          <div class="pcard-pr">${p.prix.toLocaleString()} <span>FCFA/${p.unite}</span></div>
+          <button class="pcard-action" onclick="event.stopPropagation();showPanel('p-chat')">Commander</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterDashProducts(){
+  const q=document.getElementById('dash-search').value.toLowerCase().trim();
+  const btn=document.getElementById('search-clear-btn');
+  if(btn)btn.classList.toggle('show',q.length>0);
+  let filtered=allDashProds;
+  if(activeFilter!=='tous') filtered=filtered.filter(p=>(p.utilisateurs?.region||p.region)===activeFilter);
+  if(q) filtered=filtered.filter(p=>p.nom.toLowerCase().includes(q)||(p.utilisateurs?.region||p.region).toLowerCase().includes(q));
+  renderDashProds(filtered);
+}
+
+function setFilter(f,el){
+  activeFilter=f;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  filterDashProducts();
+}
+
+function clearSearch(){
+  document.getElementById('dash-search').value='';
+  document.getElementById('search-clear-btn').classList.remove('show');
+  filterDashProducts();
 }
 
 async function loadAll(){
@@ -1323,6 +1567,39 @@ function animCount(id,target,suffix=''){
   const timer=setInterval(()=>{
     current=Math.min(current+step,target);
     el.textContent=current+(suffix);
+    if(current>=target)clearInterval(timer);
+  },40);
+}
+async function loadNumberStats(){
+  const{count:np}=await db.from('utilisateurs').select('*',{count:'exact',head:true}).eq('role','agriculteur');
+  const{count:nc}=await db.from('commandes').select('*',{count:'exact',head:true});
+  animCount('n-prod',np||0);
+  animCount('n-cmd',nc||0);
+}
+loadNumberStats();
+
+  // ── CAROUSEL LANDING ──
+let slide=0;
+const slides=document.querySelectorAll('.carousel-slide');
+const cdots=document.querySelectorAll('.car-dot');
+function goSlide(n){
+  slide=n;
+  document.getElementById('car-track').style.transform=`translateX(-${n*100}%)`;
+  cdots.forEach((d,i)=>d.classList.toggle('active',i===n));
+}
+function nextSlide(){goSlide((slide+1)%slides.length);}
+function prevSlide(){goSlide((slide-1+slides.length)%slides.length);}
+setInterval(nextSlide,4500);
+
+// ── COMPTEURS ANIMÉS ──
+function animCount(id,target){
+  const el=document.getElementById(id);
+  if(!el)return;
+  let current=0;
+  const step=Math.ceil(target/40)||1;
+  const timer=setInterval(()=>{
+    current=Math.min(current+step,target);
+    el.textContent=current;
     if(current>=target)clearInterval(timer);
   },40);
 }
