@@ -1710,7 +1710,74 @@ function selEm(el,em){
 }
 
 function deco(){CU=null;showToast('Déconnecté');setTimeout(()=>goTo('scr-land'),800);}
+/* =====================================================
+   CARROUSEL DE LA PAGE D'ACCUEIL
+===================================================== */
 
+let carouselIndex = 0;
+let carouselTimer;
+
+function goCarousel(index){
+
+  const track =
+    document.getElementById('carouselTrack');
+
+  const dots =
+    document.querySelectorAll('.carousel-dot');
+
+  if(!track) return;
+
+  const total = dots.length;
+
+  carouselIndex =
+    (index + total) % total;
+
+  track.style.transform =
+    `translateX(-${carouselIndex * 100}%)`;
+
+  dots.forEach((dot,i)=>{
+    dot.classList.toggle(
+      'active',
+      i === carouselIndex
+    );
+  });
+
+}
+
+function changeCarousel(direction){
+
+  goCarousel(
+    carouselIndex + direction
+  );
+
+  restartCarousel();
+
+}
+
+function startCarousel(){
+
+  clearInterval(carouselTimer);
+
+  carouselTimer = setInterval(()=>{
+
+    goCarousel(
+      carouselIndex + 1
+    );
+
+  },5000);
+
+}
+
+function restartCarousel(){
+
+  startCarousel();
+
+}
+
+document.addEventListener(
+  'DOMContentLoaded',
+  startCarousel
+);
 loadStats();
 goTo('scr-land');
 </script>
