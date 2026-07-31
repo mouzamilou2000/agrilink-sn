@@ -1674,39 +1674,8 @@ async function loadNumberStats(){
 }
 loadNumberStats();
 
-  // ── CAROUSEL LANDING ──
-let slide=0;
-const slides=document.querySelectorAll('.carousel-slide');
-const cdots=document.querySelectorAll('.car-dot');
-function goSlide(n){
-  slide=n;
-  document.getElementById('car-track').style.transform=`translateX(-${n*100}%)`;
-  cdots.forEach((d,i)=>d.classList.toggle('active',i===n));
-}
-function nextSlide(){goSlide((slide+1)%slides.length);}
-function prevSlide(){goSlide((slide-1+slides.length)%slides.length);}
-setInterval(nextSlide,4500);
 
-// ── COMPTEURS ANIMÉS ──
-function animCount(id,target){
-  const el=document.getElementById(id);
-  if(!el)return;
-  let current=0;
-  const step=Math.ceil(target/40)||1;
-  const timer=setInterval(()=>{
-    current=Math.min(current+step,target);
-    el.textContent=current;
-    if(current>=target)clearInterval(timer);
-  },40);
-}
-async function loadNumberStats(){
-  const{count:np}=await db.from('utilisateurs').select('*',{count:'exact',head:true}).eq('role','agriculteur');
-  const{count:nc}=await db.from('commandes').select('*',{count:'exact',head:true});
-  animCount('n-prod',np||0);
-  animCount('n-cmd',nc||0);
-}
-loadNumberStats();
-  
+
 loadStats();
 goTo('scr-land');
 </script>
