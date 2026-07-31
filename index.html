@@ -3,973 +3,901 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AgriLink SN — De la terre à ta table</title>
+<title>AgriLink SN</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Noto+Sans:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Noto+Sans:wght@400;500&display=swap');
+:root{--terre:#2D4A1E;--terre2:#1A2E12;--soleil:#E8A020;--ciel:#F0F4EC;--blanc:#FAFAF7;--nuit:#1A2614;--argile:#C4622D;--vert:#5A8A3C;--gris:#8A9180;--bord:#D6DDD0;--sw:260px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit);min-height:100vh}
 
-:root {
-  --terre: #2D4A1E;
-  --terre-fonce: #1A2E12;
-  --soleil: #E8A020;
-  --ciel: #F0F4EC;
-  --blanc: #FAFAF7;
-  --nuit: #1A2614;
-  --argile: #C4622D;
-  --vert: #5A8A3C;
-  --gris: #8A9180;
-  --bordure: #D6DDD0;
-  --sidebar-w: 260px;
-}
+/* SCREENS */
+.screen{display:none;min-height:100vh}
+.screen.active{display:block}
 
-* { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { font-family:'Noto Sans',sans-serif; background:var(--ciel); color:var(--nuit); min-height:100vh; }
+/* ── LANDING ── */
+#scr-land{background:var(--terre2);display:none;flex-direction:column;min-height:100vh}
+#scr-land.active{display:flex}
+.l-bg{position:absolute;inset:0;background:radial-gradient(circle at 15% 50%,rgba(232,160,32,.07),transparent 50%),radial-gradient(circle at 85% 20%,rgba(90,138,60,.1),transparent 50%);pointer-events:none}
+.l-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;position:relative;z-index:2}
+.l-logo{display:flex;align-items:center;gap:10px}
+.l-logo-ic{width:38px;height:38px;background:var(--soleil);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.l-logo-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--blanc)}
+.l-btns{display:flex;gap:10px}
+.btn-out{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 18px;color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor:pointer}
+.btn-sol{background:var(--soleil);border:none;border-radius:10px;padding:9px 18px;color:var(--nuit);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;cursor:pointer}
+.l-hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:60px 40px 40px;flex:1;align-items:center;position:relative;z-index:2}
+.l-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:500;color:var(--soleil);margin-bottom:18px}
+.l-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,5vw,60px);font-weight:800;color:var(--blanc);line-height:1.1;letter-spacing:-2px;margin-bottom:18px}
+.l-title span{color:var(--soleil)}
+.l-desc{font-size:16px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:30px;max-width:460px}
+.l-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn-big{background:var(--soleil);border:none;border-radius:14px;padding:15px 26px;color:var(--nuit);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 8px 24px rgba(232,160,32,.3)}
+.btn-ghost{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:14px;padding:15px 26px;color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;cursor:pointer}
+.l-stats{display:flex;gap:32px;margin-top:36px}
+.ls-num{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:var(--soleil)}
+.ls-lbl{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
+.l-right{display:flex;flex-direction:column;gap:12px}
+.prev-card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s}
+.prev-card:hover{transform:translateX(-4px);border-color:rgba(232,160,32,.4)}
+.prev-card.ft{background:rgba(232,160,32,.1);border-color:rgba(232,160,32,.3)}
+.prev-em{font-size:34px;flex-shrink:0}
+.prev-inf{flex:1}
+.prev-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--blanc)}
+.prev-or{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
+.prev-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--soleil);text-align:right}
+.prev-pr span{font-size:11px;font-weight:400;color:rgba(255,255,255,.4);display:block}
+.l-foot{padding:20px 40px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+.l-foot p{font-size:12px;color:rgba(255,255,255,.3)}
 
-/* ══════════════════════
-   ÉCRANS (pages)
-══════════════════════ */
-.screen { display:none; min-height:100vh; }
-.screen.active { display:block; }
+/* ── AUTH ── */
+#scr-auth{display:none}
+#scr-auth.active{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.a-left{background:var(--terre);padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.a-left::after{content:'🌾';position:absolute;right:-20px;bottom:-30px;font-size:150px;opacity:.05;pointer-events:none}
+.a-ll{display:flex;align-items:center;gap:10px;margin-bottom:44px}
+.a-ll-ic{width:34px;height:34px;background:var(--soleil);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.a-ll-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--blanc)}
+.a-lt{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--blanc);line-height:1.2;letter-spacing:-1px;margin-bottom:12px}
+.a-lt span{color:var(--soleil)}
+.a-ld{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7}
+.a-feats{margin-top:28px;display:flex;flex-direction:column;gap:10px}
+.a-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.7)}
+.a-feat-ic{width:30px;height:30px;background:rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.a-back{background:none;border:none;color:rgba(255,255,255,.45);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.a-right{background:var(--blanc);padding:48px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
+.a-rtit{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:var(--nuit);margin-bottom:5px;letter-spacing:-.5px}
+.a-rsub{font-size:14px;color:var(--gris);margin-bottom:24px}
+.a-tabs{display:flex;background:var(--ciel);border-radius:12px;padding:4px;gap:4px;margin-bottom:22px}
+.a-tab{flex:1;padding:9px;border:none;border-radius:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor:pointer;background:none;color:var(--gris);transition:all .2s}
+.a-tab.active{background:var(--blanc);color:var(--terre);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.role-ch{display:flex;gap:10px;margin-bottom:18px}
+.role-c{flex:1;padding:14px 10px;border:2px solid var(--bord);border-radius:14px;background:var(--blanc);cursor:pointer;text-align:center;transition:all .15s}
+.role-c.sel{border-color:var(--terre);background:var(--ciel)}
+.role-ic{font-size:24px;display:block;margin-bottom:5px}
+.role-lb{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--nuit)}
+.role-sb{font-size:11px;color:var(--gris);margin-top:2px}
+.fg{margin-bottom:15px}
+.fl{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.fi{width:100%;border:1.5px solid var(--bord);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'Noto Sans',sans-serif;outline:none;background:var(--blanc);color:var(--nuit);transition:border-color .15s}
+.fi:focus{border-color:var(--terre)}
+.fs{width:100%;border:1.5px solid var(--bord);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'Noto Sans',sans-serif;outline:none;background:var(--blanc);color:var(--nuit);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9180' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.ph-wrap{display:flex;gap:8px}
+.ph-pre{background:var(--ciel);border:1.5px solid var(--bord);border-radius:12px;padding:12px 13px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit);white-space:nowrap;display:flex;align-items:center;gap:6px}
+.ph-wrap .fi{flex:1}
+.fhint{font-size:11px;color:var(--gris);margin-top:4px}
+.cgu-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px}
+.cgu-ck{width:20px;height:20px;border:2px solid var(--bord);border-radius:6px;cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.cgu-ck.ck{background:var(--terre);border-color:var(--terre)}
+.cgu-tx{font-size:13px;color:var(--gris);line-height:1.5}
+.cgu-tx button{background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer;text-decoration:underline}
+.btn-auth{width:100%;background:var(--terre);color:var(--blanc);border:none;border-radius:13px;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(45,74,30,.2);transition:all .15s}
+.btn-auth:hover{background:var(--terre2)}
+.btn-auth:disabled{background:var(--bord);color:var(--gris);box-shadow:none;cursor:not-allowed}
+.sw-link{text-align:center;margin-top:14px;font-size:13px;color:var(--gris)}
+.sw-link button{background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer}
 
-/* ══════════════════════
-   LANDING — responsive
-══════════════════════ */
-#screen-landing {
-  background: var(--terre-fonce);
-  min-height: 100vh;
-  display: none;
-  flex-direction: column;
-}
-#screen-landing.active { display:flex; }
+/* ── OTP ── */
+#scr-otp{display:none}
+#scr-otp.active{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.o-left{background:var(--terre);padding:48px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.o-left::after{content:'📱';position:absolute;right:-20px;bottom:-20px;font-size:150px;opacity:.05;pointer-events:none}
+.o-lt{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:var(--blanc);letter-spacing:-1px;margin-bottom:12px}
+.o-ld{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7}
+.o-right{background:var(--blanc);padding:48px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.o-icon{font-size:52px;margin-bottom:16px}
+.o-tit{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--nuit);margin-bottom:8px}
+.o-sub{font-size:14px;color:var(--gris);text-align:center;line-height:1.6;margin-bottom:24px}
+.otp-row{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
+.ob{width:54px;height:62px;border:2px solid var(--bord);border-radius:13px;font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;text-align:center;outline:none;background:var(--blanc);color:var(--nuit);transition:border-color .15s}
+.ob:focus{border-color:var(--terre)}
+.o-resend{font-size:13px;color:var(--gris);margin-bottom:18px;text-align:center}
+.o-resend button{background:none;border:none;color:var(--terre);font-weight:600;cursor:pointer}
 
-.land-nav {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 40px;
-  position: relative; z-index:2;
-}
-.land-logo { display:flex; align-items:center; gap:10px; }
-.land-logo-icon { width:40px; height:40px; background:var(--soleil); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:22px; }
-.land-logo-text { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; color:var(--blanc); }
-.land-nav-btns { display:flex; gap:10px; }
-.btn-outline { background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.2); border-radius:10px; padding:9px 18px; color:var(--blanc); font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; cursor:pointer; }
-.btn-solid { background:var(--soleil); border:none; border-radius:10px; padding:9px 18px; color:var(--nuit); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px; cursor:pointer; }
+/* ── APP LAYOUT ── */
+.app-layout{display:none;min-height:100vh}
+.app-layout.active{display:flex}
+.sidebar{width:var(--sw);background:var(--terre2);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:30;transition:transform .3s}
+.sb-logo{padding:22px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-logo-ic{width:34px;height:34px;background:var(--soleil);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.sb-logo-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--blanc)}
+.sb-nav{flex:1;padding:14px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto}
+.sb-sec{padding:14px 12px 5px;font-size:10px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em}
+.sb-item{display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:11px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,.55);font-size:13px;font-family:'Noto Sans',sans-serif;width:100%;text-align:left;transition:all .15s}
+.sb-item:hover{background:rgba(255,255,255,.06);color:var(--blanc)}
+.sb-item.active{background:rgba(232,160,32,.15);color:var(--soleil)}
+.si{font-size:18px;flex-shrink:0}
+.sb-bot{padding:14px 10px;border-top:1px solid rgba(255,255,255,.06)}
+.sb-user{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:11px}
+.sb-av{width:34px;height:34px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.sb-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--blanc)}
+.sb-rl{font-size:11px;color:rgba(255,255,255,.4)}
+.main{margin-left:var(--sw);flex:1;display:flex;flex-direction:column;min-height:100vh;background:var(--ciel)}
+.m-top{background:var(--blanc);border-bottom:1.5px solid var(--bord);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20}
+.m-top-tit{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--nuit)}
+.m-top-r{display:flex;align-items:center;gap:10px}
+.tb-btn{width:36px;height:36px;border-radius:9px;background:var(--ciel);border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;position:relative}
+.nd{position:absolute;top:6px;right:6px;width:7px;height:7px;background:var(--argile);border-radius:50%;border:1.5px solid var(--blanc)}
+.hmb{display:none;background:none;border:none;font-size:22px;cursor:pointer}
 
-/* Hero section */
-.land-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  padding: 60px 40px 40px;
-  flex:1;
-  align-items: center;
-  position: relative; z-index:2;
-}
-.land-bg { position:absolute; inset:0; background-image:radial-gradient(circle at 10% 50%,rgba(232,160,32,0.06) 0%,transparent 50%),radial-gradient(circle at 90% 20%,rgba(90,138,60,0.1) 0%,transparent 50%); pointer-events:none; }
-
-.land-left {}
-.land-eyebrow { display:inline-flex; align-items:center; gap:6px; background:rgba(232,160,32,0.15); border:1px solid rgba(232,160,32,0.3); border-radius:20px; padding:5px 14px; font-size:13px; font-weight:500; color:var(--soleil); margin-bottom:20px; }
-.land-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(36px,5vw,64px); font-weight:800; color:var(--blanc); line-height:1.1; letter-spacing:-2px; margin-bottom:20px; }
-.land-title span { color:var(--soleil); }
-.land-desc { font-size:17px; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:32px; max-width:480px; }
-.land-ctas { display:flex; gap:12px; flex-wrap:wrap; }
-.btn-cta-big { background:var(--soleil); border:none; border-radius:14px; padding:16px 28px; color:var(--nuit); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; cursor:pointer; box-shadow:0 8px 24px rgba(232,160,32,0.3); }
-.btn-cta-ghost { background:rgba(255,255,255,0.08); border:1.5px solid rgba(255,255,255,0.15); border-radius:14px; padding:16px 28px; color:var(--blanc); font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; cursor:pointer; }
+/* ── PANELS ── */
+.panel{display:none;padding:28px}
+.panel.active{display:block}
+.sec-lbl{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
 
 /* Stats */
-.land-stats { display:flex; gap:32px; margin-top:40px; }
-.l-stat-num { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:800; color:var(--soleil); }
-.l-stat-label { font-size:13px; color:rgba(255,255,255,0.5); margin-top:2px; }
-
-/* Carousel côté droit */
-.land-right { display:flex; flex-direction:column; gap:14px; }
-.preview-card {
-  background:rgba(255,255,255,0.06);
-  border:1.5px solid rgba(255,255,255,0.1);
-  border-radius:18px; padding:18px 20px;
-  display:flex; align-items:center; gap:14px;
-  transition: transform 0.2s, border-color 0.2s;
-  cursor:pointer;
-}
-.preview-card:hover { transform:translateX(-4px); border-color:rgba(232,160,32,0.4); }
-.preview-card.featured { background:rgba(232,160,32,0.1); border-color:rgba(232,160,32,0.3); }
-.preview-emoji { font-size:36px; flex-shrink:0; }
-.preview-info { flex:1; }
-.preview-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--blanc); }
-.preview-origin { font-size:12px; color:rgba(255,255,255,0.5); margin-top:2px; }
-.preview-price { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; color:var(--soleil); text-align:right; }
-.preview-price span { font-size:11px; font-weight:400; color:rgba(255,255,255,0.4); display:block; }
-
-/* Footer landing */
-.land-footer { padding:24px 40px; border-top:1px solid rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
-.land-footer p { font-size:13px; color:rgba(255,255,255,0.35); }
-
-/* ══════════════════════
-   AUTH PAGE — responsive
-══════════════════════ */
-#screen-auth { display:none; }
-#screen-auth.active { display:grid; grid-template-columns:1fr 1fr; min-height:100vh; }
-
-.auth-left {
-  background:var(--terre);
-  padding:48px;
-  display:flex; flex-direction:column; justify-content:space-between;
-  position:relative; overflow:hidden;
-}
-.auth-left::after { content:'🌾'; position:absolute; right:-20px; bottom:-30px; font-size:160px; opacity:0.05; pointer-events:none; }
-.auth-left-logo { display:flex; align-items:center; gap:10px; margin-bottom:48px; }
-.auth-left-logo-icon { width:36px; height:36px; background:var(--soleil); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:18px; }
-.auth-left-logo-text { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:var(--blanc); }
-.auth-left-title { font-family:'Space Grotesk',sans-serif; font-size:36px; font-weight:800; color:var(--blanc); line-height:1.2; letter-spacing:-1px; margin-bottom:14px; }
-.auth-left-title span { color:var(--soleil); }
-.auth-left-desc { font-size:15px; color:rgba(255,255,255,0.6); line-height:1.7; }
-.auth-left-features { margin-top:32px; display:flex; flex-direction:column; gap:12px; }
-.auth-feature { display:flex; align-items:center; gap:12px; font-size:14px; color:rgba(255,255,255,0.75); }
-.auth-feature-icon { width:32px; height:32px; background:rgba(255,255,255,0.1); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
-.auth-left-back { background:none; border:none; color:rgba(255,255,255,0.5); font-size:14px; cursor:pointer; display:flex; align-items:center; gap:6px; padding:0; }
-.auth-left-back:hover { color:var(--blanc); }
-
-.auth-right {
-  background:var(--blanc);
-  padding:48px;
-  display:flex; flex-direction:column; justify-content:center;
-  overflow-y:auto;
-}
-.auth-right-title { font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:800; color:var(--nuit); margin-bottom:6px; letter-spacing:-0.5px; }
-.auth-right-sub { font-size:14px; color:var(--gris); margin-bottom:28px; }
-
-.auth-tabs { display:flex; background:var(--ciel); border-radius:12px; padding:4px; gap:4px; margin-bottom:24px; }
-.auth-tab { flex:1; padding:10px; border:none; border-radius:9px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:none; color:var(--gris); transition:all 0.2s; }
-.auth-tab.active { background:var(--blanc); color:var(--terre); box-shadow:0 1px 4px rgba(0,0,0,0.08); }
-
-.role-choice { display:flex; gap:12px; margin-bottom:20px; }
-.role-card { flex:1; padding:14px 10px; border:2px solid var(--bordure); border-radius:14px; background:var(--blanc); cursor:pointer; text-align:center; transition:all 0.15s; }
-.role-card.selected { border-color:var(--terre); background:var(--ciel); }
-.role-card-icon { font-size:26px; display:block; margin-bottom:6px; }
-.role-card-label { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; color:var(--nuit); }
-.role-card-sub { font-size:11px; color:var(--gris); margin-top:2px; }
-
-.f-group { margin-bottom:16px; }
-.f-label { display:block; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:7px; }
-.f-input { width:100%; border:1.5px solid var(--bordure); border-radius:12px; padding:13px 15px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); transition:border-color 0.15s; }
-.f-input:focus { border-color:var(--terre); }
-.f-select { width:100%; border:1.5px solid var(--bordure); border-radius:12px; padding:13px 15px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9180' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; }
-.phone-wrap { display:flex; gap:8px; }
-.phone-prefix { background:var(--ciel); border:1.5px solid var(--bordure); border-radius:12px; padding:13px 14px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--nuit); white-space:nowrap; display:flex; align-items:center; gap:6px; }
-.phone-wrap .f-input { flex:1; }
-.f-hint { font-size:12px; color:var(--gris); margin-top:5px; }
-.cgu-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:20px; }
-.cgu-check { width:20px; height:20px; border:2px solid var(--bordure); border-radius:6px; cursor:pointer; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
-.cgu-check.checked { background:var(--terre); border-color:var(--terre); }
-.cgu-text { font-size:13px; color:var(--gris); line-height:1.5; }
-.cgu-text button { background:none; border:none; color:var(--terre); font-weight:600; font-size:13px; cursor:pointer; text-decoration:underline; }
-.btn-auth { width:100%; background:var(--terre); color:var(--blanc); border:none; border-radius:14px; padding:15px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; cursor:pointer; box-shadow:0 4px 16px rgba(45,74,30,0.2); transition:all 0.15s; }
-.btn-auth:hover { background:var(--terre-fonce); }
-.btn-auth:disabled { background:var(--bordure); color:var(--gris); box-shadow:none; cursor:not-allowed; }
-
-/* OTP */
-#screen-otp { display:none; }
-#screen-otp.active { display:grid; grid-template-columns:1fr 1fr; min-height:100vh; }
-.otp-left { background:var(--terre); padding:48px; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
-.otp-left::after { content:'📱'; position:absolute; right:-20px; bottom:-20px; font-size:160px; opacity:0.06; pointer-events:none; }
-.otp-left-title { font-family:'Space Grotesk',sans-serif; font-size:32px; font-weight:800; color:var(--blanc); letter-spacing:-1px; margin-bottom:12px; }
-.otp-left-desc { font-size:15px; color:rgba(255,255,255,0.6); line-height:1.7; }
-.otp-right { background:var(--blanc); padding:48px; display:flex; flex-direction:column; justify-content:center; align-items:center; }
-.otp-icon { font-size:56px; margin-bottom:20px; }
-.otp-title { font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:800; color:var(--nuit); margin-bottom:8px; }
-.otp-sub { font-size:14px; color:var(--gris); text-align:center; line-height:1.6; margin-bottom:28px; }
-.otp-inputs { display:flex; gap:12px; justify-content:center; margin-bottom:24px; }
-.otp-box { width:56px; height:64px; border:2px solid var(--bordure); border-radius:14px; font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:700; text-align:center; outline:none; background:var(--blanc); color:var(--nuit); transition:border-color 0.15s; }
-.otp-box:focus { border-color:var(--terre); }
-.otp-resend { font-size:14px; color:var(--gris); margin-bottom:20px; text-align:center; }
-.otp-resend button { background:none; border:none; color:var(--terre); font-weight:600; cursor:pointer; }
-
-/* ══════════════════════
-   APP LAYOUT — sidebar + main
-══════════════════════ */
-.app-layout {
-  display: none;
-  min-height: 100vh;
-}
-.app-layout.active { display:flex; }
-
-/* SIDEBAR */
-.sidebar {
-  width: var(--sidebar-w);
-  background: var(--terre-fonce);
-  display: flex; flex-direction:column;
-  position: fixed; top:0; left:0; bottom:0;
-  z-index: 30;
-  transition: transform 0.3s;
-}
-.sidebar-logo { padding:24px 20px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,0.06); }
-.sidebar-logo-icon { width:36px; height:36px; background:var(--soleil); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:18px; }
-.sidebar-logo-text { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; color:var(--blanc); }
-.sidebar-nav { flex:1; padding:16px 12px; display:flex; flex-direction:column; gap:4px; }
-.sidebar-item { display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:12px; cursor:pointer; border:none; background:none; color:rgba(255,255,255,0.6); font-size:14px; font-family:'Noto Sans',sans-serif; width:100%; text-align:left; transition:all 0.15s; }
-.sidebar-item:hover { background:rgba(255,255,255,0.06); color:var(--blanc); }
-.sidebar-item.active { background:rgba(232,160,32,0.15); color:var(--soleil); }
-.sidebar-item.active .s-icon { filter:none; }
-.s-icon { font-size:20px; flex-shrink:0; }
-.sidebar-section-label { padding:16px 14px 6px; font-size:11px; font-weight:600; color:rgba(255,255,255,0.3); text-transform:uppercase; letter-spacing:0.1em; }
-.sidebar-bottom { padding:16px 12px; border-top:1px solid rgba(255,255,255,0.06); }
-.sidebar-user { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; }
-.sidebar-avatar { width:36px; height:36px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
-.sidebar-user-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--blanc); }
-.sidebar-user-role { font-size:11px; color:rgba(255,255,255,0.45); }
-
-/* MAIN CONTENT */
-.main-content {
-  margin-left: var(--sidebar-w);
-  flex:1;
-  display:flex; flex-direction:column;
-  min-height:100vh;
-  background:var(--ciel);
-}
-
-/* TOPBAR MAIN */
-.main-topbar {
-  background:var(--blanc);
-  border-bottom:1.5px solid var(--bordure);
-  padding:16px 32px;
-  display:flex; align-items:center; justify-content:space-between;
-  position:sticky; top:0; z-index:20;
-}
-.main-topbar-title { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; color:var(--nuit); }
-.main-topbar-right { display:flex; align-items:center; gap:12px; }
-.topbar-btn { width:38px; height:38px; border-radius:10px; background:var(--ciel); border:none; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center; position:relative; }
-.notif-dot { position:absolute; top:6px; right:6px; width:8px; height:8px; background:var(--argile); border-radius:50%; border:1.5px solid var(--blanc); }
-
-/* PANELS (vues dans main) */
-.panel { display:none; padding:32px; }
-.panel.active { display:block; }
-
-/* Stats dashboard */
-.dash-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px; }
-.dash-stat { background:var(--blanc); border-radius:16px; padding:20px 24px; border:1.5px solid var(--bordure); }
-.dash-stat-num { font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:800; color:var(--terre); }
-.dash-stat-label { font-size:13px; color:var(--gris); margin-top:4px; }
-.dash-stat-sub { font-size:12px; color:var(--vert); margin-top:6px; font-weight:500; }
+.d-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.d-stat{background:var(--blanc);border-radius:15px;padding:18px 22px;border:1.5px solid var(--bord)}
+.d-sn{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:var(--terre)}
+.d-sl{font-size:13px;color:var(--gris);margin-top:3px}
+.d-ss{font-size:12px;color:var(--vert);margin-top:5px;font-weight:500}
 
 /* Hero band */
-.hero-band { background:var(--terre); border-radius:18px; padding:24px 28px; display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
-.hero-band h2 { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--blanc); }
-.hero-band p { font-size:14px; color:rgba(255,255,255,0.6); margin-top:4px; }
-.hero-band-btn { background:var(--soleil); border:none; border-radius:12px; padding:12px 20px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--nuit); cursor:pointer; white-space:nowrap; }
+.h-band{background:var(--terre);border-radius:16px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+.h-band h2{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--blanc)}
+.h-band p{font-size:13px;color:rgba(255,255,255,.6);margin-top:3px}
+.h-btn{background:var(--soleil);border:none;border-radius:11px;padding:11px 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--nuit);cursor:pointer;white-space:nowrap}
 
 /* Products grid */
-.products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
-.product-card { background:var(--blanc); border:1.5px solid var(--bordure); border-radius:16px; padding:20px; cursor:pointer; transition:all 0.15s; }
-.product-card:hover { border-color:var(--vert); box-shadow:0 4px 20px rgba(45,74,30,0.1); transform:translateY(-2px); }
-.card-emoji-big { font-size:40px; margin-bottom:14px; display:block; }
-.card-name { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:var(--nuit); margin-bottom:4px; }
-.card-farmer { font-size:13px; color:var(--gris); margin-bottom:14px; }
-.card-price { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; color:var(--terre); margin-bottom:12px; }
-.card-price span { font-size:13px; font-weight:400; color:var(--gris); }
-.card-tags { display:flex; gap:6px; flex-wrap:wrap; }
-.tag { padding:4px 10px; border-radius:20px; font-size:12px; font-weight:500; }
-.tag-green { background:#E8F2E2; color:var(--terre); }
-.tag-yellow { background:#FEF3DC; color:#A06010; }
-.tag-blue { background:#E0EAF5; color:#2A5580; }
-.tag-red { background:#FDE8E0; color:var(--argile); }
+.p-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.p-card{background:var(--blanc);border:1.5px solid var(--bord);border-radius:15px;padding:18px;cursor:pointer;transition:all .15s}
+.p-card:hover{border-color:var(--vert);box-shadow:0 4px 18px rgba(45,74,30,.1);transform:translateY(-2px)}
+.p-em{font-size:38px;display:block;margin-bottom:12px}
+.p-nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--nuit);margin-bottom:3px}
+.p-fm{font-size:13px;color:var(--gris);margin-bottom:12px}
+.p-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--terre);margin-bottom:10px}
+.p-pr span{font-size:13px;font-weight:400;color:var(--gris)}
+.p-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500}
+.tg{background:#E8F2E2;color:var(--terre)}
+.ty{background:#FEF3DC;color:#A06010}
+.tb{background:#E0EAF5;color:#2A5580}
+.tr{background:#FDE8E0;color:var(--argile)}
 
-/* Section label */
-.section-label { font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:16px; }
-
-/* Detail produit */
-.detail-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-.detail-left { background:var(--blanc); border-radius:18px; padding:32px; border:1.5px solid var(--bordure); }
-.detail-emoji-xl { font-size:72px; display:block; margin-bottom:16px; }
-.detail-title { font-family:'Space Grotesk',sans-serif; font-size:30px; font-weight:800; color:var(--nuit); margin-bottom:6px; }
-.detail-farmer-row { display:flex; align-items:center; gap:10px; margin-bottom:24px; }
-.farmer-avatar { width:38px; height:38px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
-.farmer-info { font-size:14px; color:var(--gris); }
-.farmer-info strong { color:var(--nuit); font-weight:600; display:block; }
-.info-row { display:flex; justify-content:space-between; align-items:center; padding:14px 0; border-bottom:1px solid var(--bordure); }
-.info-label { font-size:13px; color:var(--gris); }
-.info-value { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--nuit); }
-.info-value.price { color:var(--terre); font-size:20px; }
-.detail-right { display:flex; flex-direction:column; gap:16px; }
-.rules-box { background:#FEF3DC; border-radius:16px; padding:20px; border-left:4px solid var(--soleil); }
-.rules-title { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:#A06010; margin-bottom:10px; }
-.rules-list { list-style:none; }
-.rules-list li { font-size:13px; color:#7A4A10; padding:4px 0 4px 20px; position:relative; line-height:1.5; }
-.rules-list li::before { content:'•'; position:absolute; left:6px; color:var(--soleil); }
-.map-box { background:var(--ciel); border-radius:16px; height:160px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; border:1.5px dashed var(--bordure); cursor:pointer; }
-.cta-primary { width:100%; background:var(--terre); color:var(--blanc); border:none; border-radius:14px; padding:15px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; cursor:pointer; transition:all 0.15s; }
-.cta-primary:hover { background:var(--terre-fonce); }
-.cta-secondary { width:100%; background:var(--blanc); color:var(--terre); border:1.5px solid var(--bordure); border-radius:14px; padding:13px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; cursor:pointer; margin-top:10px; }
+/* Detail */
+.det-lay{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.det-l{background:var(--blanc);border-radius:16px;padding:28px;border:1.5px solid var(--bord)}
+.det-em{font-size:64px;display:block;margin-bottom:14px}
+.det-tit{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:var(--nuit);margin-bottom:5px}
+.det-farm{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.farm-av{width:36px;height:36px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px}
+.farm-nm{font-weight:600;font-size:14px;color:var(--nuit)}
+.farm-sb{font-size:12px;color:var(--gris)}
+.inf-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--bord)}
+.inf-l{font-size:13px;color:var(--gris)}
+.inf-v{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
+.inf-v.pr{color:var(--terre);font-size:19px}
+.map-bx{background:var(--ciel);border-radius:14px;height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:1.5px dashed var(--bord);cursor:pointer;margin:14px 0}
+.det-r{display:flex;flex-direction:column;gap:14px}
+.rules{background:#FEF3DC;border-radius:14px;padding:18px;border-left:4px solid var(--soleil)}
+.rules-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:#A06010;margin-bottom:8px}
+.rules ul{list-style:none}
+.rules li{font-size:13px;color:#7A4A10;padding:3px 0 3px 18px;position:relative;line-height:1.5}
+.rules li::before{content:'•';position:absolute;left:5px;color:var(--soleil)}
+.btn-p{width:100%;background:var(--terre);color:var(--blanc);border:none;border-radius:13px;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all .15s;margin-top:6px}
+.btn-p:hover{background:var(--terre2)}
+.btn-s{width:100%;background:var(--blanc);color:var(--terre);border:1.5px solid var(--bord);border-radius:13px;padding:12px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor:pointer;margin-top:8px}
 
 /* Chat */
-.chat-layout { display:grid; grid-template-columns:300px 1fr; gap:0; background:var(--blanc); border-radius:18px; border:1.5px solid var(--bordure); overflow:hidden; height:calc(100vh - 160px); }
-.chat-sidebar { border-right:1.5px solid var(--bordure); overflow-y:auto; }
-.chat-sidebar-header { padding:20px; border-bottom:1.5px solid var(--bordure); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; }
-.chat-conv-item { padding:14px 20px; border-bottom:1px solid var(--bordure); cursor:pointer; display:flex; gap:12px; align-items:center; transition:background 0.15s; }
-.chat-conv-item:hover { background:var(--ciel); }
-.chat-conv-item.active { background:#E8F2E2; }
-.chat-conv-avatar { width:40px; height:40px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-.chat-conv-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; }
-.chat-conv-preview { font-size:12px; color:var(--gris); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.chat-main { display:flex; flex-direction:column; }
-.chat-header { padding:16px 20px; border-bottom:1.5px solid var(--bordure); display:flex; align-items:center; gap:12px; }
-.chat-header-avatar { width:38px; height:38px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
-.chat-header-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; }
-.chat-header-status { font-size:12px; color:var(--vert); }
-.chat-messages { flex:1; padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; }
-.msg { max-width:65%; padding:12px 16px; border-radius:16px; font-size:14px; line-height:1.5; }
-.msg-them { background:var(--ciel); color:var(--nuit); border-bottom-left-radius:4px; align-self:flex-start; }
-.msg-me { background:var(--terre); color:var(--blanc); border-bottom-right-radius:4px; align-self:flex-end; }
-.msg-time { font-size:11px; color:var(--gris); margin-top:4px; }
-.msg-time.right { text-align:right; }
-.confirm-bubble { background:#E8F2E2; border:1.5px solid var(--vert); border-radius:14px; padding:14px; font-size:13px; color:var(--terre); }
-.confirm-bubble strong { font-family:'Space Grotesk',sans-serif; display:block; margin-bottom:6px; }
-.chat-input-row { padding:16px 20px; border-top:1.5px solid var(--bordure); display:flex; gap:10px; align-items:flex-end; }
-.chat-input { flex:1; border:1.5px solid var(--bordure); border-radius:12px; padding:11px 15px; font-size:14px; font-family:'Noto Sans',sans-serif; resize:none; outline:none; background:var(--blanc); transition:border-color 0.15s; }
-.chat-input:focus { border-color:var(--vert); }
-.send-btn { width:42px; height:42px; background:var(--terre); border:none; border-radius:11px; color:var(--blanc); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.voice-btn { width:42px; height:42px; background:var(--ciel); border:1.5px solid var(--bordure); border-radius:11px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.chat-lay{display:grid;grid-template-columns:280px 1fr;background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow:hidden;height:calc(100vh - 140px)}
+.chat-sb{border-right:1.5px solid var(--bord);overflow-y:auto}
+.chat-sbh{padding:18px;border-bottom:1.5px solid var(--bord);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px}
+.chat-ci{padding:13px 18px;border-bottom:1px solid var(--bord);cursor:pointer;display:flex;gap:10px;align-items:center;transition:background .15s}
+.chat-ci:hover{background:var(--ciel)}
+.chat-ci.active{background:#E8F2E2}
+.chat-cav{width:38px;height:38px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.chat-cn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px}
+.chat-cp{font-size:12px;color:var(--gris);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-main{display:flex;flex-direction:column}
+.chat-hd{padding:14px 18px;border-bottom:1.5px solid var(--bord);display:flex;align-items:center;gap:10px}
+.chat-hav{width:36px;height:36px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px}
+.chat-hn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px}
+.chat-hs{font-size:12px;color:var(--vert)}
+.chat-msgs{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:65%;padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.5}
+.mt{background:var(--ciel);color:var(--nuit);border-bottom-left-radius:4px;align-self:flex-start}
+.mm{background:var(--terre);color:var(--blanc);border-bottom-right-radius:4px;align-self:flex-end}
+.mtime{font-size:11px;color:var(--gris);margin-top:3px}
+.mtime.r{text-align:right}
+.conf-bub{background:#E8F2E2;border:1.5px solid var(--vert);border-radius:13px;padding:13px;font-size:13px;color:var(--terre)}
+.conf-bub strong{font-family:'Space Grotesk',sans-serif;display:block;margin-bottom:5px}
+.chat-inp-row{padding:14px 18px;border-top:1.5px solid var(--bord);display:flex;gap:9px;align-items:flex-end}
+.chat-inp{flex:1;border:1.5px solid var(--bord);border-radius:11px;padding:10px 13px;font-size:14px;font-family:'Noto Sans',sans-serif;resize:none;outline:none;background:var(--blanc);transition:border-color .15s}
+.chat-inp:focus{border-color:var(--vert)}
+.send-b{width:40px;height:40px;background:var(--terre);border:none;border-radius:10px;color:var(--blanc);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.voice-b{width:40px;height:40px;background:var(--ciel);border:1.5px solid var(--bord);border-radius:10px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-/* Commandes */
-.orders-table { background:var(--blanc); border-radius:18px; border:1.5px solid var(--bordure); overflow:hidden; }
-.orders-table-header { display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; gap:16px; padding:14px 20px; background:var(--ciel); border-bottom:1.5px solid var(--bordure); font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.06em; }
-.order-row { display:grid; grid-template-columns:2fr 1.5fr 1fr 1fr 1fr; gap:16px; padding:16px 20px; border-bottom:1px solid var(--bordure); align-items:center; cursor:pointer; transition:background 0.15s; }
-.order-row:hover { background:var(--ciel); }
-.order-row:last-child { border-bottom:none; }
-.order-product-cell { display:flex; align-items:center; gap:10px; }
-.order-emoji { font-size:24px; }
-.order-name { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; color:var(--nuit); }
-.order-qty { font-size:12px; color:var(--gris); margin-top:2px; }
-.status-pill { padding:5px 12px; border-radius:20px; font-size:12px; font-weight:600; display:inline-block; }
-.status-pending { background:#FEF3DC; color:#A06010; }
-.status-confirmed { background:#E8F2E2; color:var(--terre); }
-.status-delivered { background:#E0EAF5; color:#2A5580; }
-.order-amount-cell { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--terre); }
+/* Orders table */
+.ord-tbl{background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow:hidden}
+.ord-hd{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;gap:14px;padding:12px 18px;background:var(--ciel);border-bottom:1.5px solid var(--bord);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.06em}
+.ord-row{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;gap:14px;padding:14px 18px;border-bottom:1px solid var(--bord);align-items:center;cursor:pointer;transition:background .15s}
+.ord-row:hover{background:var(--ciel)}
+.ord-row:last-child{border-bottom:none}
+.ord-pc{display:flex;align-items:center;gap:9px}
+.ord-em{font-size:22px}
+.ord-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
+.ord-qt{font-size:12px;color:var(--gris);margin-top:1px}
+.sp{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;display:inline-block}
+.sp-p{background:#FEF3DC;color:#A06010}
+.sp-c{background:#E8F2E2;color:var(--terre)}
+.sp-d{background:#E0EAF5;color:#2A5580}
+.ord-am{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--terre)}
 
-/* Publish form */
-.publish-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-.publish-form-card { background:var(--blanc); border-radius:18px; padding:28px; border:1.5px solid var(--bordure); }
-.publish-preview-card { background:var(--terre); border-radius:18px; padding:28px; }
-.publish-preview-title { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:20px; }
-.form-group { margin-bottom:18px; }
-.form-label { display:block; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:7px; }
-.form-input { width:100%; border:1.5px solid var(--bordure); border-radius:12px; padding:12px 15px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); transition:border-color 0.15s; }
-.form-input:focus { border-color:var(--vert); }
-.emoji-picker { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
-.emoji-opt { width:44px; height:44px; border:1.5px solid var(--bordure); border-radius:10px; background:var(--ciel); font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
-.emoji-opt.selected { border-color:var(--vert); background:#E8F2E2; }
-.voice-area { background:var(--ciel); border:1.5px dashed var(--bordure); border-radius:14px; padding:24px; text-align:center; cursor:pointer; margin-bottom:20px; transition:all 0.15s; }
-.voice-area:hover { background:#E8F2E2; border-color:var(--vert); }
+/* Publish */
+.pub-lay{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pub-card{background:var(--blanc);border-radius:16px;padding:26px;border:1.5px solid var(--bord)}
+.pub-prev{background:var(--terre);border-radius:16px;padding:26px}
+.pub-prev-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px}
+.fg2{margin-bottom:16px}
+.fl2{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.fi2{width:100%;border:1.5px solid var(--bord);border-radius:11px;padding:11px 13px;font-size:14px;font-family:'Noto Sans',sans-serif;outline:none;background:var(--blanc);color:var(--nuit);transition:border-color .15s}
+.fi2:focus{border-color:var(--vert)}
+.em-pick{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+.em-opt{width:42px;height:42px;border:1.5px solid var(--bord);border-radius:9px;background:var(--ciel);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.em-opt.sel{border-color:var(--vert);background:#E8F2E2}
+.voice-ar{background:var(--ciel);border:1.5px dashed var(--bord);border-radius:13px;padding:20px;text-align:center;cursor:pointer;margin-bottom:18px;transition:all .15s}
+.voice-ar:hover{background:#E8F2E2;border-color:var(--vert)}
 
-/* Profil */
-.profile-layout { display:grid; grid-template-columns:320px 1fr; gap:24px; }
-.profile-card { background:var(--blanc); border-radius:18px; border:1.5px solid var(--bordure); overflow:hidden; }
-.profile-card-header { background:var(--terre); padding:32px 24px; text-align:center; }
-.profile-avatar-xl { width:80px; height:80px; background:var(--soleil); border-radius:50%; margin:0 auto 14px; display:flex; align-items:center; justify-content:center; font-size:40px; border:3px solid rgba(255,255,255,0.3); }
-.profile-card-name { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--blanc); }
-.profile-card-role { font-size:13px; color:rgba(255,255,255,0.6); margin-top:4px; }
-.profile-card-score { display:flex; align-items:center; justify-content:center; gap:4px; margin-top:10px; font-size:14px; color:var(--soleil); font-weight:600; }
-.profile-card-body { padding:20px 24px; }
-.profile-item { display:flex; align-items:center; gap:14px; padding:14px 0; border-bottom:1px solid var(--bordure); cursor:pointer; }
-.profile-item:last-child { border-bottom:none; }
-.profile-item-icon { width:38px; height:38px; background:var(--ciel); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
-.profile-item-label { font-weight:500; font-size:15px; color:var(--nuit); }
-.profile-item-sub { font-size:12px; color:var(--gris); margin-top:2px; }
-.profile-stats-card { background:var(--blanc); border-radius:18px; border:1.5px solid var(--bordure); padding:24px; }
+/* Profile */
+.prof-lay{display:grid;grid-template-columns:300px 1fr;gap:20px}
+.prof-card{background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow:hidden}
+.prof-hd{background:var(--terre);padding:28px 22px;text-align:center}
+.prof-av{width:76px;height:76px;background:var(--soleil);border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:38px;border:3px solid rgba(255,255,255,.3)}
+.prof-nm{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--blanc)}
+.prof-rl{font-size:13px;color:rgba(255,255,255,.6);margin-top:3px}
+.prof-sc{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:9px;font-size:13px;color:var(--soleil);font-weight:600}
+.prof-bd{padding:18px 22px}
+.prof-it{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--bord);cursor:pointer}
+.prof-it:last-child{border-bottom:none}
+.prof-ii{width:36px;height:36px;background:var(--ciel);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.prof-il{font-weight:500;font-size:14px;color:var(--nuit)}
+.prof-is{font-size:12px;color:var(--gris);margin-top:1px}
+.prof-stats{background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);padding:22px}
 
-/* Vide et chargement */
-.loading { text-align:center; padding:60px 20px; color:var(--gris); font-size:15px; }
-.empty-state { text-align:center; padding:60px 20px; }
-.empty-icon { font-size:48px; margin-bottom:12px; }
-.empty-state p { font-size:15px; color:var(--gris); line-height:1.6; }
+/* Utils */
+.loading{text-align:center;padding:50px 20px;color:var(--gris);font-size:14px}
+.empty{text-align:center;padding:50px 20px}
+.empty-ic{font-size:44px;margin-bottom:10px}
+.empty p{font-size:14px;color:var(--gris);line-height:1.6}
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:none;align-items:center;justify-content:center}
+.modal-ov.open{display:flex}
+.modal-bx{background:var(--blanc);border-radius:18px;padding:28px;width:100%;max-width:420px;box-shadow:0 20px 50px rgba(0,0,0,.2)}
+.modal-t{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--nuit);margin-bottom:7px}
+.modal-s{font-size:14px;color:var(--gris);line-height:1.6;margin-bottom:18px}
+.pen-bx{background:#FDE8E0;border-radius:11px;padding:14px;margin-bottom:18px;border-left:4px solid var(--argile)}
+.pen-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--argile);margin-bottom:5px}
+.pen-tx{font-size:13px;color:#8B3820;line-height:1.5}
+.toast{position:fixed;bottom:28px;right:28px;background:var(--nuit);color:var(--blanc);padding:13px 20px;border-radius:13px;font-size:14px;font-weight:500;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 8px 22px rgba(0,0,0,.2)}
+.toast.show{opacity:1}
 
-/* Modal */
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:100; display:none; align-items:center; justify-content:center; }
-.modal-overlay.open { display:flex; }
-.modal-box { background:var(--blanc); border-radius:20px; padding:32px; width:100%; max-width:440px; box-shadow:0 20px 60px rgba(0,0,0,0.2); }
-.modal-title { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--nuit); margin-bottom:8px; }
-.modal-sub { font-size:14px; color:var(--gris); line-height:1.6; margin-bottom:20px; }
-.penalty-box { background:#FDE8E0; border-radius:12px; padding:16px; margin-bottom:20px; border-left:4px solid var(--argile); }
-.penalty-title { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--argile); margin-bottom:6px; }
-.penalty-text { font-size:13px; color:#8B3820; line-height:1.5; }
+/* Mobile nav */
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--blanc);border-top:1.5px solid var(--bord);z-index:25;padding:8px 0 12px}
+.mob-ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0;border:none;background:none;color:var(--gris);font-size:11px;font-family:'Noto Sans',sans-serif}
+.mob-ni.active{color:var(--terre)}
+.mob-ic{font-size:21px}
 
-/* Toast */
-.toast { position:fixed; bottom:30px; right:30px; background:var(--nuit); color:var(--blanc); padding:14px 22px; border-radius:14px; font-size:14px; font-weight:500; z-index:200; opacity:0; transition:opacity 0.3s; pointer-events:none; box-shadow:0 8px 24px rgba(0,0,0,0.2); }
-.toast.show { opacity:1; }
-
-/* ══════════════════════
-   RESPONSIVE MOBILE
-══════════════════════ */
-@media (max-width: 768px) {
-  /* Landing */
-  .land-nav { padding:16px 20px; }
-  .land-nav-btns .btn-outline { display:none; }
-  .land-hero { grid-template-columns:1fr; padding:32px 20px 20px; gap:32px; }
-  .land-right { display:none; }
-  .land-title { font-size:36px; }
-  .land-stats { gap:20px; }
-  .land-ctas { flex-direction:column; }
-  .btn-cta-big, .btn-cta-ghost { width:100%; text-align:center; }
-  .land-footer { flex-direction:column; gap:8px; text-align:center; padding:20px; }
-
-  /* Auth */
-  #screen-auth.active { grid-template-columns:1fr; }
-  .auth-left { display:none; }
-  .auth-right { padding:32px 24px; }
-
-  /* OTP */
-  #screen-otp.active { grid-template-columns:1fr; }
-  .otp-left { display:none; }
-  .otp-right { padding:40px 24px; }
-
-  /* App layout */
-  .sidebar { transform:translateX(-100%); }
-  .sidebar.open { transform:translateX(0); }
-  .main-content { margin-left:0; }
-  .main-topbar { padding:14px 20px; }
-  .panel { padding:16px; }
-  .dash-stats { grid-template-columns:1fr 1fr; }
-  .products-grid { grid-template-columns:1fr; }
-  .detail-layout { grid-template-columns:1fr; }
-  .chat-layout { grid-template-columns:1fr; height:auto; }
-  .chat-sidebar { display:none; }
-  .orders-table-header { grid-template-columns:2fr 1fr 1fr; }
-  .orders-table-header span:nth-child(2), .orders-table-header span:nth-child(5) { display:none; }
-  .order-row { grid-template-columns:2fr 1fr 1fr; }
-  .order-row > *:nth-child(2), .order-row > *:nth-child(5) { display:none; }
-  .publish-layout { grid-template-columns:1fr; }
-  .publish-preview-card { display:none; }
-  .profile-layout { grid-template-columns:1fr; }
-
-  /* Bottom nav mobile */
-  .mobile-bottom-nav { display:flex !important; }
-  .main-content { padding-bottom:64px; }
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .l-nav{padding:16px 20px}
+  .l-btns .btn-out{display:none}
+  .l-hero{grid-template-columns:1fr;padding:28px 20px 20px;gap:24px}
+  .l-right{display:none}
+  .l-title{font-size:34px}
+  .l-ctas{flex-direction:column}
+  .btn-big,.btn-ghost{width:100%;text-align:center}
+  .l-foot{flex-direction:column;gap:6px;text-align:center;padding:18px 20px}
+  #scr-auth.active{grid-template-columns:1fr}
+  .a-left{display:none}
+  .a-right{padding:28px 22px}
+  #scr-otp.active{grid-template-columns:1fr}
+  .o-left{display:none}
+  .o-right{padding:36px 22px}
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .m-top{padding:12px 18px}
+  .panel{padding:14px}
+  .d-stats{grid-template-columns:1fr 1fr}
+  .p-grid{grid-template-columns:1fr}
+  .det-lay{grid-template-columns:1fr}
+  .chat-lay{grid-template-columns:1fr;height:auto}
+  .chat-sb{display:none}
+  .ord-hd,.ord-row{grid-template-columns:2fr 1fr 1fr}
+  .ord-hd span:nth-child(2),.ord-hd span:nth-child(5),.ord-row>*:nth-child(2),.ord-row>*:nth-child(5){display:none}
+  .pub-lay{grid-template-columns:1fr}
+  .pub-prev{display:none}
+  .prof-lay{grid-template-columns:1fr}
+  .mob-nav{display:flex}
+  .main{padding-bottom:64px}
+  .hmb{display:block}
 }
-
-.mobile-bottom-nav {
-  display:none;
-  position:fixed; bottom:0; left:0; right:0;
-  background:var(--blanc); border-top:1.5px solid var(--bordure);
-  z-index:25; padding:8px 0 12px;
-}
-.mobile-nav-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; padding:4px 0; border:none; background:none; color:var(--gris); font-size:11px; font-family:'Noto Sans',sans-serif; }
-.mobile-nav-item.active { color:var(--terre); }
-.mobile-nav-icon { font-size:22px; }
-.hamburger { display:none; background:none; border:none; font-size:22px; cursor:pointer; }
-@media (max-width:768px) { .hamburger { display:block; } }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════
-     LANDING
-══════════════════════════ -->
-<div class="screen" id="screen-landing">
-  <div class="land-bg"></div>
-  <nav class="land-nav">
-    <div class="land-logo">
-      <div class="land-logo-icon">🌾</div>
-      <div class="land-logo-text">AgriLink SN</div>
-    </div>
-    <div class="land-nav-btns">
-      <button class="btn-outline" onclick="goTo('screen-auth'); switchTab('login')">Se connecter</button>
-      <button class="btn-solid" onclick="goTo('screen-auth'); switchTab('register')">Commencer</button>
+<!-- LANDING -->
+<div class="screen" id="scr-land">
+  <div class="l-bg"></div>
+  <nav class="l-nav">
+    <div class="l-logo"><div class="l-logo-ic">🌾</div><div class="l-logo-tx">AgriLink SN</div></div>
+    <div class="l-btns">
+      <button class="btn-out" onclick="goTo('scr-auth');switchTab('login')">Se connecter</button>
+      <button class="btn-sol" onclick="goTo('scr-auth');switchTab('register')">Commencer</button>
     </div>
   </nav>
-
-  <div class="land-hero">
-    <div class="land-left">
-      <div class="land-eyebrow">🇸🇳 Made in Sénégal</div>
-      <h1 class="land-title">De la terre<br>à <span>ta table</span></h1>
-      <p class="land-desc">Connectez-vous directement avec les producteurs locaux. Produits frais, prix justes, livrés à 6h du matin.</p>
-      <div class="land-ctas">
-        <button class="btn-cta-big" onclick="goTo('screen-auth'); switchTab('register')">Commencer gratuitement →</button>
-        <button class="btn-cta-ghost" onclick="goTo('screen-auth'); switchTab('login')">J'ai déjà un compte</button>
+  <div class="l-hero">
+    <div>
+      <div class="l-eyebrow">🇸🇳 Made in Sénégal</div>
+      <h1 class="l-title">De la terre<br>à <span>ta table</span></h1>
+      <p class="l-desc">Connectez-vous directement avec les producteurs locaux. Produits frais, prix justes, livrés à 6h du matin.</p>
+      <div class="l-ctas">
+        <button class="btn-big" onclick="goTo('scr-auth');switchTab('register')">Commencer gratuitement →</button>
+        <button class="btn-ghost" onclick="goTo('scr-auth');switchTab('login')">J'ai déjà un compte</button>
       </div>
-      <div class="land-stats">
-        <div><div class="l-stat-num" id="land-stat-prod">--</div><div class="l-stat-label">Producteurs actifs</div></div>
-        <div><div class="l-stat-num" id="land-stat-items">--</div><div class="l-stat-label">Produits disponibles</div></div>
-        <div><div class="l-stat-num">4.8★</div><div class="l-stat-label">Satisfaction clients</div></div>
+      <div class="l-stats">
+        <div><div class="ls-num" id="ls-prod">--</div><div class="ls-lbl">Producteurs actifs</div></div>
+        <div><div class="ls-num" id="ls-items">--</div><div class="ls-lbl">Produits disponibles</div></div>
+        <div><div class="ls-num">4.8★</div><div class="ls-lbl">Satisfaction</div></div>
       </div>
     </div>
-    <div class="land-right">
-      <div class="preview-card featured"><span class="preview-emoji">🧅</span><div class="preview-info"><div class="preview-name">Oignons Bok</div><div class="preview-origin">📍 Saint-Louis · ✅ Vérifié</div></div><div class="preview-price">8 500<span>FCFA / sac</span></div></div>
-      <div class="preview-card"><span class="preview-emoji">🥕</span><div class="preview-info"><div class="preview-name">Carottes fraîches</div><div class="preview-origin">📍 Thiès · ✅ Vérifié</div></div><div class="preview-price">3 200<span>FCFA / cagette</span></div></div>
-      <div class="preview-card"><span class="preview-emoji">🍅</span><div class="preview-info"><div class="preview-name">Tomates cerises</div><div class="preview-origin">📍 Dakar · 🔥 Derniers stocks</div></div><div class="preview-price">4 000<span>FCFA / plateau</span></div></div>
-      <div class="preview-card"><span class="preview-emoji">🥬</span><div class="preview-info"><div class="preview-name">Chou vert</div><div class="preview-origin">📍 Louga · ✅ Vérifié</div></div><div class="preview-price">1 800<span>FCFA / pièce</span></div></div>
+    <div class="l-right">
+      <div class="prev-card ft"><span class="prev-em">🧅</span><div class="prev-inf"><div class="prev-nm">Oignons Bok</div><div class="prev-or">📍 Saint-Louis · ✅ Vérifié</div></div><div class="prev-pr">8 500<span>FCFA/sac</span></div></div>
+      <div class="prev-card"><span class="prev-em">🥕</span><div class="prev-inf"><div class="prev-nm">Carottes fraîches</div><div class="prev-or">📍 Thiès · ✅ Vérifié</div></div><div class="prev-pr">3 200<span>FCFA/cagette</span></div></div>
+      <div class="prev-card"><span class="prev-em">🍅</span><div class="prev-inf"><div class="prev-nm">Tomates cerises</div><div class="prev-or">📍 Dakar · 🔥 Derniers stocks</div></div><div class="prev-pr">4 000<span>FCFA/plateau</span></div></div>
+      <div class="prev-card"><span class="prev-em">🥬</span><div class="prev-inf"><div class="prev-nm">Chou vert</div><div class="prev-or">📍 Louga · ✅ Vérifié</div></div><div class="prev-pr">1 800<span>FCFA/pièce</span></div></div>
     </div>
   </div>
-
-  <div class="land-footer">
+  <div class="l-foot">
     <p>© 2026 AgriLink SN · Paiement cash à la livraison · Producteurs vérifiés</p>
     <p>Fait avec ❤️ pour les agriculteurs sénégalais</p>
   </div>
 </div>
 
-<!-- ══════════════════════════
-     AUTH
-══════════════════════════ -->
-<div class="screen" id="screen-auth">
-  <div class="auth-left">
+<!-- AUTH -->
+<div class="screen" id="scr-auth">
+  <div class="a-left">
     <div>
-      <div class="auth-left-logo">
-        <div class="auth-left-logo-icon">🌾</div>
-        <div class="auth-left-logo-text">AgriLink SN</div>
-      </div>
-      <div class="auth-left-title">Rejoignez la<br><span>marketplace</span><br>agricole du Sénégal</div>
-      <div class="auth-left-desc">Plus de 47 producteurs vérifiés vous attendent. Commandez frais, payez à la livraison.</div>
-      <div class="auth-left-features">
-        <div class="auth-feature"><div class="auth-feature-icon">✅</div>Producteurs vérifiés sur le terrain</div>
-        <div class="auth-feature"><div class="auth-feature-icon">💵</div>Paiement cash à la livraison</div>
-        <div class="auth-feature"><div class="auth-feature-icon">🚚</div>Livraison à 6h du matin</div>
-        <div class="auth-feature"><div class="auth-feature-icon">🎤</div>Interface vocale en wolof</div>
+      <div class="a-ll"><div class="a-ll-ic">🌾</div><div class="a-ll-tx">AgriLink SN</div></div>
+      <div class="a-lt">La marketplace<br><span>agricole</span><br>du Sénégal</div>
+      <div class="a-ld">Plus de 47 producteurs vérifiés. Commandez frais, payez à la livraison.</div>
+      <div class="a-feats">
+        <div class="a-feat"><div class="a-feat-ic">✅</div>Producteurs vérifiés sur le terrain</div>
+        <div class="a-feat"><div class="a-feat-ic">💵</div>Paiement cash à la livraison</div>
+        <div class="a-feat"><div class="a-feat-ic">🚚</div>Livraison à 6h du matin</div>
+        <div class="a-feat"><div class="a-feat-ic">🎤</div>Interface vocale en wolof</div>
       </div>
     </div>
-    <button class="auth-left-back" onclick="goTo('screen-landing')">← Retour à l'accueil</button>
+    <button class="a-back" onclick="goTo('scr-land')">← Retour à l'accueil</button>
   </div>
-  <div class="auth-right">
-    <div class="auth-right-title" id="authTitle">Créer un compte</div>
-    <div class="auth-right-sub" id="authSubtitle">Rejoignez AgriLink SN gratuitement</div>
-    <div class="auth-tabs">
-      <button class="auth-tab active" id="tab-register" onclick="switchTab('register')">S'inscrire</button>
-      <button class="auth-tab" id="tab-login" onclick="switchTab('login')">Se connecter</button>
+  <div class="a-right">
+    <div class="a-rtit" id="authTitle">Créer un compte</div>
+    <div class="a-rsub" id="authSub">Rejoignez AgriLink SN gratuitement</div>
+    <div class="a-tabs">
+      <button class="a-tab active" id="tab-r" onclick="switchTab('register')">S'inscrire</button>
+      <button class="a-tab" id="tab-l" onclick="switchTab('login')">Se connecter</button>
     </div>
-
     <!-- Inscription -->
-    <div id="form-register">
-      <div class="f-group">
-        <div class="f-label">Je suis</div>
-        <div class="role-choice">
-          <div class="role-card selected" id="role-acheteur" onclick="selectRole('acheteur')"><span class="role-card-icon">🏪</span><div class="role-card-label">Acheteur</div><div class="role-card-sub">Restaurant, hôtel, cantine</div></div>
-          <div class="role-card" id="role-agriculteur" onclick="selectRole('agriculteur')"><span class="role-card-icon">👨‍🌾</span><div class="role-card-label">Producteur</div><div class="role-card-sub">Agriculteur, maraîcher</div></div>
+    <div id="form-r">
+      <div class="fg"><div class="fl">Je suis</div>
+        <div class="role-ch">
+          <div class="role-c sel" id="rc-a" onclick="selRole('acheteur')"><span class="role-ic">🏪</span><div class="role-lb">Acheteur</div><div class="role-sb">Restaurant, hôtel</div></div>
+          <div class="role-c" id="rc-ag" onclick="selRole('agriculteur')"><span class="role-ic">👨‍🌾</span><div class="role-lb">Producteur</div><div class="role-sb">Agriculteur</div></div>
         </div>
       </div>
-      <div class="f-group"><label class="f-label">Nom complet</label><input class="f-input" type="text" placeholder="Ex: Mamadou Diallo" id="reg-name"></div>
-      <div class="f-group">
-        <label class="f-label">Numéro de téléphone</label>
-        <div class="phone-wrap"><div class="phone-prefix">🇸🇳 +221</div><input class="f-input" type="tel" placeholder="77 000 00 00" id="reg-phone" maxlength="9"></div>
-        <div class="f-hint">Utilisé pour vous identifier sur la plateforme</div>
-      </div>
-      <div class="f-group">
-        <label class="f-label">Région</label>
-        <select class="f-select" id="reg-region">
+      <div class="fg"><label class="fl">Nom complet</label><input class="fi" type="text" placeholder="Ex: Mamadou Diallo" id="rn"></div>
+      <div class="fg"><label class="fl">Numéro de téléphone</label><div class="ph-wrap"><div class="ph-pre">🇸🇳 +221</div><input class="fi" type="tel" placeholder="77 000 00 00" id="rp" maxlength="9"></div><div class="fhint">Utilisé pour vous identifier</div></div>
+      <div class="fg"><label class="fl">Région</label>
+        <select class="fs" id="rr">
           <option value="">Choisir votre région</option>
-          <option>Dakar</option><option>Thiès</option><option>Saint-Louis</option>
-          <option>Kaolack</option><option>Louga</option><option>Ziguinchor</option>
-          <option>Tambacounda</option><option>Diourbel</option><option>Fatick</option>
-          <option>Kolda</option><option>Matam</option><option>Kaffrine</option>
-          <option>Kédougou</option><option>Sédhiou</option>
+          <option>Dakar</option><option>Thiès</option><option>Saint-Louis</option><option>Kaolack</option><option>Louga</option><option>Ziguinchor</option><option>Tambacounda</option><option>Diourbel</option><option>Fatick</option><option>Kolda</option><option>Matam</option><option>Kaffrine</option><option>Kédougou</option><option>Sédhiou</option>
         </select>
       </div>
-      <div class="cgu-row">
-        <div class="cgu-check" id="cgu-check" onclick="toggleCgu()"></div>
-        <div class="cgu-text">J'accepte les <button onclick="showToast('Règles : paiement cash à livraison, annulation 12h avant')">règles d'utilisation</button> d'AgriLink SN</div>
-      </div>
-      <button class="btn-auth" id="btn-register" onclick="doRegister()">Créer mon compte →</button>
-      <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--gris)">Déjà un compte ? <button onclick="switchTab('login')" style="background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer">Se connecter</button></div>
+      <div class="cgu-row"><div class="cgu-ck" id="cgu" onclick="toggleCgu()"></div><div class="cgu-tx">J'accepte les <button onclick="showToast('Règles : paiement cash, annulation 12h avant')">règles d'utilisation</button></div></div>
+      <button class="btn-auth" id="btn-r" onclick="doRegister()">Créer mon compte →</button>
+      <div class="sw-link">Déjà un compte ? <button onclick="switchTab('login')">Se connecter</button></div>
     </div>
-
     <!-- Connexion -->
-    <div id="form-login" style="display:none">
-      <div class="f-group">
-        <label class="f-label">Numéro de téléphone</label>
-        <div class="phone-wrap"><div class="phone-prefix">🇸🇳 +221</div><input class="f-input" type="tel" placeholder="77 000 00 00" id="login-phone" maxlength="9"></div>
-      </div>
-      <div style="height:12px"></div>
+    <div id="form-l" style="display:none">
+      <div class="fg"><label class="fl">Numéro de téléphone</label><div class="ph-wrap"><div class="ph-pre">🇸🇳 +221</div><input class="fi" type="tel" placeholder="77 000 00 00" id="lp" maxlength="9"></div></div>
+      <div style="height:10px"></div>
       <button class="btn-auth" onclick="doLogin()">Se connecter →</button>
-      <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--gris)">Pas de compte ? <button onclick="switchTab('register')" style="background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer">S'inscrire</button></div>
+      <div class="sw-link">Pas de compte ? <button onclick="switchTab('register')">S'inscrire</button></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════
-     OTP
-══════════════════════════ -->
-<div class="screen" id="screen-otp">
-  <div class="otp-left">
-    <div class="otp-left-title">Vérification par SMS</div>
-    <div class="otp-left-desc">Nous envoyons un code de vérification à votre numéro pour confirmer votre identité et sécuriser votre compte AgriLink SN.</div>
+<!-- OTP -->
+<div class="screen" id="scr-otp">
+  <div class="o-left">
+    <div class="o-lt">Vérification SMS</div>
+    <div class="o-ld">Nous envoyons un code de vérification à votre numéro pour sécuriser votre compte AgriLink SN.</div>
   </div>
-  <div class="otp-right">
-    <div class="otp-icon">📱</div>
-    <div class="otp-title">Entrez votre code</div>
-    <div class="otp-sub">Code envoyé au<br><strong id="otp-phone-display">+221 77 000 00 00</strong><br><span style="font-size:12px;color:#bbb">(Pour le test : entrez 1234)</span></div>
-    <div class="otp-inputs">
-      <input class="otp-box" type="tel" maxlength="1" id="otp1" oninput="otpNext(this,'otp2')">
-      <input class="otp-box" type="tel" maxlength="1" id="otp2" oninput="otpNext(this,'otp3')">
-      <input class="otp-box" type="tel" maxlength="1" id="otp3" oninput="otpNext(this,'otp4')">
-      <input class="otp-box" type="tel" maxlength="1" id="otp4" oninput="otpComplete(this)">
+  <div class="o-right">
+    <div class="o-icon">📱</div>
+    <div class="o-tit">Entrez votre code</div>
+    <div class="o-sub">Code envoyé au<br><strong id="otp-ph">+221 77 000 00 00</strong><br><small style="color:#bbb">(Test : entrez 1234)</small></div>
+    <div class="otp-row">
+      <input class="ob" type="tel" maxlength="1" id="o1" oninput="onext(this,'o2')">
+      <input class="ob" type="tel" maxlength="1" id="o2" oninput="onext(this,'o3')">
+      <input class="ob" type="tel" maxlength="1" id="o3" oninput="onext(this,'o4')">
+      <input class="ob" type="tel" maxlength="1" id="o4" oninput="if(this.value.length===1)verifyOtp()">
     </div>
-    <div class="otp-resend">Pas reçu ? <button onclick="showToast('Code renvoyé ✓')">Renvoyer</button></div>
-    <div style="width:100%;max-width:320px">
+    <div class="o-resend">Pas reçu ? <button onclick="showToast('Code renvoyé ✓')">Renvoyer</button></div>
+    <div style="width:100%;max-width:300px">
       <button class="btn-auth" onclick="verifyOtp()">Confirmer →</button>
-      <button class="cta-secondary" style="margin-top:10px" onclick="goTo('screen-auth')">← Modifier le numéro</button>
+      <button class="btn-s" style="margin-top:10px" onclick="goTo('scr-auth')">← Modifier le numéro</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════
-     APP LAYOUT
-══════════════════════════ -->
-<div class="app-layout" id="app-layout">
-
-  <!-- SIDEBAR -->
+<!-- APP -->
+<div class="app-layout" id="app">
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <div class="sidebar-logo-icon">🌾</div>
-      <div class="sidebar-logo-text">AgriLink SN</div>
-    </div>
-    <nav class="sidebar-nav" id="sidebar-nav-acheteur">
-      <div class="sidebar-section-label">Menu principal</div>
-      <button class="sidebar-item active" onclick="showPanel('panel-home')"><span class="s-icon">🏠</span>Accueil</button>
-      <button class="sidebar-item" onclick="showPanel('panel-produits')"><span class="s-icon">🥬</span>Produits</button>
-      <button class="sidebar-item" onclick="showPanel('panel-chat')"><span class="s-icon">💬</span>Messages</button>
-      <button class="sidebar-item" onclick="showPanel('panel-commandes'); loadOrders()"><span class="s-icon">📋</span>Commandes</button>
-      <div class="sidebar-section-label">Compte</div>
-      <button class="sidebar-item" onclick="showPanel('panel-profil')"><span class="s-icon">👤</span>Mon profil</button>
-      <button class="sidebar-item" onclick="deconnexion()"><span class="s-icon">🚪</span>Déconnexion</button>
+    <div class="sb-logo"><div class="sb-logo-ic">🌾</div><div class="sb-logo-tx">AgriLink SN</div></div>
+    <nav class="sb-nav" id="nav-a">
+      <div class="sb-sec">Menu</div>
+      <button class="sb-item active" onclick="showPanel('p-home')"><span class="si">🏠</span>Accueil</button>
+      <button class="sb-item" onclick="showPanel('p-prod')"><span class="si">🥬</span>Produits</button>
+      <button class="sb-item" onclick="showPanel('p-chat')"><span class="si">💬</span>Messages</button>
+      <button class="sb-item" onclick="showPanel('p-orders');loadOrders()"><span class="si">📋</span>Commandes</button>
+      <div class="sb-sec">Compte</div>
+      <button class="sb-item" onclick="showPanel('p-prof')"><span class="si">👤</span>Profil</button>
+      <button class="sb-item" onclick="deco()"><span class="si">🚪</span>Déconnexion</button>
     </nav>
-    <nav class="sidebar-nav" id="sidebar-nav-agriculteur" style="display:none">
-      <div class="sidebar-section-label">Menu principal</div>
-      <button class="sidebar-item active" onclick="showPanel('panel-publish')"><span class="s-icon">➕</span>Publier une récolte</button>
-      <button class="sidebar-item" onclick="showPanel('panel-chat')"><span class="s-icon">💬</span>Messages</button>
-      <button class="sidebar-item" onclick="showPanel('panel-commandes'); loadOrders()"><span class="s-icon">📋</span>Mes ventes</button>
-      <div class="sidebar-section-label">Compte</div>
-      <button class="sidebar-item" onclick="showPanel('panel-profil')"><span class="s-icon">👤</span>Mon profil</button>
-      <button class="sidebar-item" onclick="deconnexion()"><span class="s-icon">🚪</span>Déconnexion</button>
+    <nav class="sb-nav" id="nav-ag" style="display:none">
+      <div class="sb-sec">Menu</div>
+      <button class="sb-item active" onclick="showPanel('p-pub')"><span class="si">➕</span>Publier récolte</button>
+      <button class="sb-item" onclick="showPanel('p-chat')"><span class="si">💬</span>Messages</button>
+      <button class="sb-item" onclick="showPanel('p-orders');loadOrders()"><span class="si">📋</span>Mes ventes</button>
+      <div class="sb-sec">Compte</div>
+      <button class="sb-item" onclick="showPanel('p-prof')"><span class="si">👤</span>Profil</button>
+      <button class="sb-item" onclick="deco()"><span class="si">🚪</span>Déconnexion</button>
     </nav>
-    <div class="sidebar-bottom">
-      <div class="sidebar-user">
-        <div class="sidebar-avatar">👤</div>
-        <div><div class="sidebar-user-name" id="sidebar-name">--</div><div class="sidebar-user-role" id="sidebar-role">--</div></div>
-      </div>
-    </div>
+    <div class="sb-bot"><div class="sb-user"><div class="sb-av">👤</div><div><div class="sb-nm" id="sb-nm">--</div><div class="sb-rl" id="sb-rl">--</div></div></div></div>
   </aside>
 
-  <!-- MAIN -->
-  <main class="main-content">
-    <div class="main-topbar">
+  <main class="main">
+    <div class="m-top">
       <div style="display:flex;align-items:center;gap:12px">
-        <button class="hamburger" onclick="toggleSidebar()">☰</button>
-        <div class="main-topbar-title" id="main-topbar-title">Accueil</div>
+        <button class="hmb" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <div class="m-top-tit" id="m-tit">Accueil</div>
       </div>
-      <div class="main-topbar-right">
-        <button class="topbar-btn" onclick="showToast('Notifications')">🔔<div class="notif-dot"></div></button>
-        <button class="topbar-btn" onclick="showPanel('panel-profil')">👤</button>
+      <div class="m-top-r">
+        <button class="tb-btn" onclick="showToast('Notifications')">🔔<div class="nd"></div></button>
+        <button class="tb-btn" onclick="showPanel('p-prof')">👤</button>
       </div>
     </div>
 
-    <!-- PANEL ACCUEIL -->
-    <div class="panel active" id="panel-home">
-      <div class="dash-stats">
-        <div class="dash-stat"><div class="dash-stat-num" id="ds-prod">--</div><div class="dash-stat-label">Producteurs actifs</div><div class="dash-stat-sub">↑ En ligne</div></div>
-        <div class="dash-stat"><div class="dash-stat-num" id="ds-items">--</div><div class="dash-stat-label">Produits disponibles</div><div class="dash-stat-sub">↑ Aujourd'hui</div></div>
-        <div class="dash-stat"><div class="dash-stat-num">4.8★</div><div class="dash-stat-label">Note moyenne</div><div class="dash-stat-sub">Sur 5 étoiles</div></div>
+    <!-- ACCUEIL -->
+    <div class="panel active" id="p-home">
+      <div class="d-stats">
+        <div class="d-stat"><div class="d-sn" id="ds-p">--</div><div class="d-sl">Producteurs actifs</div><div class="d-ss">↑ En ligne</div></div>
+        <div class="d-stat"><div class="d-sn" id="ds-i">--</div><div class="d-sl">Produits disponibles</div><div class="d-ss">↑ Aujourd'hui</div></div>
+        <div class="d-stat"><div class="d-sn">4.8★</div><div class="d-sl">Note moyenne</div><div class="d-ss">Sur 5 étoiles</div></div>
       </div>
-      <div class="hero-band">
+      <div class="h-band">
         <div><h2>Livraison à 6h du matin 🌅</h2><p>Commandez avant 18h, recevez vos produits frais dès l'aube</p></div>
-        <button class="hero-band-btn" onclick="showPanel('panel-produits')">Voir les produits →</button>
+        <button class="h-btn" onclick="showPanel('p-prod')">Voir les produits →</button>
       </div>
-      <div class="section-label">Produits récents</div>
-      <div class="products-grid" id="home-products"><div class="loading">⏳ Chargement...</div></div>
+      <div class="sec-lbl">Produits récents</div>
+      <div class="p-grid" id="hp"><div class="loading">⏳ Chargement...</div></div>
     </div>
 
-    <!-- PANEL PRODUITS -->
-    <div class="panel" id="panel-produits">
-      <div class="section-label">Tous les produits disponibles</div>
-      <div class="products-grid" id="all-products"><div class="loading">⏳ Chargement...</div></div>
+    <!-- PRODUITS -->
+    <div class="panel" id="p-prod">
+      <div class="sec-lbl">Tous les produits disponibles</div>
+      <div class="p-grid" id="ap"><div class="loading">⏳ Chargement...</div></div>
     </div>
 
-    <!-- PANEL DETAIL -->
-    <div class="panel" id="panel-detail">
-      <button style="background:none;border:none;color:var(--gris);font-size:14px;cursor:pointer;margin-bottom:20px;display:flex;align-items:center;gap:6px" onclick="showPanel('panel-produits')">← Retour aux produits</button>
-      <div class="detail-layout">
-        <div class="detail-left">
-          <span class="detail-emoji-xl" id="d-emoji">🥬</span>
-          <div class="detail-title" id="d-nom">Produit</div>
-          <div class="detail-farmer-row">
-            <div class="farmer-avatar">👨‍🌾</div>
-            <div class="farmer-info"><strong id="d-farmer">Agriculteur</strong><span id="d-farmer-info">Région</span></div>
-          </div>
-          <div class="info-row"><div class="info-label">Prix unitaire</div><div class="info-value price" id="d-prix">--</div></div>
-          <div class="info-row"><div class="info-label">Quantité disponible</div><div class="info-value" id="d-quantite">--</div></div>
-          <div class="info-row"><div class="info-label">Livraison</div><div class="info-value" id="d-livraison">--</div></div>
-          <div class="info-row"><div class="info-label">Paiement</div><div class="info-value">💵 Cash à la livraison</div></div>
-          <div class="info-row"><div class="info-label">Annulation gratuite</div><div class="info-value">Jusqu'à 12h avant</div></div>
-          <div class="map-box" onclick="showToast('📍 Localisation GPS du producteur')"><span style="font-size:32px">📍</span><p style="font-size:13px;color:var(--gris)">Voir la localisation du producteur</p></div>
+    <!-- DETAIL -->
+    <div class="panel" id="p-det">
+      <button style="background:none;border:none;color:var(--gris);font-size:13px;cursor:pointer;margin-bottom:18px;display:flex;align-items:center;gap:5px" onclick="showPanel('p-prod')">← Retour</button>
+      <div class="det-lay">
+        <div class="det-l">
+          <span class="det-em" id="de-em">🥬</span>
+          <div class="det-tit" id="de-nm">Produit</div>
+          <div class="det-farm"><div class="farm-av">👨‍🌾</div><div><div class="farm-nm" id="de-fn">Agriculteur</div><div class="farm-sb" id="de-fi">Région</div></div></div>
+          <div class="inf-row"><div class="inf-l">Prix</div><div class="inf-v pr" id="de-pr">--</div></div>
+          <div class="inf-row"><div class="inf-l">Quantité</div><div class="inf-v" id="de-qt">--</div></div>
+          <div class="inf-row"><div class="inf-l">Livraison</div><div class="inf-v" id="de-lv">--</div></div>
+          <div class="inf-row"><div class="inf-l">Paiement</div><div class="inf-v">💵 Cash à la livraison</div></div>
+          <div class="inf-row"><div class="inf-l">Annulation gratuite</div><div class="inf-v">Jusqu'à 12h avant</div></div>
+          <div class="map-bx" onclick="showToast('📍 Localisation GPS du producteur')"><span style="font-size:30px">📍</span><p style="font-size:13px;color:var(--gris)">Voir la localisation</p></div>
         </div>
-        <div class="detail-right">
-          <div class="rules-box">
-            <div class="rules-title">⚠️ Règles de commande</div>
-            <ul class="rules-list">
-              <li>Annulation gratuite jusqu'à 12h avant la livraison</li>
-              <li>Annulation tardive = frais de transport à votre charge</li>
-              <li>3 annulations = compte suspendu temporairement</li>
-              <li>Inspection obligatoire à la réception avant paiement</li>
-            </ul>
-          </div>
-          <button class="cta-primary" onclick="showPanel('panel-chat')">💬 Négocier & Commander</button>
-          <button class="cta-secondary" onclick="showToast('Producteur sauvegardé ⭐')">☆ Sauvegarder ce producteur</button>
+        <div class="det-r">
+          <div class="rules"><div class="rules-t">⚠️ Règles de commande</div><ul><li>Annulation gratuite jusqu'à 12h avant</li><li>Annulation tardive = frais de transport</li><li>3 annulations = compte suspendu</li><li>Inspection obligatoire avant paiement</li></ul></div>
+          <button class="btn-p" onclick="showPanel('p-chat')">💬 Négocier & Commander</button>
+          <button class="btn-s" onclick="showToast('Producteur sauvegardé ⭐')">☆ Sauvegarder</button>
         </div>
       </div>
     </div>
 
-    <!-- PANEL CHAT -->
-    <div class="panel" id="panel-chat">
-      <div class="chat-layout">
-        <div class="chat-sidebar">
-          <div class="chat-sidebar-header">💬 Messages</div>
-          <div class="chat-conv-item active">
-            <div class="chat-conv-avatar">👨‍🌾</div>
-            <div><div class="chat-conv-name">Mamadou Diallo</div><div class="chat-conv-preview">Reçu ! Je prépare votre commande...</div></div>
-          </div>
+    <!-- CHAT -->
+    <div class="panel" id="p-chat">
+      <div class="chat-lay">
+        <div class="chat-sb">
+          <div class="chat-sbh">💬 Messages</div>
+          <div class="chat-ci active"><div class="chat-cav">👨‍🌾</div><div><div class="chat-cn">Mamadou Diallo</div><div class="chat-cp">Reçu ! Je prépare...</div></div></div>
         </div>
         <div class="chat-main">
-          <div class="chat-header">
-            <div class="chat-header-avatar">👨‍🌾</div>
-            <div><div class="chat-header-name" id="chat-farmer-name">Mamadou Diallo</div><div class="chat-header-status">● En ligne · Saint-Louis</div></div>
+          <div class="chat-hd"><div class="chat-hav">👨‍🌾</div><div><div class="chat-hn" id="ch-fn">Mamadou Diallo</div><div class="chat-hs">● En ligne · Saint-Louis</div></div></div>
+          <div class="chat-msgs" id="chat-msgs">
+            <div><div class="msg mt">Assalamu Alaikum ! Je suis disponible. Qu'est-ce que vous souhaitez ?</div><div class="mtime">08:14</div></div>
+            <div style="align-self:flex-end;text-align:right"><div class="msg mm">Bonjour ! Je voudrais 20 sacs d'oignons pour demain matin.</div><div class="mtime r">08:17</div></div>
+            <div><div class="msg mt">D'accord. 8 500 FCFA/sac = 170 000 FCFA. Livraison à 6h. C'est bon ?</div><div class="mtime">08:19</div></div>
+            <div class="conf-bub"><strong>✅ Bon de commande enregistré</strong>20 sacs d'oignons · 170 000 FCFA · Livraison demain 6h00<br><span style="font-size:12px;color:var(--gris);display:block;margin-top:4px">Annulation gratuite jusqu'à 18h ce soir</span></div>
           </div>
-          <div class="chat-messages" id="chatMessages">
-            <div><div class="msg msg-them">Assalamu Alaikum ! Je suis disponible. Qu'est-ce que vous souhaitez commander ?</div><div class="msg-time">08:14</div></div>
-            <div style="align-self:flex-end;text-align:right"><div class="msg msg-me">Bonjour ! Je voudrais 20 sacs d'oignons pour demain matin.</div><div class="msg-time right">08:17</div></div>
-            <div><div class="msg msg-them">D'accord pour 20 sacs. 8 500 FCFA/sac = 170 000 FCFA. Livraison à 6h00. C'est bon ?</div><div class="msg-time">08:19</div></div>
-            <div class="confirm-bubble"><strong>✅ Bon de commande enregistré</strong>20 sacs d'oignons · 170 000 FCFA · Livraison demain 6h00<br><span style="font-size:12px;color:var(--gris);margin-top:4px;display:block">Annulation gratuite jusqu'à 18h00 ce soir</span></div>
-          </div>
-          <div class="chat-input-row">
-            <button class="voice-btn" onclick="showToast('🎤 Message vocal en wolof')">🎤</button>
-            <textarea class="chat-input" placeholder="Écrivez votre message..." rows="1" id="chatInput"></textarea>
-            <button class="send-btn" onclick="sendMessage()">➤</button>
+          <div class="chat-inp-row">
+            <button class="voice-b" onclick="showToast('🎤 Message vocal en wolof')">🎤</button>
+            <textarea class="chat-inp" placeholder="Écrivez votre message..." rows="1" id="chat-in"></textarea>
+            <button class="send-b" onclick="sendMsg()">➤</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- PANEL COMMANDES -->
-    <div class="panel" id="panel-commandes">
-      <div class="section-label">Mes commandes</div>
-      <div class="orders-table">
-        <div class="orders-table-header">
-          <span>Produit</span><span>Producteur</span><span>Montant</span><span>Statut</span><span>Date</span>
-        </div>
-        <div id="orders-list"><div class="loading">⏳ Chargement...</div></div>
+    <!-- COMMANDES -->
+    <div class="panel" id="p-orders">
+      <div class="sec-lbl">Mes commandes</div>
+      <div class="ord-tbl">
+        <div class="ord-hd"><span>Produit</span><span>Producteur</span><span>Montant</span><span>Statut</span><span>Date</span></div>
+        <div id="ord-list"><div class="loading">⏳ Chargement...</div></div>
       </div>
     </div>
 
-    <!-- PANEL PUBLICATION -->
-    <div class="panel" id="panel-publish">
-      <div class="publish-layout">
-        <div class="publish-form-card">
-          <div class="section-label" style="margin-bottom:20px">Nouvelle récolte</div>
-          <div class="voice-area" onclick="showToast('🎤 Parlez en wolof — annonce publiée automatiquement')">
-            <div style="font-size:32px;margin-bottom:8px">🎤</div>
-            <strong style="color:var(--terre);font-size:14px;display:block;margin-bottom:4px">Annonce vocale en wolof</strong>
-            <p style="font-size:13px;color:var(--gris)">Appuyez et décrivez votre récolte. Pas besoin d'écrire.</p>
+    <!-- PUBLICATION -->
+    <div class="panel" id="p-pub">
+      <div class="pub-lay">
+        <div class="pub-card">
+          <div class="sec-lbl" style="margin-bottom:16px">Nouvelle récolte</div>
+          <div class="voice-ar" onclick="showToast('🎤 Parlez en wolof — annonce publiée automatiquement')">
+            <div style="font-size:30px;margin-bottom:7px">🎤</div>
+            <strong style="color:var(--terre);font-size:14px;display:block;margin-bottom:3px">Annonce vocale en wolof</strong>
+            <p style="font-size:13px;color:var(--gris)">Appuyez et décrivez votre récolte.</p>
           </div>
-          <div style="text-align:center;color:var(--gris);font-size:13px;margin:12px 0">— ou remplissez le formulaire —</div>
-          <div class="form-group">
-            <label class="form-label">Produit</label>
-            <div class="emoji-picker">
-              <div class="emoji-opt selected" onclick="selectEmoji(this,'🧅')">🧅</div>
-              <div class="emoji-opt" onclick="selectEmoji(this,'🥕')">🥕</div>
-              <div class="emoji-opt" onclick="selectEmoji(this,'🍅')">🍅</div>
-              <div class="emoji-opt" onclick="selectEmoji(this,'🥬')">🥬</div>
-              <div class="emoji-opt" onclick="selectEmoji(this,'🌽')">🌽</div>
-              <div class="emoji-opt" onclick="selectEmoji(this,'🥔')">🥔</div>
-              <div class="emoji-opt" onclick="selectEmoji(this,'🧄')">🧄</div>
-              <div class="emoji-opt" onclick="selectEmoji(this,'🫑')">🫑</div>
+          <div style="text-align:center;color:var(--gris);font-size:13px;margin:10px 0">— ou remplissez le formulaire —</div>
+          <div class="fg2"><label class="fl2">Produit</label>
+            <div class="em-pick">
+              <div class="em-opt sel" onclick="selEm(this,'🧅')">🧅</div>
+              <div class="em-opt" onclick="selEm(this,'🥕')">🥕</div>
+              <div class="em-opt" onclick="selEm(this,'🍅')">🍅</div>
+              <div class="em-opt" onclick="selEm(this,'🥬')">🥬</div>
+              <div class="em-opt" onclick="selEm(this,'🌽')">🌽</div>
+              <div class="em-opt" onclick="selEm(this,'🥔')">🥔</div>
+              <div class="em-opt" onclick="selEm(this,'🧄')">🧄</div>
+              <div class="em-opt" onclick="selEm(this,'🫑')">🫑</div>
             </div>
-            <input class="form-input" style="margin-top:10px" type="text" placeholder="Nom du produit" id="pub-nom">
+            <input class="fi2" type="text" placeholder="Nom du produit" id="pb-nm">
           </div>
-          <div class="form-group"><label class="form-label">Quantité</label><input class="form-input" type="text" placeholder="Ex: 120 sacs de 30kg" id="pub-quantite"></div>
-          <div class="form-group"><label class="form-label">Prix (FCFA)</label><input class="form-input" type="number" placeholder="Ex: 8500" id="pub-prix"></div>
-          <div class="form-group"><label class="form-label">Unité</label><input class="form-input" type="text" placeholder="Ex: sac, cagette, plateau" id="pub-unite"></div>
-          <div class="form-group"><label class="form-label">Heure de livraison</label><input class="form-input" type="text" placeholder="Ex: Demain à 6h00" id="pub-livraison"></div>
-          <button class="cta-primary" onclick="publierRecolte()">Publier ma récolte</button>
+          <div class="fg2"><label class="fl2">Quantité</label><input class="fi2" type="text" placeholder="Ex: 120 sacs de 30kg" id="pb-qt"></div>
+          <div class="fg2"><label class="fl2">Prix (FCFA)</label><input class="fi2" type="number" placeholder="Ex: 8500" id="pb-pr"></div>
+          <div class="fg2"><label class="fl2">Unité</label><input class="fi2" type="text" placeholder="Ex: sac, cagette" id="pb-un"></div>
+          <div class="fg2"><label class="fl2">Heure de livraison</label><input class="fi2" type="text" placeholder="Ex: Demain à 6h00" id="pb-lv"></div>
+          <button class="btn-p" onclick="publier()">Publier ma récolte</button>
         </div>
-        <div class="publish-preview-card">
-          <div class="publish-preview-title">Aperçu de votre annonce</div>
-          <div style="font-size:48px;margin-bottom:12px" id="prev-emoji">🧅</div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--blanc);margin-bottom:6px" id="prev-nom">Nom du produit</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px" id="prev-region">Votre région</div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:var(--soleil)" id="prev-prix">-- FCFA</div>
-          <div style="font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px" id="prev-unite">par unité</div>
-          <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.1)">
-            <div style="font-size:13px;color:rgba(255,255,255,0.6)" id="prev-livraison">Heure de livraison : --</div>
-            <div style="font-size:13px;color:rgba(255,255,255,0.6);margin-top:6px" id="prev-quantite">Quantité : --</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PANEL PROFIL -->
-    <div class="panel" id="panel-profil">
-      <div class="profile-layout">
-        <div class="profile-card">
-          <div class="profile-card-header">
-            <div class="profile-avatar-xl">👤</div>
-            <div class="profile-card-name" id="profil-nom">--</div>
-            <div class="profile-card-role" id="profil-role">--</div>
-            <div class="profile-card-score">⭐ ⭐ ⭐ ⭐ ⭐ · 5/5</div>
-          </div>
-          <div class="profile-card-body">
-            <div class="profile-item"><div class="profile-item-icon">📱</div><div><div class="profile-item-label">Téléphone</div><div class="profile-item-sub" id="profil-tel">--</div></div></div>
-            <div class="profile-item"><div class="profile-item-icon">📍</div><div><div class="profile-item-label">Région</div><div class="profile-item-sub" id="profil-region">--</div></div></div>
-            <div class="profile-item"><div class="profile-item-icon">🛡️</div><div><div class="profile-item-label">Réputation</div><div class="profile-item-sub" style="color:var(--vert)">Excellent · 0 pénalité</div></div></div>
-            <div class="profile-item" onclick="deconnexion()" style="cursor:pointer"><div class="profile-item-icon">🚪</div><div><div class="profile-item-label">Déconnexion</div></div></div>
-          </div>
-        </div>
-        <div class="profile-stats-card">
-          <div class="section-label" style="margin-bottom:20px">Mon activité</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div class="dash-stat"><div class="dash-stat-num" id="p-commandes">0</div><div class="dash-stat-label">Commandes</div></div>
-            <div class="dash-stat"><div class="dash-stat-num">0</div><div class="dash-stat-label">Annulations</div></div>
+        <div class="pub-prev">
+          <div class="pub-prev-t">Aperçu de votre annonce</div>
+          <div style="font-size:46px;margin-bottom:10px" id="pv-em">🧅</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--blanc);margin-bottom:4px" id="pv-nm">Nom du produit</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:14px" id="pv-rg">Votre région</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:var(--soleil)" id="pv-pr">-- FCFA</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:3px" id="pv-un">par unité</div>
+          <div style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)">
+            <div style="font-size:13px;color:rgba(255,255,255,.55)" id="pv-lv">Livraison : --</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:5px" id="pv-qt">Quantité : --</div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- PROFIL -->
+    <div class="panel" id="p-prof">
+      <div class="prof-lay">
+        <div class="prof-card">
+          <div class="prof-hd">
+            <div class="prof-av">👤</div>
+            <div class="prof-nm" id="pr-nm">--</div>
+            <div class="prof-rl" id="pr-rl">--</div>
+            <div class="prof-sc">⭐⭐⭐⭐⭐ · 5/5</div>
+          </div>
+          <div class="prof-bd">
+            <div class="prof-it"><div class="prof-ii">📱</div><div><div class="prof-il">Téléphone</div><div class="prof-is" id="pr-tel">--</div></div></div>
+            <div class="prof-it"><div class="prof-ii">📍</div><div><div class="prof-il">Région</div><div class="prof-is" id="pr-rg">--</div></div></div>
+            <div class="prof-it"><div class="prof-ii">🛡️</div><div><div class="prof-il">Réputation</div><div class="prof-is" style="color:var(--vert)">Excellent · 0 pénalité</div></div></div>
+            <div class="prof-it" onclick="deco()"><div class="prof-ii">🚪</div><div><div class="prof-il">Déconnexion</div></div></div>
+          </div>
+        </div>
+        <div class="prof-stats">
+          <div class="sec-lbl" style="margin-bottom:16px">Mon activité</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="d-stat"><div class="d-sn" id="pr-nb">0</div><div class="d-sl">Commandes</div></div>
+            <div class="d-stat"><div class="d-sn">0</div><div class="d-sl">Annulations</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
-  <!-- BOTTOM NAV MOBILE -->
-  <nav class="mobile-bottom-nav" id="mobile-nav-acheteur">
-    <button class="mobile-nav-item active" onclick="showPanel('panel-home')"><span class="mobile-nav-icon">🏠</span>Accueil</button>
-    <button class="mobile-nav-item" onclick="showPanel('panel-produits')"><span class="mobile-nav-icon">🥬</span>Produits</button>
-    <button class="mobile-nav-item" onclick="showPanel('panel-chat')"><span class="mobile-nav-icon">💬</span>Messages</button>
-    <button class="mobile-nav-item" onclick="showPanel('panel-commandes');loadOrders()"><span class="mobile-nav-icon">📋</span>Commandes</button>
-    <button class="mobile-nav-item" onclick="showPanel('panel-profil')"><span class="mobile-nav-icon">👤</span>Profil</button>
+  <!-- MOBILE NAV -->
+  <nav class="mob-nav" id="mob-nav-a">
+    <button class="mob-ni active" onclick="showPanel('p-home')"><span class="mob-ic">🏠</span>Accueil</button>
+    <button class="mob-ni" onclick="showPanel('p-prod')"><span class="mob-ic">🥬</span>Produits</button>
+    <button class="mob-ni" onclick="showPanel('p-chat')"><span class="mob-ic">💬</span>Messages</button>
+    <button class="mob-ni" onclick="showPanel('p-orders');loadOrders()"><span class="mob-ic">📋</span>Commandes</button>
+    <button class="mob-ni" onclick="showPanel('p-prof')"><span class="mob-ic">👤</span>Profil</button>
   </nav>
-  <nav class="mobile-bottom-nav" id="mobile-nav-agriculteur" style="display:none">
-    <button class="mobile-nav-item active" onclick="showPanel('panel-publish')"><span class="mobile-nav-icon">➕</span>Publier</button>
-    <button class="mobile-nav-item" onclick="showPanel('panel-chat')"><span class="mobile-nav-icon">💬</span>Messages</button>
-    <button class="mobile-nav-item" onclick="showPanel('panel-commandes');loadOrders()"><span class="mobile-nav-icon">📋</span>Ventes</button>
-    <button class="mobile-nav-item" onclick="showPanel('panel-profil')"><span class="mobile-nav-icon">👤</span>Profil</button>
+  <nav class="mob-nav" id="mob-nav-ag" style="display:none">
+    <button class="mob-ni active" onclick="showPanel('p-pub')"><span class="mob-ic">➕</span>Publier</button>
+    <button class="mob-ni" onclick="showPanel('p-chat')"><span class="mob-ic">💬</span>Messages</button>
+    <button class="mob-ni" onclick="showPanel('p-orders');loadOrders()"><span class="mob-ic">📋</span>Ventes</button>
+    <button class="mob-ni" onclick="showPanel('p-prof')"><span class="mob-ic">👤</span>Profil</button>
   </nav>
 </div>
 
 <!-- MODAL -->
-<div class="modal-overlay" id="cancelModal" onclick="closeModal(event)">
-  <div class="modal-box">
-    <div class="modal-title">⚠️ Annuler cette commande ?</div>
-    <div class="modal-sub">Cette annulation est <strong>tardive</strong> — moins de 12h avant la livraison.</div>
-    <div class="penalty-box"><div class="penalty-title">Conséquences</div><div class="penalty-text">• Frais de transport à votre charge<br>• <strong>1 point négatif</strong> sur votre réputation<br>• À 3 points : suspension temporaire</div></div>
-    <button class="cta-primary" style="background:var(--argile)" onclick="confirmCancel()">Confirmer l'annulation</button>
-    <button class="cta-secondary" onclick="closeModal()">Garder ma commande</button>
+<div class="modal-ov" id="modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-bx">
+    <div class="modal-t">⚠️ Annuler cette commande ?</div>
+    <div class="modal-s">Cette annulation est <strong>tardive</strong> — moins de 12h avant la livraison.</div>
+    <div class="pen-bx"><div class="pen-t">Conséquences</div><div class="pen-tx">• Frais de transport à votre charge<br>• <strong>1 point négatif</strong> sur votre réputation<br>• À 3 points : suspension temporaire</div></div>
+    <button class="btn-p" style="background:var(--argile)" onclick="document.getElementById('modal').classList.remove('open');showToast('Annulée — 1 pénalité enregistrée')">Confirmer l'annulation</button>
+    <button class="btn-s" onclick="document.getElementById('modal').classList.remove('open')">Garder ma commande</button>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ══════════════════════
-// SUPABASE
-// ══════════════════════
-const SUPABASE_URL = 'https://ohymrkgpxtfirrkqrhlt.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oeW1ya2dweHRmaXJya3FyaGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MDE0MzYsImV4cCI6MjEwMDk3NzQzNn0.Slvpt0A150g6-TKZcLfVijCU-ne6aqp-ISc9cvXAZZ0';
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+const SB_URL='https://ohymrkgpxtfirrkqrhlt.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oeW1ya2dweHRmaXJya3FyaGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MDE0MzYsImV4cCI6MjEwMDk3NzQzNn0.Slvpt0A150g6-TKZcLfVijCU-ne6aqp-ISc9cvXAZZ0';
+const {createClient}=supabase;
+const db=createClient(SB_URL,SB_KEY);
 
-// ══════════════════════
-// ÉTAT
-// ══════════════════════
-let currentUser = null;
-let selectedRole = 'acheteur';
-let selectedEmoji = '🧅';
-let cguChecked = false;
+let CU=null,role='acheteur',emoji='🧅',cgu=false;
 
-// ══════════════════════
-// NAVIGATION SCREENS
-// ══════════════════════
-function goTo(id) {
-  document.querySelectorAll('.screen, .app-layout').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById(id) || document.getElementById('app-layout');
-  if (el) el.classList.add('active');
+function goTo(id){
+  document.querySelectorAll('.screen,.app-layout').forEach(e=>e.classList.remove('active'));
+  const el=document.getElementById(id)||document.getElementById('app');
+  if(el)el.classList.add('active');
   window.scrollTo(0,0);
 }
 
-// ══════════════════════
-// NAVIGATION PANELS
-// ══════════════════════
-const panelTitles = {
-  'panel-home':'Accueil','panel-produits':'Produits','panel-detail':'Détail produit',
-  'panel-chat':'Messages','panel-commandes':'Commandes','panel-publish':'Publier une récolte','panel-profil':'Mon profil'
-};
-function showPanel(id) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+const ptitles={'p-home':'Accueil','p-prod':'Produits','p-det':'Détail produit','p-chat':'Messages','p-orders':'Commandes','p-pub':'Publier une récolte','p-prof':'Mon profil'};
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById(id)?.classList.add('active');
-  document.getElementById('main-topbar-title').textContent = panelTitles[id] || '';
-  // Sidebar active state
-  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-  // Mobile nav active
-  document.querySelectorAll('.mobile-nav-item').forEach(i => i.classList.remove('active'));
-  // Close sidebar on mobile
+  document.getElementById('m-tit').textContent=ptitles[id]||'';
   document.getElementById('sidebar').classList.remove('open');
   window.scrollTo(0,0);
-  if (id === 'panel-produits') loadAllProducts();
-  if (id === 'panel-home') { loadHomeProducts(); loadStats(); }
+  if(id==='p-prod')loadAll();
+  if(id==='p-home'){loadHome();loadStats();}
 }
 
-function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
-
-// ══════════════════════
-// TOAST
-// ══════════════════════
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+function showToast(m){
+  const t=document.getElementById('toast');
+  t.textContent=m;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-// ══════════════════════
-// AUTH TABS
-// ══════════════════════
-function switchTab(tab) {
-  const isReg = tab === 'register';
-  document.getElementById('form-register').style.display = isReg ? 'block' : 'none';
-  document.getElementById('form-login').style.display = isReg ? 'none' : 'block';
-  document.getElementById('tab-register').classList.toggle('active', isReg);
-  document.getElementById('tab-login').classList.toggle('active', !isReg);
-  document.getElementById('authTitle').textContent = isReg ? 'Créer un compte' : 'Connexion';
-  document.getElementById('authSubtitle').textContent = isReg ? 'Rejoignez AgriLink SN gratuitement' : 'Bon retour sur AgriLink SN';
+function switchTab(tab){
+  const r=tab==='register';
+  document.getElementById('form-r').style.display=r?'block':'none';
+  document.getElementById('form-l').style.display=r?'none':'block';
+  document.getElementById('tab-r').classList.toggle('active',r);
+  document.getElementById('tab-l').classList.toggle('active',!r);
+  document.getElementById('authTitle').textContent=r?'Créer un compte':'Connexion';
+  document.getElementById('authSub').textContent=r?'Rejoignez AgriLink SN gratuitement':'Bon retour sur AgriLink SN';
 }
 
-function selectRole(role) {
-  selectedRole = role;
-  document.getElementById('role-acheteur').classList.toggle('selected', role==='acheteur');
-  document.getElementById('role-agriculteur').classList.toggle('selected', role==='agriculteur');
+function selRole(r){
+  role=r;
+  document.getElementById('rc-a').classList.toggle('sel',r==='acheteur');
+  document.getElementById('rc-ag').classList.toggle('sel',r==='agriculteur');
 }
 
-function toggleCgu() {
-  cguChecked = !cguChecked;
-  document.getElementById('cgu-check').classList.toggle('checked', cguChecked);
+function toggleCgu(){
+  cgu=!cgu;
+  document.getElementById('cgu').classList.toggle('ck',cgu);
 }
 
-// ══════════════════════
-// INSCRIPTION
-// ══════════════════════
-async function doRegister() {
-  const nom = document.getElementById('reg-name').value.trim();
-  const tel = document.getElementById('reg-phone').value.trim();
-  const region = document.getElementById('reg-region').value;
-  if (!nom) { showToast('⚠️ Entrez votre nom'); return; }
-  if (tel.length < 9) { showToast('⚠️ Numéro invalide'); return; }
-  if (!region) { showToast('⚠️ Choisissez votre région'); return; }
-  if (!cguChecked) { showToast('⚠️ Acceptez les règles'); return; }
-  const btn = document.getElementById('btn-register');
-  btn.textContent = 'Création...'; btn.disabled = true;
-  const { data: ex } = await db.from('utilisateurs').select('id').eq('telephone', tel).maybeSingle();
-  if (ex) { showToast('⚠️ Numéro déjà inscrit. Connectez-vous.'); btn.textContent = 'Créer mon compte →'; btn.disabled = false; switchTab('login'); return; }
-  const { data, error } = await db.from('utilisateurs').insert([{ nom, telephone: tel, role: selectedRole, region }]).select().single();
-  btn.textContent = 'Créer mon compte →'; btn.disabled = false;
-  if (error) { showToast('❌ Erreur : ' + error.message); return; }
-  currentUser = data;
-  document.getElementById('otp-phone-display').textContent = '+221 ' + tel;
-  goTo('screen-otp');
-  setTimeout(() => document.getElementById('otp1').focus(), 300);
+async function doRegister(){
+  const nom=document.getElementById('rn').value.trim();
+  const tel=document.getElementById('rp').value.trim();
+  const region=document.getElementById('rr').value;
+  if(!nom){showToast('⚠️ Entrez votre nom');return;}
+  if(tel.length<9){showToast('⚠️ Numéro invalide');return;}
+  if(!region){showToast('⚠️ Choisissez votre région');return;}
+  if(!cgu){showToast('⚠️ Acceptez les règles');return;}
+  const btn=document.getElementById('btn-r');
+  btn.textContent='Création...';btn.disabled=true;
+  const{data:ex}=await db.from('utilisateurs').select('id').eq('telephone',tel).maybeSingle();
+  if(ex){showToast('⚠️ Numéro déjà inscrit');btn.textContent='Créer mon compte →';btn.disabled=false;switchTab('login');return;}
+  const{data,error}=await db.from('utilisateurs').insert([{nom,telephone:tel,role,region}]).select().single();
+  btn.textContent='Créer mon compte →';btn.disabled=false;
+  if(error){showToast('❌ '+error.message);return;}
+  CU=data;
+  document.getElementById('otp-ph').textContent='+221 '+tel;
+  goTo('scr-otp');
+  setTimeout(()=>document.getElementById('o1').focus(),300);
 }
 
-// ══════════════════════
-// CONNEXION
-// ══════════════════════
-async function doLogin() {
-  const tel = document.getElementById('login-phone').value.trim();
-  if (tel.length < 9) { showToast('⚠️ Numéro invalide'); return; }
-  const { data, error } = await db.from('ut
+async function doLogin(){
+  const tel=document.getElementById('lp').value.trim();
+  if(tel.length<9){showToast('⚠️ Numéro invalide');return;}
+  const{data,error}=await db.from('utilisateurs').select('*').eq('telephone',tel).maybeSingle();
+  if(error||!data){showToast('❌ Numéro non trouvé. Inscrivez-vous.');return;}
+  CU=data;
+  document.getElementById('otp-ph').textContent='+221 '+tel;
+  goTo('scr-otp');
+  setTimeout(()=>document.getElementById('o1').focus(),300);
+}
+
+function onext(el,nid){if(el.value.length===1)document.getElementById(nid).focus();}
+
+function verifyOtp(){
+  const code=['o1','o2','o3','o4'].map(id=>document.getElementById(id).value).join('');
+  if(code.length<4){showToast('⚠️ Entrez les 4 chiffres');return;}
+  if(code!=='1234'){showToast('❌ Code incorrect — essayez 1234');return;}
+  afterLogin();
+}
+
+function afterLogin(){
+  if(!CU)return;
+  document.getElementById('pr-nm').textContent=CU.nom;
+  document.getElementById('pr-rl').textContent=CU.role==='acheteur'?'🏪 Acheteur':'👨‍🌾 Producteur';
+  document.getElementById('pr-tel').textContent='+221 '+CU.telephone;
+  document.getElementById('pr-rg').textContent=CU.region;
+  document.getElementById('sb-nm').textContent=CU.nom;
+  document.getElementById('sb-rl').textContent=CU.role==='acheteur'?'Acheteur':'Producteur';
+  document.getElementById('pv-rg').textContent='📍 '+CU.region;
+  document.getElementById('nav-a').style.display=CU.role==='acheteur'?'flex':'none';
+  document.getElementById('nav-ag').style.display=CU.role==='agriculteur'?'flex':'none';
+  document.getElementById('mob-nav-a').style.display=CU.role==='acheteur'?'flex':'none';
+  document.getElementById('mob-nav-ag').style.display=CU.role==='agriculteur'?'flex':'none';
+  document.querySelectorAll('.screen,.app-layout').forEach(e=>e.classList.remove('active'));
+  document.getElementById('app').classList.add('active');
+  if(CU.role==='agriculteur')showPanel('p-pub');
+  else{showPanel('p-home');loadHome();loadStats();}
+}
+
+function renderProds(data,el){
+  if(!data||!data.length){el.innerHTML='<div class="empty"><div class="empty-ic">🌱</div><p>Aucun produit disponible.<br>Les producteurs publient bientôt.</p></div>';return;}
+  el.innerHTML=data.map(p=>`
+    <div class="p-card" onclick='openDet(${JSON.stringify(p)})'>
+      <span class="p-em">${p.emoji}</span>
+      <div class="p-nm">${p.nom}</div>
+      <div class="p-fm">👨‍🌾 ${p.utilisateurs?.nom||'Producteur'} · 📍 ${p.utilisateurs?.region||p.region}</div>
+      <div class="p-pr">${p.prix.toLocaleString()} <span>FCFA / ${p.unite}</span></div>
+      <div class="p-tags">
+        <span class="tag tg">✅ Vérifié</span>
+        <span class="tag ty">📦 ${p.quantite}</span>
+        <span class="tag tb">🚚 ${p.heure_livraison}</span>
+      </div>
+    </div>`).join('');
+}
+
+async function loadHome(){
+  const el=document.getElementById('hp');
+  el.innerHTML='<div class="loading">⏳ Chargement...</div>';
+  const{data}=await db.from('produits').select('*,utilisateurs(nom,region,score_reputation)').eq('disponible',true).order('created_at',{ascending:false}).limit(6);
+  renderProds(data,el);
+}
+
+async function loadAll(){
+  const el=document.getElementById('ap');
+  el.innerHTML='<div class="loading">⏳ Chargement...</div>';
+  const{data}=await db.from('produits').select('*,utilisateurs(nom,region,score_reputation)').eq('disponible',true).order('created_at',{ascending:false});
+  renderProds(data,el);
+}
+
+function openDet(p){
+  document.getElementById('de-em').textContent=p.emoji;
+  document.getElementById('de-nm').textContent=p.nom;
+  document.getElementById('de-fn').textContent=p.utilisateurs?.nom||'Producteur';
+  document.getElementById('de-fi').textContent=(p.utilisateurs?.region||p.region)+' · ⭐'+(p.utilisateurs?.score_reputation||5)+'/5';
+  document.getElementById('de-pr').textContent=p.prix.toLocaleString()+' FCFA / '+p.unite;
+  document.getElementById('de-qt').textContent=p.quantite;
+  document.getElementById('de-lv').textContent=p.heure_livraison;
+  showPanel('p-det');
+}
+
+async function loadStats(){
+  const{count:np}=await db.from('utilisateurs').select('*',{count:'exact',head:true}).eq('role','agriculteur');
+  const{count:ni}=await db.from('produits').select('*',{count:'exact',head:true}).eq('disponible',true);
+  ['ds-p','ls-prod'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=np||0;});
+  ['ds-i','ls-items'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=ni||0;});
+}
+
+async function publier(){
+  if(!CU){showToast('⚠️ Connectez-vous');return;}
+  const nom=document.getElementById('pb-nm').value.trim();
+  const qt=document.getElementById('pb-qt').value.trim();
+  const pr=parseInt(document.getElementById('pb-pr').value);
+  const un=document.getElementById('pb-un').value.trim();
+  const lv=document.getElementById('pb-lv').value.trim();
+  if(!nom||!qt||!pr||!un||!lv){showToast('⚠️ Remplissez tous les champs');return;}
+  const{error}=await db.from('produits').insert([{agriculteur_id:CU.id,nom,emoji,quantite:qt,prix:pr,unite:un,region:CU.region,heure_livraison:lv}]);
+  if(error){showToast('❌ '+error.message);return;}
+  showToast('✅ Récolte publiée !');
+  ['pb-nm','pb-qt','pb-pr','pb-un','pb-lv'].forEach(id=>document.getElementById(id).value='');
+}
+
+['pb-nm','pb-pr','pb-un','pb-qt','pb-lv'].forEach(id=>{
+  document.getElementById(id)?.addEventListener('input',()=>{
+    const n=document.getElementById('pb-nm').value||'Nom du produit';
+    const p=document.getElementById('pb-pr').value;
+    const u=document.getElementById('pb-un').value||'unité';
+    document.getElementById('pv-nm').textContent=n;
+    document.getElementById('pv-pr').textContent=p?parseInt(p).toLocaleString()+' FCFA':'-- FCFA';
+    document.getElementById('pv-un').textContent='par '+u;
+    document.getElementById('pv-qt').textContent='Quantité : '+(document.getElementById('pb-qt').value||'--');
+    document.getElementById('pv-lv').textContent='Livraison : '+(document.getElementById('pb-lv').value||'--');
+  });
+});
+
+async function loadOrders(){
+  if(!CU)return;
+  const el=document.getElementById('ord-list');
+  el.innerHTML='<div class="loading">⏳ Chargement...</div>';
+  const{data}=await db.from('commandes').select('*,produits(nom,emoji,utilisateurs(nom))').eq('acheteur_id',CU.id).order('created_at',{ascending:false});
+  if(!data||!data.length){el.innerHTML='<div class="empty"><div class="empty-ic">📋</div><p>Aucune commande pour l\'instant.</p></div>';return;}
+  const lb={en_attente:'En attente',confirme:'Confirmé',livre:'Livré ✓',annule:'Annulé'};
+  const cl={en_attente:'sp-p',confirme:'sp-c',livre:'sp-d',annule:'sp-p'};
+  el.innerHTML=data.map(c=>`
+    <div class="ord-row">
+      <div class="ord-pc"><span class="ord-em">${c.produits?.emoji||'📦'}</span><div><div class="ord-nm">${c.produits?.nom||'Produit'}</div><div class="ord-qt">Qté : ${c.quantite_commandee}</div></div></div>
+      <span>${c.produits?.utilisateurs?.nom||'--'}</span>
+      <span class="ord-am">${c.montant_total.toLocaleString()} FCFA</span>
+      <span><span class="sp ${cl[c.statut]}">${lb[c.statut]}</span></span>
+      <span style="font-size:12px;color:var(--gris)">${new Date(c.created_at).toLocaleDateString('fr-FR')}</span>
+    </div>`).join('');
+}
+
+function sendMsg(){
+  const inp=document.getElementById('chat-in');
+  const txt=inp.value.trim();
+  if(!txt)return;
+  const msgs=document.getElementById('chat-msgs');
+  const d=document.createElement('div');
+  d.style.cssText='align-self:flex-end;text-align:right';
+  d.innerHTML=`<div class="msg mm">${txt}</div><div class="mtime r">maintenant</div>`;
+  msgs.appendChild(d);inp.value='';msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    const r=document.createElement('div');
+    r.innerHTML=`<div class="msg mt">Reçu ! Je prépare votre commande. Inshallah à l'heure. 🙏</div><div class="mtime">maintenant</div>`;
+    msgs.appendChild(r);msgs.scrollTop=msgs.scrollHeight;
+  },1200);
+}
+
+function selEm(el,em){
+  document.querySelectorAll('.em-opt').forEach(e=>e.classList.remove('sel'));
+  el.classList.add('sel');emoji=em;
+  document.getElementById('pv-em').textContent=em;
+}
+
+function deco(){CU=null;showToast('Déconnecté');setTimeout(()=>goTo('scr-land'),800);}
+
+loadStats();
+goTo('scr-land');
+</script>
+</body>
+</html>
