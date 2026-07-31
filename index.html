@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -11,1255 +12,84 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit);min-height:100vh}
 
-/* SCREENS */
-.screen{display:none;min-height:100vh}
-.screen.active{display:block}
+/* SCREENS */.screen{display;min-height:100vh}.screen.active{display}
 
-/* ── LANDING ── */
-#scr-land{background:var(--terre2);display:none;flex-direction:column;min-height:100vh}
-#scr-land.active{display:flex}
-.l-bg{position:absolute;inset:0;background:radial-gradient(circle at 15% 50%,rgba(232,160,32,.07),transparent 50%),radial-gradient(circle at 85% 20%,rgba(90,138,60,.1),transparent 50%);pointer-events:none}
-.l-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;position:relative;z-index:2}
-.l-logo{display:flex;align-items:center;gap:10px}
-.l-logo-ic{width:38px;height:38px;background:var(--soleil);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
-.l-logo-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--blanc)}
-.l-btns{display:flex;gap:10px}
-.btn-out{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 18px;color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor:pointer}
-.btn-sol{background:var(--soleil);border:none;border-radius:10px;padding:9px 18px;color:var(--nuit);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;cursor:pointer}
-.l-hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:60px 40px 40px;flex:1;align-items:center;position:relative;z-index:2}
-.l-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:500;color:var(--soleil);margin-bottom:18px}
-.l-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,5vw,60px);font-weight:800;color:var(--blanc);line-height:1.1;letter-spacing:-2px;margin-bottom:18px}
-.l-title span{color:var(--soleil)}
-.l-desc{font-size:16px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:30px;max-width:460px}
-.l-ctas{display:flex;gap:12px;flex-wrap:wrap}
-.btn-big{background:var(--soleil);border:none;border-radius:14px;padding:15px 26px;color:var(--nuit);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 8px 24px rgba(232,160,32,.3)}
-.btn-ghost{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:14px;padding:15px 26px;color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;cursor:pointer}
-.l-stats{display:flex;gap:32px;margin-top:36px}
-.ls-num{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:var(--soleil)}
-.ls-lbl{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
-.l-right{display:flex;flex-direction:column;gap:12px}
-.prev-card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s}
-.prev-card:hover{transform:translateX(-4px);border-color:rgba(232,160,32,.4)}
-.prev-card.ft{background:rgba(232,160,32,.1);border-color:rgba(232,160,32,.3)}
-.prev-em{font-size:34px;flex-shrink:0}
-.prev-inf{flex:1}
-.prev-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--blanc)}
-.prev-or{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
-.prev-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--soleil);text-align:right}
-.prev-pr span{font-size:11px;font-weight:400;color:rgba(255,255,255,.4);display:block}
-.l-foot{padding:20px 40px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
-.l-foot p{font-size:12px;color:rgba(255,255,255,.3)}
+/* ── LANDING ── */#scr-land{background(--terre2);display;flex-direction;min-height:100vh}#scr-land.active{display}.l-bg{position;inset:0;background(circle at 15% 50%,rgba(232,160,32,.07),transparent 50%),radial-gradient(circle at 85% 20%,rgba(90,138,60,.1),transparent 50%);pointer-events}.l-nav{display;align-items;justify-content;padding:20px 40px;position;z-index:2}.l-logo{display;align-items;gap:10px}.l-logo-ic{width:38px;height:38px;background(--soleil);border-radius:10px;display;align-items;justify-content;font-size:20px}.l-logo-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color(--blanc)}.l-btns{display;gap:10px}.btn-out{background(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 18px;color(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor}.btn-sol{background(--soleil);border;border-radius:10px;padding:9px 18px;color(--nuit);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;cursor}.l-hero{display;grid-template-columns:1fr 1fr;gap:60px;padding:60px 40px 40px;flex:1;align-items;position;z-index:2}.l-eyebrow{display;align-items;gap:6px;background(232,160,32,.15);border:1px solid rgba(232,160,32,.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:500;color(--soleil);margin-bottom:18px}.l-title{font-family:'Space Grotesk',sans-serif;font-size(34px,5vw,60px);font-weight:800;color(--blanc);line-height:1.1;letter-spacing:-2px;margin-bottom:18px}.l-title span{color(--soleil)}.l-desc{font-size:16px;color(255,255,255,.6);line-height:1.7;margin-bottom:30px;max-width:460px}.l-ctas{display;gap:12px;flex-wrap}.btn-big{background(--soleil);border;border-radius:14px;padding:15px 26px;color(--nuit);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;cursor;box-shadow:0 8px 24px rgba(232,160,32,.3)}.btn-ghost{background(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:14px;padding:15px 26px;color(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;cursor}.l-stats{display;gap:32px;margin-top:36px}.ls-num{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color(--soleil)}.ls-lbl{font-size:12px;color(255,255,255,.45);margin-top:2px}.l-right{display;flex-direction;gap:12px}.prev-card{background(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:16px 18px;display;align-items;gap:12px;cursor;transition .2s}.prev-card{transform(-4px);border-color(232,160,32,.4)}.prev-card.ft{background(232,160,32,.1);border-color(232,160,32,.3)}.prev-em{font-size:34px;flex-shrink:0}.prev-inf{flex:1}.prev-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color(--blanc)}.prev-or{font-size:12px;color(255,255,255,.45);margin-top:2px}.prev-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color(--soleil);text-align}.prev-pr span{font-size:11px;font-weight:400;color(255,255,255,.4);display}.l-foot{padding:20px 40px;border-top:1px solid rgba(255,255,255,.06);display;align-items;justify-content;position;z-index:2}.l-foot p{font-size:12px;color(255,255,255,.3)}
 
-/* ── AUTH ── */
-#scr-auth{display:none}
-#scr-auth.active{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
-.a-left{background:var(--terre);padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.a-left::after{content:'🌾';position:absolute;right:-20px;bottom:-30px;font-size:150px;opacity:.05;pointer-events:none}
-.a-ll{display:flex;align-items:center;gap:10px;margin-bottom:44px}
-.a-ll-ic{width:34px;height:34px;background:var(--soleil);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
-.a-ll-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--blanc)}
-.a-lt{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--blanc);line-height:1.2;letter-spacing:-1px;margin-bottom:12px}
-.a-lt span{color:var(--soleil)}
-.a-ld{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7}
-.a-feats{margin-top:28px;display:flex;flex-direction:column;gap:10px}
-.a-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.7)}
-.a-feat-ic{width:30px;height:30px;background:rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.a-back{background:none;border:none;color:rgba(255,255,255,.45);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
-.a-right{background:var(--blanc);padding:48px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
-.a-rtit{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:var(--nuit);margin-bottom:5px;letter-spacing:-.5px}
-.a-rsub{font-size:14px;color:var(--gris);margin-bottom:24px}
-.a-tabs{display:flex;background:var(--ciel);border-radius:12px;padding:4px;gap:4px;margin-bottom:22px}
-.a-tab{flex:1;padding:9px;border:none;border-radius:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor:pointer;background:none;color:var(--gris);transition:all .2s}
-.a-tab.active{background:var(--blanc);color:var(--terre);box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.role-ch{display:flex;gap:10px;margin-bottom:18px}
-.role-c{flex:1;padding:14px 10px;border:2px solid var(--bord);border-radius:14px;background:var(--blanc);cursor:pointer;text-align:center;transition:all .15s}
-.role-c.sel{border-color:var(--terre);background:var(--ciel)}
-.role-ic{font-size:24px;display:block;margin-bottom:5px}
-.role-lb{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--nuit)}
-.role-sb{font-size:11px;color:var(--gris);margin-top:2px}
-.fg{margin-bottom:15px}
-.fl{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
-.fi{width:100%;border:1.5px solid var(--bord);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'Noto Sans',sans-serif;outline:none;background:var(--blanc);color:var(--nuit);transition:border-color .15s}
-.fi:focus{border-color:var(--terre)}
-.fs{width:100%;border:1.5px solid var(--bord);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'Noto Sans',sans-serif;outline:none;background:var(--blanc);color:var(--nuit);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9180' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
-.ph-wrap{display:flex;gap:8px}
-.ph-pre{background:var(--ciel);border:1.5px solid var(--bord);border-radius:12px;padding:12px 13px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit);white-space:nowrap;display:flex;align-items:center;gap:6px}
-.ph-wrap .fi{flex:1}
-.fhint{font-size:11px;color:var(--gris);margin-top:4px}
-.cgu-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px}
-.cgu-ck{width:20px;height:20px;border:2px solid var(--bord);border-radius:6px;cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.cgu-ck.ck{background:var(--terre);border-color:var(--terre)}
-.cgu-tx{font-size:13px;color:var(--gris);line-height:1.5}
-.cgu-tx button{background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer;text-decoration:underline}
-.btn-auth{width:100%;background:var(--terre);color:var(--blanc);border:none;border-radius:13px;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(45,74,30,.2);transition:all .15s}
-.btn-auth:hover{background:var(--terre2)}
-.btn-auth:disabled{background:var(--bord);color:var(--gris);box-shadow:none;cursor:not-allowed}
-.sw-link{text-align:center;margin-top:14px;font-size:13px;color:var(--gris)}
-.sw-link button{background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer}
+/* ── AUTH ── */#scr-auth{display}#scr-auth.active{display;grid-template-columns:1fr 1fr;min-height:100vh}.a-left{background(--terre);padding:48px;display;flex-direction;justify-content;position;overflow}.a-left::after{content:'🌾';position;right:-20px;bottom:-30px;font-size:150px;opacity:.05;pointer-events}.a-ll{display;align-items;gap:10px;margin-bottom:44px}.a-ll-ic{width:34px;height:34px;background(--soleil);border-radius:9px;display;align-items;justify-content;font-size:17px}.a-ll-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color(--blanc)}.a-lt{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color(--blanc);line-height:1.2;letter-spacing:-1px;margin-bottom:12px}.a-lt span{color(--soleil)}.a-ld{font-size:14px;color(255,255,255,.6);line-height:1.7}.a-feats{margin-top:28px;display;flex-direction;gap:10px}.a-feat{display;align-items;gap:10px;font-size:13px;color(255,255,255,.7)}.a-feat-ic{width:30px;height:30px;background(255,255,255,.1);border-radius:8px;display;align-items;justify-content;font-size:14px;flex-shrink:0}.a-back{background;border;color(255,255,255,.45);font-size:13px;cursor;display;align-items;gap:6px}.a-right{background(--blanc);padding:48px;display;flex-direction;justify-content;overflow-y}.a-rtit{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color(--nuit);margin-bottom:5px;letter-spacing:-.5px}.a-rsub{font-size:14px;color(--gris);margin-bottom:24px}.a-tabs{display;background(--ciel);border-radius:12px;padding:4px;gap:4px;margin-bottom:22px}.a-tab{flex:1;padding:9px;border;border-radius:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor;background;color(--gris);transition .2s}.a-tab.active{background(--blanc);color(--terre);box-shadow:0 1px 4px rgba(0,0,0,.08)}.role-ch{display;gap:10px;margin-bottom:18px}.role-c{flex:1;padding:14px 10px;border:2px solid var(--bord);border-radius:14px;background(--blanc);cursor;text-align;transition .15s}.role-c.sel{border-color(--terre);background(--ciel)}.role-ic{font-size:24px;display;margin-bottom:5px}.role-lb{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color(--nuit)}.role-sb{font-size:11px;color(--gris);margin-top:2px}.fg{margin-bottom:15px}.fl{display;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color(--gris);text-transform;letter-spacing:.07em;margin-bottom:6px}.fi{width:100%;border:1.5px solid var(--bord);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'Noto Sans',sans-serif;outline;background(--blanc);color(--nuit);transition .15s}.fi{border-color(--terre)}.fs{width:100%;border:1.5px solid var(--bord);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'Noto Sans',sans-serif;outline;background(--blanc);color(--nuit);cursor;appearance;background-image("data/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9180' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat;background-position 14px center}.ph-wrap{display;gap:8px}.ph-pre{background(--ciel);border:1.5px solid var(--bord);border-radius:12px;padding:12px 13px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color(--nuit);white-space;display;align-items;gap:6px}.ph-wrap .fi{flex:1}.fhint{font-size:11px;color(--gris);margin-top:4px}.cgu-row{display;align-items;gap:10px;margin-bottom:18px}.cgu-ck{width:20px;height:20px;border:2px solid var(--bord);border-radius:6px;cursor;flex-shrink:0;margin-top:1px;display;align-items;justify-content;transition .15s}.cgu-ck.ck{background(--terre);border-color(--terre)}.cgu-tx{font-size:13px;color(--gris);line-height:1.5}.cgu-tx button{background;border;color(--terre);font-weight:600;font-size:13px;cursor;text-decoration}.btn-auth{width:100%;background(--terre);color(--blanc);border;border-radius:13px;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor;box-shadow:0 4px 14px rgba(45,74,30,.2);transition .15s}.btn-auth{background(--terre2)}.btn-auth{background(--bord);color(--gris);box-shadow;cursor}.sw-link{text-align;margin-top:14px;font-size:13px;color(--gris)}.sw-link button{background;border;color(--terre);font-weight:600;font-size:13px;cursor}
 
-/* ── OTP ── */
-#scr-otp{display:none}
-#scr-otp.active{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
-.o-left{background:var(--terre);padding:48px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-.o-left::after{content:'📱';position:absolute;right:-20px;bottom:-20px;font-size:150px;opacity:.05;pointer-events:none}
-.o-lt{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:var(--blanc);letter-spacing:-1px;margin-bottom:12px}
-.o-ld{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7}
-.o-right{background:var(--blanc);padding:48px;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.o-icon{font-size:52px;margin-bottom:16px}
-.o-tit{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--nuit);margin-bottom:8px}
-.o-sub{font-size:14px;color:var(--gris);text-align:center;line-height:1.6;margin-bottom:24px}
-.otp-row{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
-.ob{width:54px;height:62px;border:2px solid var(--bord);border-radius:13px;font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;text-align:center;outline:none;background:var(--blanc);color:var(--nuit);transition:border-color .15s}
-.ob:focus{border-color:var(--terre)}
-.o-resend{font-size:13px;color:var(--gris);margin-bottom:18px;text-align:center}
-.o-resend button{background:none;border:none;color:var(--terre);font-weight:600;cursor:pointer}
+/* ── OTP ── */#scr-otp{display}#scr-otp.active{display;grid-template-columns:1fr 1fr;min-height:100vh}.o-left{background(--terre);padding:48px;display;flex-direction;justify-content;position;overflow}.o-left::after{content:'📱';position;right:-20px;bottom:-20px;font-size:150px;opacity:.05;pointer-events}.o-lt{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color(--blanc);letter-spacing:-1px;margin-bottom:12px}.o-ld{font-size:14px;color(255,255,255,.6);line-height:1.7}.o-right{background(--blanc);padding:48px;display;flex-direction;justify-content;align-items}.o-icon{font-size:52px;margin-bottom:16px}.o-tit{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color(--nuit);margin-bottom:8px}.o-sub{font-size:14px;color(--gris);text-align;line-height:1.6;margin-bottom:24px}.otp-row{display;gap:10px;justify-content;margin-bottom:20px}.ob{width:54px;height:62px;border:2px solid var(--bord);border-radius:13px;font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;text-align;outline;background(--blanc);color(--nuit);transition .15s}.ob{border-color(--terre)}.o-resend{font-size:13px;color(--gris);margin-bottom:18px;text-align}.o-resend button{background;border;color(--terre);font-weight:600;cursor}
 
-/* ── APP LAYOUT ── */
-.app-layout{display:none;min-height:100vh}
-.app-layout.active{display:flex}
-.sidebar{width:var(--sw);background:var(--terre2);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:30;transition:transform .3s}
-.sb-logo{padding:22px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
-.sb-logo-ic{width:34px;height:34px;background:var(--soleil);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
-.sb-logo-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--blanc)}
-.sb-nav{flex:1;padding:14px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto}
-.sb-sec{padding:14px 12px 5px;font-size:10px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em}
-.sb-item{display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:11px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,.55);font-size:13px;font-family:'Noto Sans',sans-serif;width:100%;text-align:left;transition:all .15s}
-.sb-item:hover{background:rgba(255,255,255,.06);color:var(--blanc)}
-.sb-item.active{background:rgba(232,160,32,.15);color:var(--soleil)}
-.si{font-size:18px;flex-shrink:0}
-.sb-bot{padding:14px 10px;border-top:1px solid rgba(255,255,255,.06)}
-.sb-user{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:11px}
-.sb-av{width:34px;height:34px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.sb-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--blanc)}
-.sb-rl{font-size:11px;color:rgba(255,255,255,.4)}
-.main{margin-left:var(--sw);flex:1;display:flex;flex-direction:column;min-height:100vh;background:var(--ciel)}
-.m-top{background:var(--blanc);border-bottom:1.5px solid var(--bord);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20}
-.m-top-tit{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--nuit)}
-.m-top-r{display:flex;align-items:center;gap:10px}
-.tb-btn{width:36px;height:36px;border-radius:9px;background:var(--ciel);border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;position:relative}
-.nd{position:absolute;top:6px;right:6px;width:7px;height:7px;background:var(--argile);border-radius:50%;border:1.5px solid var(--blanc)}
-.hmb{display:none;background:none;border:none;font-size:22px;cursor:pointer}
+/* ── APP LAYOUT ── */.app-layout{display;min-height:100vh}.app-layout.active{display}.sidebar{width(--sw);background(--terre2);display;flex-direction;position;top:0;left:0;bottom:0;z-index:30;transition .3s}.sb-logo{padding:22px 18px;display;align-items;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}.sb-logo-ic{width:34px;height:34px;background(--soleil);border-radius:9px;display;align-items;justify-content;font-size:17px}.sb-logo-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color(--blanc)}.sb-nav{flex:1;padding:14px 10px;display;flex-direction;gap:3px;overflow-y}.sb-sec{padding:14px 12px 5px;font-size:10px;font-weight:600;color(255,255,255,.3);text-transform;letter-spacing:.1em}.sb-item{display;align-items;gap:11px;padding:10px 13px;border-radius:11px;cursor;border;background;color(255,255,255,.55);font-size:13px;font-family:'Noto Sans',sans-serif;width:100%;text-align;transition .15s}.sb-item{background(255,255,255,.06);color(--blanc)}.sb-item.active{background(232,160,32,.15);color(--soleil)}.si{font-size:18px;flex-shrink:0}.sb-bot{padding:14px 10px;border-top:1px solid rgba(255,255,255,.06)}.sb-user{display;align-items;gap:10px;padding:10px 12px;border-radius:11px}.sb-av{width:34px;height:34px;background(--soleil);border-radius:50%;display;align-items;justify-content;font-size:17px;flex-shrink:0}.sb-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color(--blanc)}.sb-rl{font-size:11px;color(255,255,255,.4)}.main{margin-left(--sw);flex:1;display;flex-direction;min-height:100vh;background(--ciel)}.m-top{background(--blanc);border-bottom:1.5px solid var(--bord);padding:14px 28px;display;align-items;justify-content;position;top:0;z-index:20}.m-top-tit{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color(--nuit)}.m-top-r{display;align-items;gap:10px}.tb-btn{width:36px;height:36px;border-radius:9px;background(--ciel);border;cursor;font-size:17px;display;align-items;justify-content;position}.nd{position;top:6px;right:6px;width:7px;height:7px;background(--argile);border-radius:50%;border:1.5px solid var(--blanc)}.hmb{display;background;border;font-size:22px;cursor}
 
-/* ── PANELS ── */
-.panel{display:none;padding:28px}
-.panel.active{display:block}
-.sec-lbl{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+/* ── PANELS ── */.panel{display;padding:28px}.panel.active{display}.sec-lbl{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color(--gris);text-transform;letter-spacing:.08em;margin-bottom:14px}
 
-/* Stats */
-.d-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
-.d-stat{background:var(--blanc);border-radius:15px;padding:18px 22px;border:1.5px solid var(--bord)}
-.d-sn{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:var(--terre)}
-.d-sl{font-size:13px;color:var(--gris);margin-top:3px}
-.d-ss{font-size:12px;color:var(--vert);margin-top:5px;font-weight:500}
+/* Stats */.d-stats{display;grid-template-columns(3,1fr);gap:14px;margin-bottom:24px}.d-stat{background(--blanc);border-radius:15px;padding:18px 22px;border:1.5px solid var(--bord)}.d-sn{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color(--terre)}.d-sl{font-size:13px;color(--gris);margin-top:3px}.d-ss{font-size:12px;color(--vert);margin-top:5px;font-weight:500}
 
-/* Hero band */
-.h-band{background:var(--terre);border-radius:16px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.h-band h2{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--blanc)}
-.h-band p{font-size:13px;color:rgba(255,255,255,.6);margin-top:3px}
-.h-btn{background:var(--soleil);border:none;border-radius:11px;padding:11px 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--nuit);cursor:pointer;white-space:nowrap}
+/* Hero band */.h-band{background(--terre);border-radius:16px;padding:22px 26px;display;align-items;justify-content;margin-bottom:24px}.h-band h2{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color(--blanc)}.h-band p{font-size:13px;color(255,255,255,.6);margin-top:3px}.h-btn{background(--soleil);border;border-radius:11px;padding:11px 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color(--nuit);cursor;white-space}
 
-/* Products grid */
-.p-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.p-card{background:var(--blanc);border:1.5px solid var(--bord);border-radius:15px;padding:18px;cursor:pointer;transition:all .15s}
-.p-card:hover{border-color:var(--vert);box-shadow:0 4px 18px rgba(45,74,30,.1);transform:translateY(-2px)}
-.p-em{font-size:38px;display:block;margin-bottom:12px}
-.p-nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--nuit);margin-bottom:3px}
-.p-fm{font-size:13px;color:var(--gris);margin-bottom:12px}
-.p-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--terre);margin-bottom:10px}
-.p-pr span{font-size:13px;font-weight:400;color:var(--gris)}
-.p-tags{display:flex;gap:6px;flex-wrap:wrap}
-.tag{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500}
-.tg{background:#E8F2E2;color:var(--terre)}
-.ty{background:#FEF3DC;color:#A06010}
-.tb{background:#E0EAF5;color:#2A5580}
-.tr{background:#FDE8E0;color:var(--argile)}
+/* Products grid */.p-grid{display;grid-template-columns(auto-fill,minmax(260px,1fr));gap:14px}.p-card{background(--blanc);border:1.5px solid var(--bord);border-radius:15px;padding:18px;cursor;transition .15s}.p-card{border-color(--vert);box-shadow:0 4px 18px rgba(45,74,30,.1);transform(-2px)}.p-em{font-size:38px;display;margin-bottom:12px}.p-nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color(--nuit);margin-bottom:3px}.p-fm{font-size:13px;color(--gris);margin-bottom:12px}.p-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color(--terre);margin-bottom:10px}.p-pr span{font-size:13px;font-weight:400;color(--gris)}.p-tags{display;gap:6px;flex-wrap}.tag{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500}.tg{background:#E8F2E2;color(--terre)}.ty{background:#FEF3DC;color:#A06010}.tb{background:#E0EAF5;color:#2A5580}.tr{background:#FDE8E0;color(--argile)}
 
-/* Detail */
-.det-lay{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.det-l{background:var(--blanc);border-radius:16px;padding:28px;border:1.5px solid var(--bord)}
-.det-em{font-size:64px;display:block;margin-bottom:14px}
-.det-tit{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:var(--nuit);margin-bottom:5px}
-.det-farm{display:flex;align-items:center;gap:10px;margin-bottom:22px}
-.farm-av{width:36px;height:36px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px}
-.farm-nm{font-weight:600;font-size:14px;color:var(--nuit)}
-.farm-sb{font-size:12px;color:var(--gris)}
-.inf-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--bord)}
-.inf-l{font-size:13px;color:var(--gris)}
-.inf-v{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
-.inf-v.pr{color:var(--terre);font-size:19px}
-.map-bx{background:var(--ciel);border-radius:14px;height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:1.5px dashed var(--bord);cursor:pointer;margin:14px 0}
-.det-r{display:flex;flex-direction:column;gap:14px}
-.rules{background:#FEF3DC;border-radius:14px;padding:18px;border-left:4px solid var(--soleil)}
-.rules-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:#A06010;margin-bottom:8px}
-.rules ul{list-style:none}
-.rules li{font-size:13px;color:#7A4A10;padding:3px 0 3px 18px;position:relative;line-height:1.5}
-.rules li::before{content:'•';position:absolute;left:5px;color:var(--soleil)}
-.btn-p{width:100%;background:var(--terre);color:var(--blanc);border:none;border-radius:13px;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all .15s;margin-top:6px}
-.btn-p:hover{background:var(--terre2)}
-.btn-s{width:100%;background:var(--blanc);color:var(--terre);border:1.5px solid var(--bord);border-radius:13px;padding:12px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor:pointer;margin-top:8px}
+/* Detail */.det-lay{display;grid-template-columns:1fr 1fr;gap:20px}.det-l{background(--blanc);border-radius:16px;padding:28px;border:1.5px solid var(--bord)}.det-em{font-size:64px;display;margin-bottom:14px}.det-tit{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color(--nuit);margin-bottom:5px}.det-farm{display;align-items;gap:10px;margin-bottom:22px}.farm-av{width:36px;height:36px;background(--soleil);border-radius:50%;display;align-items;justify-content;font-size:17px}.farm-nm{font-weight:600;font-size:14px;color(--nuit)}.farm-sb{font-size:12px;color(--gris)}.inf-row{display;justify-content;align-items;padding:13px 0;border-bottom:1px solid var(--bord)}.inf-l{font-size:13px;color(--gris)}.inf-v{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color(--nuit)}.inf-v.pr{color(--terre);font-size:19px}.map-bx{background(--ciel);border-radius:14px;height:140px;display;flex-direction;align-items;justify-content;gap:7px;border:1.5px dashed var(--bord);cursor;margin:14px 0}.det-r{display;flex-direction;gap:14px}.rules{background:#FEF3DC;border-radius:14px;padding:18px;border-left:4px solid var(--soleil)}.rules-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:#A06010;margin-bottom:8px}.rules ul{list-style}.rules li{font-size:13px;color:#7A4A10;padding:3px 0 3px 18px;position;line-height:1.5}.rules li::before{content:'•';position;left:5px;color(--soleil)}.btn-p{width:100%;background(--terre);color(--blanc);border;border-radius:13px;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor;transition .15s;margin-top:6px}.btn-p{background(--terre2)}.btn-s{width:100%;background(--blanc);color(--terre);border:1.5px solid var(--bord);border-radius:13px;padding:12px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor;margin-top:8px}
 
-/* Chat */
-.chat-lay{display:grid;grid-template-columns:280px 1fr;background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow:hidden;height:calc(100vh - 140px)}
-.chat-sb{border-right:1.5px solid var(--bord);overflow-y:auto}
-.chat-sbh{padding:18px;border-bottom:1.5px solid var(--bord);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px}
-.chat-ci{padding:13px 18px;border-bottom:1px solid var(--bord);cursor:pointer;display:flex;gap:10px;align-items:center;transition:background .15s}
-.chat-ci:hover{background:var(--ciel)}
-.chat-ci.active{background:#E8F2E2}
-.chat-cav{width:38px;height:38px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.chat-cn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px}
-.chat-cp{font-size:12px;color:var(--gris);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chat-main{display:flex;flex-direction:column}
-.chat-hd{padding:14px 18px;border-bottom:1.5px solid var(--bord);display:flex;align-items:center;gap:10px}
-.chat-hav{width:36px;height:36px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px}
-.chat-hn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px}
-.chat-hs{font-size:12px;color:var(--vert)}
-.chat-msgs{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:65%;padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.5}
-.mt{background:var(--ciel);color:var(--nuit);border-bottom-left-radius:4px;align-self:flex-start}
-.mm{background:var(--terre);color:var(--blanc);border-bottom-right-radius:4px;align-self:flex-end}
-.mtime{font-size:11px;color:var(--gris);margin-top:3px}
-.mtime.r{text-align:right}
-.conf-bub{background:#E8F2E2;border:1.5px solid var(--vert);border-radius:13px;padding:13px;font-size:13px;color:var(--terre)}
-.conf-bub strong{font-family:'Space Grotesk',sans-serif;display:block;margin-bottom:5px}
-.chat-inp-row{padding:14px 18px;border-top:1.5px solid var(--bord);display:flex;gap:9px;align-items:flex-end}
-.chat-inp{flex:1;border:1.5px solid var(--bord);border-radius:11px;padding:10px 13px;font-size:14px;font-family:'Noto Sans',sans-serif;resize:none;outline:none;background:var(--blanc);transition:border-color .15s}
-.chat-inp:focus{border-color:var(--vert)}
-.send-b{width:40px;height:40px;background:var(--terre);border:none;border-radius:10px;color:var(--blanc);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.voice-b{width:40px;height:40px;background:var(--ciel);border:1.5px solid var(--bord);border-radius:10px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* Chat */.chat-lay{display;grid-template-columns:280px 1fr;background(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow;height(100vh - 140px)}.chat-sb{border-right:1.5px solid var(--bord);overflow-y}.chat-sbh{padding:18px;border-bottom:1.5px solid var(--bord);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px}.chat-ci{padding:13px 18px;border-bottom:1px solid var(--bord);cursor;display;gap:10px;align-items;transition .15s}.chat-ci{background(--ciel)}.chat-ci.active{background:#E8F2E2}.chat-cav{width:38px;height:38px;background(--soleil);border-radius:50%;display;align-items;justify-content;font-size:18px;flex-shrink:0}.chat-cn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px}.chat-cp{font-size:12px;color(--gris);margin-top:1px;white-space;overflow;text-overflow}.chat-main{display;flex-direction}.chat-hd{padding:14px 18px;border-bottom:1.5px solid var(--bord);display;align-items;gap:10px}.chat-hav{width:36px;height:36px;background(--soleil);border-radius:50%;display;align-items;justify-content;font-size:17px}.chat-hn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px}.chat-hs{font-size:12px;color(--vert)}.chat-msgs{flex:1;padding:18px;overflow-y;display;flex-direction;gap:10px}.msg{max-width:65%;padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.5}.mt{background(--ciel);color(--nuit);border-bottom-left-radius:4px;align-self}.mm{background(--terre);color(--blanc);border-bottom-right-radius:4px;align-self}.mtime{font-size:11px;color(--gris);margin-top:3px}.mtime.r{text-align}.conf-bub{background:#E8F2E2;border:1.5px solid var(--vert);border-radius:13px;padding:13px;font-size:13px;color(--terre)}.conf-bub strong{font-family:'Space Grotesk',sans-serif;display;margin-bottom:5px}.chat-inp-row{padding:14px 18px;border-top:1.5px solid var(--bord);display;gap:9px;align-items}.chat-inp{flex:1;border:1.5px solid var(--bord);border-radius:11px;padding:10px 13px;font-size:14px;font-family:'Noto Sans',sans-serif;resize;outline;background(--blanc);transition .15s}.chat-inp{border-color(--vert)}.send-b{width:40px;height:40px;background(--terre);border;border-radius:10px;color(--blanc);font-size:17px;cursor;display;align-items;justify-content;flex-shrink:0}.voice-b{width:40px;height:40px;background(--ciel);border:1.5px solid var(--bord);border-radius:10px;font-size:17px;cursor;display;align-items;justify-content;flex-shrink:0}
 
-/* Orders table */
-.ord-tbl{background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow:hidden}
-.ord-hd{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;gap:14px;padding:12px 18px;background:var(--ciel);border-bottom:1.5px solid var(--bord);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.06em}
-.ord-row{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;gap:14px;padding:14px 18px;border-bottom:1px solid var(--bord);align-items:center;cursor:pointer;transition:background .15s}
-.ord-row:hover{background:var(--ciel)}
-.ord-row:last-child{border-bottom:none}
-.ord-pc{display:flex;align-items:center;gap:9px}
-.ord-em{font-size:22px}
-.ord-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
-.ord-qt{font-size:12px;color:var(--gris);margin-top:1px}
-.sp{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;display:inline-block}
-.sp-p{background:#FEF3DC;color:#A06010}
-.sp-c{background:#E8F2E2;color:var(--terre)}
-.sp-d{background:#E0EAF5;color:#2A5580}
-.ord-am{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--terre)}
+/* Orders table */.ord-tbl{background(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow}.ord-hd{display;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;gap:14px;padding:12px 18px;background(--ciel);border-bottom:1.5px solid var(--bord);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color(--gris);text-transform;letter-spacing:.06em}.ord-row{display;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;gap:14px;padding:14px 18px;border-bottom:1px solid var(--bord);align-items;cursor;transition .15s}.ord-row{background(--ciel)}.ord-row.ord-pc{display;align-items;gap:9px}.ord-em{font-size:22px}.ord-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color(--nuit)}.ord-qt{font-size:12px;color(--gris);margin-top:1px}.sp{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;display}.sp-p{background:#FEF3DC;color:#A06010}.sp-c{background:#E8F2E2;color(--terre)}.sp-d{background:#E0EAF5;color:#2A5580}.ord-am{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color(--terre)}
 
-/* Publish */
-.pub-lay{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.pub-card{background:var(--blanc);border-radius:16px;padding:26px;border:1.5px solid var(--bord)}
-.pub-prev{background:var(--terre);border-radius:16px;padding:26px}
-.pub-prev-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px}
-.fg2{margin-bottom:16px}
-.fl2{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
-.fi2{width:100%;border:1.5px solid var(--bord);border-radius:11px;padding:11px 13px;font-size:14px;font-family:'Noto Sans',sans-serif;outline:none;background:var(--blanc);color:var(--nuit);transition:border-color .15s}
-.fi2:focus{border-color:var(--vert)}
-.em-pick{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
-.em-opt{width:42px;height:42px;border:1.5px solid var(--bord);border-radius:9px;background:var(--ciel);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.em-opt.sel{border-color:var(--vert);background:#E8F2E2}
-.voice-ar{background:var(--ciel);border:1.5px dashed var(--bord);border-radius:13px;padding:20px;text-align:center;cursor:pointer;margin-bottom:18px;transition:all .15s}
-.voice-ar:hover{background:#E8F2E2;border-color:var(--vert)}
+/* Publish */.pub-lay{display;grid-template-columns:1fr 1fr;gap:20px}.pub-card{background(--blanc);border-radius:16px;padding:26px;border:1.5px solid var(--bord)}.pub-prev{background(--terre);border-radius:16px;padding:26px}.pub-prev-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;color(255,255,255,.45);text-transform;letter-spacing:.08em;margin-bottom:18px}.fg2{margin-bottom:16px}.fl2{display;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color(--gris);text-transform;letter-spacing:.07em;margin-bottom:6px}.fi2{width:100%;border:1.5px solid var(--bord);border-radius:11px;padding:11px 13px;font-size:14px;font-family:'Noto Sans',sans-serif;outline;background(--blanc);color(--nuit);transition .15s}.fi2{border-color(--vert)}.em-pick{display;gap:7px;flex-wrap;margin-bottom:10px}.em-opt{width:42px;height:42px;border:1.5px solid var(--bord);border-radius:9px;background(--ciel);font-size:20px;cursor;display;align-items;justify-content;transition .15s}.em-opt.sel{border-color(--vert);background:#E8F2E2}.voice-ar{background(--ciel);border:1.5px dashed var(--bord);border-radius:13px;padding:20px;text-align;cursor;margin-bottom:18px;transition .15s}.voice-ar
 
-/* Profile */
-.prof-lay{display:grid;grid-template-columns:300px 1fr;gap:20px}
-.prof-card{background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow:hidden}
-.prof-hd{background:var(--terre);padding:28px 22px;text-align:center}
-.prof-av{width:76px;height:76px;background:var(--soleil);border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:38px;border:3px solid rgba(255,255,255,.3)}
-.prof-nm{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--blanc)}
-.prof-rl{font-size:13px;color:rgba(255,255,255,.6);margin-top:3px}
-.prof-sc{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:9px;font-size:13px;color:var(--soleil);font-weight:600}
-.prof-bd{padding:18px 22px}
-.prof-it{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--bord);cursor:pointer}
-.prof-it:last-child{border-bottom:none}
-.prof-ii{width:36px;height:36px;background:var(--ciel);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.prof-il{font-weight:500;font-size:14px;color:var(--nuit)}
-.prof-is{font-size:12px;color:var(--gris);margin-top:1px}
-.prof-stats{background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);padding:22px}
+/* Profile */.prof-lay{display;grid-template-columns:300px 1fr;gap:20px}.prof-card{background(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow}.prof-hd{background(--terre);padding:28px 22px;text-align}.prof-av{width:76px;height:76px;background(--soleil);border-radius:50%;margin:0 auto 12px;display;align-items;justify-content;font-size:38px;border:3px solid rgba(255,255,255,.3)}.prof-nm{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color(--blanc)}.prof-rl{font-size:13px;color(255,255,255,.6);margin-top:3px}.prof-sc{display;align-items;justify-content;gap:4px;margin-top:9px;font-size:13px;color(--soleil);font-weight:600}.prof-bd{padding:18px 22px}.prof-it{display;align-items;gap:12px;padding:12px 0;border-bottom:1px solid var(--bord);cursor}.prof-it.prof-ii{width:36px;height:36px;background(--ciel);border-radius:9px;display;align-items;justify-content;font-size:17px;flex-shrink:0}.prof-il{font-weight:500;font-size:14px;color(--nuit)}.prof-is{font-size:12px;color(--gris);margin-top:1px}.prof-stats{background(--blanc);border-radius:16px;border:1.5px solid var(--bord);padding:22px}
 
-/* Utils */
-.loading{text-align:center;padding:50px 20px;color:var(--gris);font-size:14px}
-.empty{text-align:center;padding:50px 20px}
-.empty-ic{font-size:44px;margin-bottom:10px}
-.empty p{font-size:14px;color:var(--gris);line-height:1.6}
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:none;align-items:center;justify-content:center}
-.modal-ov.open{display:flex}
-.modal-bx{background:var(--blanc);border-radius:18px;padding:28px;width:100%;max-width:420px;box-shadow:0 20px 50px rgba(0,0,0,.2)}
-.modal-t{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--nuit);margin-bottom:7px}
-.modal-s{font-size:14px;color:var(--gris);line-height:1.6;margin-bottom:18px}
-.pen-bx{background:#FDE8E0;border-radius:11px;padding:14px;margin-bottom:18px;border-left:4px solid var(--argile)}
-.pen-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--argile);margin-bottom:5px}
-.pen-tx{font-size:13px;color:#8B3820;line-height:1.5}
-.toast{position:fixed;bottom:28px;right:28px;background:var(--nuit);color:var(--blanc);padding:13px 20px;border-radius:13px;font-size:14px;font-weight:500;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 8px 22px rgba(0,0,0,.2)}
-.toast.show{opacity:1}
+/* Utils */.loading{text-align;padding:50px 20px;color(--gris);font-size:14px}.empty{text-align;padding:50px 20px}.empty-ic{font-size:44px;margin-bottom:10px}.empty p{font-size:14px;color(--gris);line-height:1.6}.modal-ov{position;inset:0;background(0,0,0,.45);z-index:100;display;align-items;justify-content}.modal-ov.open{display}.modal-bx{background(--blanc);border-radius:18px;padding:28px;width:100%;max-width:420px;box-shadow:0 20px 50px rgba(0,0,0,.2)}.modal-t{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color(--nuit);margin-bottom:7px}.modal-s{font-size:14px;color(--gris);line-height:1.6;margin-bottom:18px}.pen-bx{background:#FDE8E0;border-radius:11px;padding:14px;margin-bottom:18px;border-left:4px solid var(--argile)}.pen-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color(--argile);margin-bottom:5px}.pen-tx{font-size:13px;color:#8B3820;line-height:1.5}.toast{position;bottom:28px;right:28px;background(--nuit);color(--blanc);padding:13px 20px;border-radius:13px;font-size:14px;font-weight:500;z-index:200;opacity:0;transition .3s;pointer-events;box-shadow:0 8px 22px rgba(0,0,0,.2)}.toast.show{opacity:1}
 
-/* Mobile nav */
-.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--blanc);border-top:1.5px solid var(--bord);z-index:25;padding:8px 0 12px}
-.mob-ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0;border:none;background:none;color:var(--gris);font-size:11px;font-family:'Noto Sans',sans-serif}
-.mob-ni.active{color:var(--terre)}
-.mob-ic{font-size:21px}
+/* Mobile nav */.mob-nav{display;position;bottom:0;left:0;right:0;background(--blanc);border-top:1.5px solid var(--bord);z-index:25;padding:8px 0 12px}.mob-ni{flex:1;display;flex-direction;align-items;gap:3px;cursor;padding:4px 0;border;background;color(--gris);font-size:11px;font-family:'Noto Sans',sans-serif}.mob-ni.active{color(--terre)}.mob-ic{font-size:21px}
 
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .l-nav{padding:16px 20px}
-  .l-btns .btn-out{display:none}
-  .l-hero{grid-template-columns:1fr;padding:28px 20px 20px;gap:24px}
-  .l-right{display:none}
-  .l-title{font-size:34px}
-  .l-ctas{flex-direction:column}
-  .btn-big,.btn-ghost{width:100%;text-align:center}
-  .l-foot{flex-direction:column;gap:6px;text-align:center;padding:18px 20px}
-  #scr-auth.active{grid-template-columns:1fr}
-  .a-left{display:none}
-  .a-right{padding:28px 22px}
-  #scr-otp.active{grid-template-columns:1fr}
-  .o-left{display:none}
-  .o-right{padding:36px 22px}
-  .sidebar{transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0)}
-  .main{margin-left:0}
-  .m-top{padding:12px 18px}
-  .panel{padding:14px}
-  .d-stats{grid-template-columns:1fr 1fr}
-  .p-grid{grid-template-columns:1fr}
-  .det-lay{grid-template-columns:1fr}
-  .chat-lay{grid-template-columns:1fr;height:auto}
-  .chat-sb{display:none}
-  .ord-hd,.ord-row{grid-template-columns:2fr 1fr 1fr}
-  .ord-hd span:nth-child(2),.ord-hd span:nth-child(5),.ord-row>*:nth-child(2),.ord-row>*:nth-child(5){display:none}
-  .pub-lay{grid-template-columns:1fr}
-  .pub-prev{display:none}
-  .prof-lay{grid-template-columns:1fr}
-  .mob-nav{display:flex}
-  .main{padding-bottom:64px}
-  .hmb{display:block}
-}
-
-/* =====================================================
-   NOUVEL ACCUEIL AGRILINK SN
-===================================================== */
-
-.home-welcome{
-  position:relative;
-  overflow:hidden;
-  min-height:330px;
-  padding:42px;
-  margin-bottom:28px;
-  border-radius:24px;
-  background:
-    linear-gradient(100deg,rgba(26,46,18,.97) 0%,rgba(45,74,30,.93) 55%,rgba(45,74,30,.58) 100%),
-    url("https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1600&q=85") center/cover;
-  box-shadow:0 18px 45px rgba(26,46,18,.18);
-  color:#fff;
-}
-
-.home-welcome::before{
-  content:"";
-  position:absolute;
-  width:330px;
-  height:330px;
-  border-radius:50%;
-  background:rgba(232,160,32,.12);
-  right:-100px;
-  top:-130px;
-}
-
-.home-welcome-content{
-  position:relative;
-  z-index:2;
-  max-width:680px;
-}
-
-.home-badge{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 14px;
-  margin-bottom:18px;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:30px;
-  background:rgba(255,255,255,.1);
-  backdrop-filter:blur(8px);
-  font-size:13px;
-  font-weight:700;
-}
-
-.home-welcome h1{
-  margin:0;
-  font-family:"Space Grotesk",sans-serif;
-  font-size:clamp(30px,4vw,48px);
-  line-height:1.08;
-  letter-spacing:-1.5px;
-}
-
-.home-welcome h1 span{
-  color:var(--soleil);
-}
-
-.home-welcome p{
-  max-width:590px;
-  margin:16px 0 25px;
-  color:rgba(255,255,255,.78);
-  font-size:15px;
-  line-height:1.7;
-}
-
-.home-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
-
-.home-primary,
-.home-secondary{
-  padding:13px 20px;
-  border-radius:12px;
-  font-family:"Space Grotesk",sans-serif;
-  font-weight:700;
-  font-size:14px;
-  cursor:pointer;
-  transition:.25s;
-}
-
-.home-primary{
-  border:none;
-  background:var(--soleil);
-  color:var(--nuit);
-}
-
-.home-primary:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 22px rgba(232,160,32,.25);
-}
-
-.home-secondary{
-  border:1px solid rgba(255,255,255,.3);
-  background:rgba(255,255,255,.08);
-  color:#fff;
-}
-
-.home-secondary:hover{
-  background:rgba(255,255,255,.16);
-}
-
-/* Carrousel */
-
-.product-carousel{
-  position:relative;
-  overflow:hidden;
-  margin-bottom:30px;
-  border-radius:22px;
-  background:var(--blanc);
-  border:1px solid var(--bord);
-}
-
-.carousel-track{
-  display:flex;
-  transition:transform .65s ease;
-}
-
-.carousel-slide{
-  position:relative;
-  flex:0 0 100%;
-  min-height:330px;
-  display:flex;
-  align-items:flex-end;
-  padding:32px;
-  background-size:cover;
-  background-position:center;
-}
-
-.carousel-slide::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    90deg,
-    rgba(15,30,10,.93),
-    rgba(15,30,10,.62) 55%,
-    rgba(15,30,10,.12)
-  );
-}
-
-.carousel-content{
-  position:relative;
-  z-index:2;
-  max-width:570px;
-  color:#fff;
-}
-
-.carousel-tag{
-  display:inline-block;
-  padding:7px 12px;
-  margin-bottom:13px;
-  border-radius:30px;
-  background:var(--soleil);
-  color:var(--nuit);
-  font-size:12px;
-  font-weight:800;
-}
-
-.carousel-content h2{
-  margin-bottom:9px;
-  font-family:"Space Grotesk",sans-serif;
-  font-size:32px;
-}
-
-.carousel-content p{
-  color:rgba(255,255,255,.78);
-  line-height:1.6;
-  font-size:14px;
-}
-
-.carousel-button{
-  margin-top:19px;
-  padding:11px 17px;
-  border:none;
-  border-radius:10px;
-  background:#fff;
-  color:var(--terre2);
-  font-family:"Space Grotesk",sans-serif;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.carousel-controls{
-  position:absolute;
-  z-index:4;
-  right:20px;
-  bottom:20px;
-  display:flex;
-  gap:8px;
-}
-
-.carousel-control{
-  width:42px;
-  height:42px;
-  border:none;
-  border-radius:50%;
-  background:rgba(255,255,255,.9);
-  color:var(--terre2);
-  font-size:19px;
-  cursor:pointer;
-}
-
-.carousel-dots{
-  position:absolute;
-  z-index:4;
-  left:32px;
-  bottom:20px;
-  display:flex;
-  gap:7px;
-}
-
-.carousel-dot{
-  width:8px;
-  height:8px;
-  padding:0;
-  border:none;
-  border-radius:50%;
-  background:rgba(255,255,255,.45);
-  cursor:pointer;
-}
-
-.carousel-dot.active{
-  width:25px;
-  border-radius:10px;
-  background:var(--soleil);
-}
-
-/* Sections supplémentaires */
-
-.home-section{
-  margin-top:34px;
-}
-
-.home-section-head{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:16px;
-}
-
-.home-section-head h2{
-  font-family:"Space Grotesk",sans-serif;
-  font-size:24px;
-}
-
-.home-section-head p{
-  margin-top:4px;
-  color:var(--gris);
-  font-size:13px;
-}
-
-.home-link{
-  border:none;
-  background:none;
-  color:var(--terre);
-  font-weight:800;
-  cursor:pointer;
-}
-
-.benefits-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-}
-
-.benefit-card{
-  padding:22px;
-  border:1px solid var(--bord);
-  border-radius:18px;
-  background:var(--blanc);
-  transition:.25s;
-}
-
-.benefit-card:hover{
-  transform:translateY(-5px);
-  border-color:var(--vert);
-  box-shadow:0 14px 30px rgba(26,46,18,.08);
-}
-
-.benefit-icon{
-  width:48px;
-  height:48px;
-  display:grid;
-  place-items:center;
-  margin-bottom:15px;
-  border-radius:14px;
-  background:var(--ciel);
-  font-size:24px;
-}
-
-.benefit-card h3{
-  margin-bottom:7px;
-  font-family:"Space Grotesk",sans-serif;
-  font-size:16px;
-}
-
-.benefit-card p{
-  color:var(--gris);
-  font-size:13px;
-  line-height:1.6;
-}
-
-/* Footer */
-
-.app-footer{
-  margin-top:45px;
-  padding:45px 35px 22px;
-  border-radius:24px 24px 0 0;
-  background:var(--terre2);
-  color:#fff;
-}
-
-.footer-grid{
-  display:grid;
-  grid-template-columns:1.4fr 1fr 1fr 1fr;
-  gap:30px;
-}
-
-.footer-brand{
-  max-width:350px;
-}
-
-.footer-logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:15px;
-  font-family:"Space Grotesk",sans-serif;
-  font-size:21px;
-  font-weight:800;
-}
-
-.footer-logo-icon{
-  width:42px;
-  height:42px;
-  display:grid;
-  place-items:center;
-  border-radius:12px;
-  background:var(--soleil);
-}
-
-.footer-brand p{
-  color:rgba(255,255,255,.65);
-  font-size:13px;
-  line-height:1.7;
-}
-
-.footer-col h4{
-  margin-bottom:15px;
-  color:var(--soleil);
-  font-family:"Space Grotesk",sans-serif;
-}
-
-.footer-col button{
-  display:block;
-  padding:5px 0;
-  border:none;
-  background:none;
-  color:rgba(255,255,255,.65);
-  font-size:13px;
-  cursor:pointer;
-}
-
-.footer-col button:hover{
-  color:#fff;
-}
-
-.footer-bottom{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  margin-top:35px;
-  padding-top:20px;
-  border-top:1px solid rgba(255,255,255,.12);
-  color:rgba(255,255,255,.45);
-  font-size:12px;
-}
-
-/* Responsive */
-
-@media(max-width:1000px){
-  .benefits-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .footer-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-
-@media(max-width:650px){
-  .home-welcome{
-    min-height:auto;
-    padding:28px 21px;
-    border-radius:18px;
-  }
-
-  .home-welcome h1{
-    font-size:32px;
-  }
-
-  .home-actions{
-    flex-direction:column;
-  }
-
-  .home-primary,
-  .home-secondary{
-    width:100%;
-  }
-
-  .carousel-slide{
-    min-height:390px;
-    padding:23px;
-  }
-
-  .carousel-content h2{
-    font-size:26px;
-  }
-
-  .carousel-dots{
-    left:23px;
-  }
-
-  .carousel-controls{
-    right:15px;
-  }
-
-  .benefits-grid,
-  .footer-grid{
-    grid-template-columns:1fr;
-  }
-
-  .home-section-head{
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .footer-bottom{
-    flex-direction:column;
-  }
-}
-</style>
-<style>
-  /* ============================================================
-     LANDING / AUTH PAGE - AGRILINK SN
-     ============================================================ */
-
-  .landing-container {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    min-height: 100vh;
-    background: #f8fafc;
-    font-family: system-ui, -apple-system, sans-serif;
-  }
-
-  @media (max-width: 960px) {
-    .landing-container {
-      grid-template-columns: 1fr;
-    }
-    .landing-hero-side {
-      min-height: 400px !important;
-    }
-  }
-
-  /* --- CÔTÉ GAUCHE : HERO HERO & CARROUSEL --- */
-  .landing-hero-side {
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 40px;
-    color: #ffffff;
-  }
-
-  .landing-hero-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    transition: background-image 1.2s ease-in-out, transform 8s linear;
-    transform: scale(1.05);
-  }
-
-  .landing-hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(16, 85, 47, 0.88) 100%);
-  }
-
-  .landing-hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 580px;
-  }
-
-  .landing-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.5rem;
-    font-weight: 800;
-    margin-bottom: 30px;
-  }
-
-  .landing-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 6px 14px;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-
-  .landing-title {
-    font-size: 2.8rem;
-    line-height: 1.15;
-    font-weight: 800;
-    margin-bottom: 15px;
-  }
-
-  .landing-title span {
-    color: #4ade80;
-  }
-
-  .landing-subtitle {
-    font-size: 1.1rem;
-    color: #e2e8f0;
-    line-height: 1.6;
-    margin-bottom: 30px;
-  }
-
-  /* CARROUSEL DES PRODUITS REELS SUR LA LANDING */
-  .landing-products-mini {
-    position: relative;
-    z-index: 2;
-    margin-top: 20px;
-  }
-
-  .mini-products-title {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #86efac;
-    font-weight: 700;
-    margin-bottom: 12px;
-  }
-
-  .mini-products-scroll {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    scrollbar-width: none;
-  }
-
-  .mini-product-card {
-    flex: 0 0 160px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 12px;
-    padding: 8px;
-    transition: transform 0.3s ease, background 0.3s ease;
-    cursor: pointer;
-  }
-
-  .mini-product-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.25);
-  }
-
-  .mini-product-card img {
-    width: 100%;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 8px;
-  }
-
-  .mini-product-name {
-    font-size: 0.85rem;
-    font-weight: 700;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .mini-product-price {
-    font-size: 0.8rem;
-    color: #4ade80;
-    font-weight: 700;
-  }
-
-  /* INDICATEURS CARROUSEL */
-  .landing-dots {
-    display: flex;
-    gap: 8px;
-    margin-top: 20px;
-  }
-
-  .landing-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .landing-dot.active {
-    width: 28px;
-    border-radius: 10px;
-    background: #4ade80;
-  }
-
-
-  /* --- CÔTÉ DROIT : FORMULAIRE & ARGUMENTS --- */
-  .landing-form-side {
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: #ffffff;
-  }
-
-  .form-header h2 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 6px;
-  }
-
-  .form-header p {
-    color: #64748b;
-    font-size: 0.95rem;
-    margin-bottom: 25px;
-  }
-
-  /* CARTES D'ARGUMENTS AVEC SURVOL */
-  .features-list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 30px;
-  }
-
-  .feature-item {
-    padding: 12px 14px;
-    border-radius: 10px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #334155;
-    transition: all 0.25s ease;
-  }
-
-  .feature-item:hover {
-    border-color: #22c55e;
-    background: #f0fdf4;
-    transform: translateY(-2px);
-  }
-
-  .feature-icon {
-    font-size: 1.2rem;
-  }
-
-  /* SÉLECTEUR D'RÔLE */
-  .role-selector {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .role-option {
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 12px;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.2s ease;
-  }
-
-  .role-option.active, .role-option:hover {
-    border-color: #16a34a;
-    background: #f0fdf4;
-  }
-
-  .role-icon {
-    font-size: 1.5rem;
-    margin-bottom: 4px;
-  }
-
-  .role-title {
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: #0f172a;
-  }
-
-  .role-desc {
-    font-size: 0.75rem;
-    color: #64748b;
-  }
-
-  /* INPUTS ET BOUTON */
-  .input-group {
-    margin-bottom: 16px;
-  }
-
-  .input-label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #475569;
-    margin-bottom: 6px;
-  }
-
-  .custom-input {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid #cbd5e1;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.2s ease;
-  }
-
-  .custom-input:focus {
-    border-color: #16a34a;
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
-  }
-
-  .btn-primary-lg {
-    width: 100%;
-    background: #16a34a;
-    color: #ffffff;
-    border: none;
-    padding: 14px;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease;
-    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
-  }
-
-  .btn-primary-lg:hover {
-    background: #15803d;
-    transform: translateY(-1px);
-  }
-
-  /* FOOTER COMPACT SUR LA LANDING */
-  .landing-footer-mini {
-    margin-top: 35px;
-    padding-top: 20px;
-    border-top: 1px solid #e2e8f0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.8rem;
-    color: #64748b;
-  }
-</style>
+/* ── RESPONSIVE ── /@media(max-width:900px){.l-nav{padding:16px 20px}.l-btns .btn-out{display}.l-hero{grid-template-columns:1fr;padding:28px 20px 20px;gap:24px}.l-right{display}.l-title{font-size:34px}.l-ctas{flex-direction}.btn-big,.btn-ghost{width:100%;text-align}.l-foot{flex-direction;gap:6px;text-align;padding:18px 20px}#scr-auth.active{grid-template-columns:1fr}.a-left{display}.a-right{padding:28px 22px}#scr-otp.active{grid-template-columns:1fr}.o-left{display}.o-right{padding:36px 22px}.sidebar{transform(-100%)}.sidebar.open{transform(0)}.main{margin-left:0}.m-top{padding:12px 18px}.panel{padding:14px}.d-stats{grid-template-columns:1fr 1fr}.p-grid{grid-template-columns:1fr}.det-lay{grid-template-columns:1fr}.chat-lay{grid-template-columns:1fr;height}.chat-sb{display}.ord-hd,.ord-row{grid-template-columns:2fr 1fr 1fr}.ord-hd span(2),.ord-hd span(5),.ord-row>(2),.ord-row>*(5){display}.pub-lay{grid-template-columns:1fr}.pub-prev{display}.prof-lay{grid-template-columns:1fr}.mob-nav{display}.main{padding-bottom:64px}.hmb{display}}</style>
 
 </head>
 <body>
 
 <!-- LANDING -->
-<div class="landing-container">
 
-  <!-- ================= CÔTÉ GAUCHE : VISUEL, CARROUSEL ET PRODUITS ================= -->
-  <div class="landing-hero-side">
-    <div class="landing-hero-bg" id="landing-bg" style="background-image: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80');"></div>
-    <div class="landing-hero-overlay"></div>
-
-    <div class="landing-hero-content">
-      <div class="landing-brand">
-        🌾 AgriLink SN
+<div class="screen" id="scr-land">
+  <div class="l-bg"></div>
+  <nav class="l-nav">
+    <div class="l-logo"><div class="l-logo-ic">🌾</div><div class="l-logo-tx">AgriLink SN</div></div>
+    <div class="l-btns">
+      <button class="btn-out" onclick="goTo('scr-auth');switchTab('login')">Se connecter</button>
+      <button class="btn-sol" onclick="goTo('scr-auth');switchTab('register')">Commencer</button>
+    </div>
+  </nav>
+  <div class="l-hero">
+    <div>
+      <div class="l-eyebrow">🇸🇳 Made in Sénégal</div>
+      <h1 class="l-title">De la terre<br>à <span>ta table</span></h1>
+      <p class="l-desc">Connectez-vous directement avec les producteurs locaux. Produits frais, prix justes, livrés à 6h du matin.</p>
+      <div class="l-ctas">
+        <button class="btn-big" onclick="goTo('scr-auth');switchTab('register')">Commencer gratuitement →</button>
+        <button class="btn-ghost" onclick="goTo('scr-auth');switchTab('login')">J'ai déjà un compte</button>
       </div>
-
-      <div class="landing-badge">
-        🇸🇳 Le marché agricole direct du Sénégal
-      </div>
-
-      <h1 class="landing-title" id="landing-title-text">
-        Des récoltes fraîches, <span>sans intermédiaire</span>
-      </h1>
-
-      <p class="landing-subtitle" id="landing-sub-text">
-        Achetez vos oignons, tomates et carottes directement auprès des producteurs de Saint-Louis, Thiès et Niayes.
-      </p>
-
-      <div class="landing-dots">
-        <div class="landing-dot active" onclick="setLandingSlide(0)"></div>
-        <div class="landing-dot" onclick="setLandingSlide(1)"></div>
-        <div class="landing-dot" onclick="setLandingSlide(2)"></div>
+      <div class="l-stats">
+        <div><div class="ls-num" id="ls-prod">--</div><div class="ls-lbl">Producteurs actifs</div></div>
+        <div><div class="ls-num" id="ls-items">--</div><div class="ls-lbl">Produits disponibles</div></div>
+        <div><div class="ls-num">4.8★</div><div class="ls-lbl">Satisfaction</div></div>
       </div>
     </div>
-
-    <!-- CARROUSEL DE VRAIS PRODUITS DÈS L'OUVERTURE -->
-    <div class="landing-products-mini">
-      <div class="mini-products-title">🔥 En direct des champs aujourd'hui</div>
-      
-      <div class="mini-products-scroll">
-        
-        <div class="mini-product-card">
-          <img src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8cf?auto=format&fit=crop&w=400&q=80" alt="Oignons">
-          <div class="mini-product-name">Oignons Bok</div>
-          <div class="mini-product-price">8 500 F / sac</div>
-        </div>
-
-        <div class="mini-product-card">
-          <img src="https://images.unsplash.com/photo-1598170845058-12ef4a457939?auto=format&fit=crop&w=400&q=80" alt="Carottes">
-          <div class="mini-product-name">Carottes Bio</div>
-          <div class="mini-product-price">3 200 F / cagette</div>
-        </div>
-
-        <div class="mini-product-card">
-          <img src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80" alt="Tomates">
-          <div class="mini-product-name">Tomates Niayes</div>
-          <div class="mini-product-price">4 000 F / plateau</div>
-        </div>
-
-        <div class="mini-product-card">
-          <img src="https://images.unsplash.com/photo-1556801712-76c8eb07ebd1?auto=format&fit=crop&w=400&q=80" alt="Piments">
-          <div class="mini-product-name">Piment Rung</div>
-          <div class="mini-product-price">6 500 F / sac</div>
-        </div>
-
-      </div>
+    <div class="l-right">
+      <div class="prev-card ft"><span class="prev-em">🧅</span><div class="prev-inf"><div class="prev-nm">Oignons Bok</div><div class="prev-or">📍 Saint-Louis · ✅ Vérifié</div></div><div class="prev-pr">8 500<span>FCFA/sac</span></div></div>
+      <div class="prev-card"><span class="prev-em">🥕</span><div class="prev-inf"><div class="prev-nm">Carottes fraîches</div><div class="prev-or">📍 Thiès · ✅ Vérifié</div></div><div class="prev-pr">3 200<span>FCFA/cagette</span></div></div>
+      <div class="prev-card"><span class="prev-em">🍅</span><div class="prev-inf"><div class="prev-nm">Tomates cerises</div><div class="prev-or">📍 Dakar · 🔥 Derniers stocks</div></div><div class="prev-pr">4 000<span>FCFA/plateau</span></div></div>
+      <div class="prev-card"><span class="prev-em">🥬</span><div class="prev-inf"><div class="prev-nm">Chou vert</div><div class="prev-or">📍 Louga · ✅ Vérifié</div></div><div class="prev-pr">1 800<span>FCFA/pièce</span></div></div>
     </div>
   </div>
-
-
-  <!-- ================= CÔTÉ DROIT : FORMULAIRE & POURQUOI CHOISIR ================= -->
-  <div class="landing-form-side">
-    
-    <div class="form-header">
-      <h2>Rejoignez AgriLink SN</h2>
-      <p>Créez votre compte en 30 secondes pour acheter ou vendre.</p>
-    </div>
-
-    <!-- ARGUMENTS CLÉS AVEC SURVOL (POURQUOI CHOISIR) -->
-    <div class="features-list">
-      <div class="feature-item">
-        <span class="feature-icon">✅</span>
-        <span>Producteurs vérifiés</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">💵</span>
-        <span>Paiement à la livraison</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">🚚</span>
-        <span>Livré dès 6h du matin</span>
-      </div>
-      <div class="feature-item">
-        <span class="feature-icon">🎙️</span>
-        <span>Annonces vocales Wolof</span>
-      </div>
-    </div>
-
-    <!-- SÉLECTION DU RÔLE -->
-    <div class="input-group">
-      <label class="input-label">Vous êtes :</label>
-      <div class="role-selector">
-        <div class="role-option active">
-          <div class="role-icon">🏪</div>
-          <div class="role-title">Acheteur</div>
-          <div class="role-desc">Restaurant, Ménage, Hôtel</div>
-        </div>
-        <div class="role-option">
-          <div class="role-icon">👨‍🌾</div>
-          <div class="role-title">Producteur</div>
-          <div class="role-desc">Agriculteur local</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHAMPS DE SAISIE -->
-    <div class="input-group">
-      <label class="input-label">Numéro WhatsApp / Téléphone</label>
-      <input type="tel" class="custom-input" placeholder="+221 77 000 00 00">
-    </div>
-
-    <div class="input-group">
-      <label class="input-label">Région</label>
-      <select class="custom-input">
-        <option>Dakar</option>
-        <option>Thiès / Niayes</option>
-        <option>Saint-Louis</option>
-        <option>Kaolack</option>
-        <option>Louga</option>
-      </select>
-    </div>
-
-    <button class="btn-primary-lg">Continuer vers l'application ➔</button>
-
-    <!-- FOOTER COMPLET SUR LA LANDING -->
-    <div class="landing-footer-mini">
-      <span>© 2026 AgriLink SN</span>
-      <span>🇸🇳 Fait avec ❤️ pour le Sénégal</span>
-      <a href="#" style="color: #16a34a; text-decoration: none; font-weight: 600;">Aide & FAQ</a>
-    </div>
-    
-
+  <div class="l-foot">
+    <p>© 2026 AgriLink SN · Paiement cash à la livraison · Producteurs vérifiés</p>
+    <p>Fait avec ❤️ pour les agriculteurs sénégalais</p>
   </div>
-
 </div>
 
 <!-- AUTH -->
+
 <div class="screen" id="scr-auth">
   <div class="a-left">
     <div>
@@ -1313,6 +143,7 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
 </div>
 
 <!-- OTP -->
+
 <div class="screen" id="scr-otp">
   <div class="o-left">
     <div class="o-lt">Vérification SMS</div>
@@ -1337,6 +168,7 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
 </div>
 
 <!-- APP -->
+
 <div class="app-layout" id="app">
   <aside class="sidebar" id="sidebar">
     <div class="sb-logo"><div class="sb-logo-ic">🌾</div><div class="sb-logo-tx">AgriLink SN</div></div>
@@ -1373,524 +205,160 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
         <button class="tb-btn" onclick="showPanel('p-prof')">👤</button>
       </div>
     </div>
-<!-- ACCUEIL MODERNE -->
+
+<!-- ACCUEIL -->
 <div class="panel active" id="p-home">
-
-  <!-- Grande bannière -->
-  <section class="home-welcome">
-    <div class="home-welcome-content">
-
-      <div class="home-badge">
-        🌱 La marketplace agricole du Sénégal
-      </div>
-
-      <h1>
-        Des produits frais,
-        <span>directement du producteur</span>
-      </h1>
-
-      <p>
-        Découvrez des récoltes locales, échangez directement avec les
-        producteurs et commandez simplement depuis AgriLink SN.
-      </p>
-
-      <div class="home-actions">
-        <button class="home-primary"
-                onclick="showPanel('p-prod')">
-          Découvrir les produits →
-        </button>
-
-        <button class="home-secondary"
-                onclick="showToast('💬 Contactez directement un producteur depuis la fiche produit')">
-          Comment ça marche ?
-        </button>
-      </div>
-
-    </div>
-  </section>
-
-
-  <!-- Statistiques -->
   <div class="d-stats">
-
-    <div class="d-stat">
-      <div class="d-sn" id="ds-p">--</div>
-      <div class="d-sl">Producteurs actifs</div>
-      <div class="d-ss">● Disponibles sur la plateforme</div>
-    </div>
-
-    <div class="d-stat">
-      <div class="d-sn" id="ds-i">--</div>
-      <div class="d-sl">Produits disponibles</div>
-      <div class="d-ss">● Récoltes actuellement publiées</div>
-    </div>
-
-    <div class="d-stat">
-      <div class="d-sn">4.8★</div>
-      <div class="d-sl">Satisfaction moyenne</div>
-      <div class="d-ss">● Une expérience plus simple</div>
-    </div>
-
+    <div class="d-stat"><div class="d-sn" id="ds-p">--</div><div class="d-sl">Producteurs actifs</div><div class="d-ss">↑ En ligne</div></div>
+    <div class="d-stat"><div class="d-sn" id="ds-i">--</div><div class="d-sl">Produits disponibles</div><div class="d-ss">↑ Aujourd'hui</div></div>
+    <div class="d-stat"><div class="d-sn">4.8★</div><div class="d-sl">Note moyenne</div><div class="d-ss">Sur 5 étoiles</div></div>
   </div>
-
-
-  <!-- Carrousel -->
-  <section class="product-carousel">
-
-    <div class="carousel-track" id="carouselTrack">
-
-      <article class="carousel-slide"
-        style="background-image:url('https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=1600&q=85')">
-
-        <div class="carousel-content">
-          <div class="carousel-tag">🥬 Produits frais</div>
-
-          <h2>Des légumes récoltés avec soin</h2>
-
-          <p>
-            Trouvez des produits frais proposés directement
-            par des producteurs locaux.
-          </p>
-
-          <button class="carousel-button"
-                  onclick="showPanel('p-prod')">
-            Voir les produits →
-          </button>
-        </div>
-
-      </article>
-
-
-      <article class="carousel-slide"
-        style="background-image:url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=85')">
-
-        <div class="carousel-content">
-          <div class="carousel-tag">🌾 Agriculture locale</div>
-
-          <h2>Soutenez les producteurs sénégalais</h2>
-
-          <p>
-            Achetez local et participez au développement
-            d'une agriculture plus accessible.
-          </p>
-
-          <button class="carousel-button"
-                  onclick="showPanel('p-prod')">
-            Découvrir le marché →
-          </button>
-        </div>
-
-      </article>
-
-
-      <article class="carousel-slide"
-        style="background-image:url('https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=1600&q=85')">
-
-        <div class="carousel-content">
-          <div class="carousel-tag">🚚 Livraison</div>
-
-          <h2>Commandez aujourd'hui, recevez frais</h2>
-
-          <p>
-            Échangez avec le producteur, confirmez votre
-            commande et payez à la livraison.
-          </p>
-
-          <button class="carousel-button"
-                  onclick="showPanel('p-prod')">
-            Commander maintenant →
-          </button>
-        </div>
-
-      </article>
-
-    </div>
-
-
-    <div class="carousel-dots">
-
-      <button class="carousel-dot active"
-              onclick="goCarousel(0)"
-              aria-label="Image 1"></button>
-
-      <button class="carousel-dot"
-              onclick="goCarousel(1)"
-              aria-label="Image 2"></button>
-
-      <button class="carousel-dot"
-              onclick="goCarousel(2)"
-              aria-label="Image 3"></button>
-
-    </div>
-
-
-    <div class="carousel-controls">
-
-      <button class="carousel-control"
-              onclick="changeCarousel(-1)"
-              aria-label="Image précédente">
-        ←
-      </button>
-
-      <button class="carousel-control"
-              onclick="changeCarousel(1)"
-              aria-label="Image suivante">
-        →
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- Produits récents -->
-  <section class="home-section">
-
-    <div class="home-section-head">
-
-      <div>
-        <h2>Produits récemment publiés</h2>
-
-        <p>
-          Découvrez les dernières récoltes disponibles
-          sur AgriLink SN.
-        </p>
-      </div>
-
-      <button class="home-link"
-              onclick="showPanel('p-prod')">
-        Voir tout →
-      </button>
-
-    </div>
-
-    <!-- IMPORTANT :
-         Nous gardons exactement l'id hp,
-         car loadHome() utilise cet élément. -->
-
-    <div class="p-grid" id="hp">
-      <div class="loading">
-        ⏳ Chargement des produits...
-      </div>
-    </div>
-
-  </section>
-
-
-  <!-- Avantages -->
-  <section class="home-section">
-
-    <div class="home-section-head">
-
-      <div>
-        <h2>Pourquoi choisir AgriLink SN ?</h2>
-
-        <p>
-          Une plateforme pensée pour rapprocher
-          les producteurs et les acheteurs.
-        </p>
-      </div>
-
-    </div>
-
-
-    <div class="benefits-grid">
-
-      <article class="benefit-card">
-
-        <div class="benefit-icon">👨‍🌾</div>
-
-        <h3>Producteurs locaux</h3>
-
-        <p>
-          Échangez directement avec les producteurs
-          et découvrez l'origine de vos produits.
-        </p>
-
-      </article>
-
-
-      <article class="benefit-card">
-
-        <div class="benefit-icon">🥬</div>
-
-        <h3>Produits frais</h3>
-
-        <p>
-          Consultez les récoltes disponibles
-          et choisissez selon vos besoins.
-        </p>
-
-      </article>
-
-
-      <article class="benefit-card">
-
-        <div class="benefit-icon">💬</div>
-
-        <h3>Discussion directe</h3>
-
-        <p>
-          Posez vos questions et échangez
-          avec le producteur avant de commander.
-        </p>
-
-      </article>
-
-
-      <article class="benefit-card">
-
-        <div class="benefit-icon">💵</div>
-
-        <h3>Paiement à la livraison</h3>
-
-        <p>
-          Inspectez vos produits et effectuez
-          votre paiement lors de la livraison.
-        </p>
-
-      </article>
-
-    </div>
-
-  </section>
-
-
-  <!-- Footer -->
-  <footer class="app-footer">
-
-    <div class="footer-grid">
-
-      <div class="footer-brand">
-
-        <div class="footer-logo">
-
-          <div class="footer-logo-icon">🌾</div>
-
-          AgriLink SN
-
-        </div>
-
-        <p>
-          AgriLink SN rapproche les producteurs
-          agricoles et les acheteurs afin de faciliter
-          l'accès aux produits locaux au Sénégal.
-        </p>
-
-      </div>
-
-
-      <div class="footer-col">
-
-        <h4>Découvrir</h4>
-
-        <button onclick="showPanel('p-home')">
-          Accueil
-        </button>
-
-        <button onclick="showPanel('p-prod')">
-          Produits disponibles
-        </button>
-
-        <button onclick="showToast('🌱 De nouvelles fonctionnalités arrivent bientôt')">
-          Comment ça marche
-        </button>
-
-      </div>
-
-
-      <div class="footer-col">
-
-        <h4>Mon compte</h4>
-
-        <button onclick="showPanel('p-prof')">
-          Mon profil
-        </button>
-
-        <button onclick="showPanel('p-orders');loadOrders()">
-          Mes commandes
-        </button>
-
-        <button onclick="showPanel('p-chat')">
-          Messages
-        </button>
-
-      </div>
-
-
-      <div class="footer-col">
-
-        <h4>Assistance</h4>
-
-        <button onclick="showToast('📞 Assistance bientôt disponible')">
-          Nous contacter
-        </button>
-
-        <button onclick="showToast('❓ Centre d’aide bientôt disponible')">
-          Centre d'aide
-        </button>
-
-        <button onclick="showToast('🛡️ Vos données sont protégées')">
-          Confidentialité
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-      <span>
-        © 2026 AgriLink SN. Tous droits réservés.
-      </span>
-
-      <span>
-        🇸🇳 Conçu pour valoriser l'agriculture sénégalaise
-      </span>
-
-    </div>
-
-  </footer>
-
+  <div class="h-band">
+    <div><h2>Livraison à 6h du matin 🌅</h2><p>Commandez avant 18h, recevez vos produits frais dès l'aube</p></div>
+    <button class="h-btn" onclick="showPanel('p-prod')">Voir les produits →</button>
+  </div>
+  <div class="sec-lbl">Produits récents</div>
+  <div class="p-grid" id="hp"><div class="loading">⏳ Chargement...</div></div>
 </div>
 
-    <!-- PRODUITS -->
-    <div class="panel" id="p-prod">
-      <div class="sec-lbl">Tous les produits disponibles</div>
-      <div class="p-grid" id="ap"><div class="loading">⏳ Chargement...</div></div>
-    </div>
+<!-- PRODUITS -->
+<div class="panel" id="p-prod">
+  <div class="sec-lbl">Tous les produits disponibles</div>
+  <div class="p-grid" id="ap"><div class="loading">⏳ Chargement...</div></div>
+</div>
 
-    <!-- DETAIL -->
-    <div class="panel" id="p-det">
-      <button style="background:none;border:none;color:var(--gris);font-size:13px;cursor:pointer;margin-bottom:18px;display:flex;align-items:center;gap:5px" onclick="showPanel('p-prod')">← Retour</button>
-      <div class="det-lay">
-        <div class="det-l">
-          <span class="det-em" id="de-em">🥬</span>
-          <div class="det-tit" id="de-nm">Produit</div>
-          <div class="det-farm"><div class="farm-av">👨‍🌾</div><div><div class="farm-nm" id="de-fn">Agriculteur</div><div class="farm-sb" id="de-fi">Région</div></div></div>
-          <div class="inf-row"><div class="inf-l">Prix</div><div class="inf-v pr" id="de-pr">--</div></div>
-          <div class="inf-row"><div class="inf-l">Quantité</div><div class="inf-v" id="de-qt">--</div></div>
-          <div class="inf-row"><div class="inf-l">Livraison</div><div class="inf-v" id="de-lv">--</div></div>
-          <div class="inf-row"><div class="inf-l">Paiement</div><div class="inf-v">💵 Cash à la livraison</div></div>
-          <div class="inf-row"><div class="inf-l">Annulation gratuite</div><div class="inf-v">Jusqu'à 12h avant</div></div>
-          <div class="map-bx" onclick="showToast('📍 Localisation GPS du producteur')"><span style="font-size:30px">📍</span><p style="font-size:13px;color:var(--gris)">Voir la localisation</p></div>
-        </div>
-        <div class="det-r">
-          <div class="rules"><div class="rules-t">⚠️ Règles de commande</div><ul><li>Annulation gratuite jusqu'à 12h avant</li><li>Annulation tardive = frais de transport</li><li>3 annulations = compte suspendu</li><li>Inspection obligatoire avant paiement</li></ul></div>
-          <button class="btn-p" onclick="showPanel('p-chat')">💬 Négocier & Commander</button>
-          <button class="btn-s" onclick="showToast('Producteur sauvegardé ⭐')">☆ Sauvegarder</button>
-        </div>
+<!-- DETAIL -->
+<div class="panel" id="p-det">
+  <button style="background:none;border:none;color:var(--gris);font-size:13px;cursor:pointer;margin-bottom:18px;display:flex;align-items:center;gap:5px" onclick="showPanel('p-prod')">← Retour</button>
+  <div class="det-lay">
+    <div class="det-l">
+      <span class="det-em" id="de-em">🥬</span>
+      <div class="det-tit" id="de-nm">Produit</div>
+      <div class="det-farm"><div class="farm-av">👨‍🌾</div><div><div class="farm-nm" id="de-fn">Agriculteur</div><div class="farm-sb" id="de-fi">Région</div></div></div>
+      <div class="inf-row"><div class="inf-l">Prix</div><div class="inf-v pr" id="de-pr">--</div></div>
+      <div class="inf-row"><div class="inf-l">Quantité</div><div class="inf-v" id="de-qt">--</div></div>
+      <div class="inf-row"><div class="inf-l">Livraison</div><div class="inf-v" id="de-lv">--</div></div>
+      <div class="inf-row"><div class="inf-l">Paiement</div><div class="inf-v">💵 Cash à la livraison</div></div>
+      <div class="inf-row"><div class="inf-l">Annulation gratuite</div><div class="inf-v">Jusqu'à 12h avant</div></div>
+      <div class="map-bx" onclick="showToast('📍 Localisation GPS du producteur')"><span style="font-size:30px">📍</span><p style="font-size:13px;color:var(--gris)">Voir la localisation</p></div>
+    </div>
+    <div class="det-r">
+      <div class="rules"><div class="rules-t">⚠️ Règles de commande</div><ul><li>Annulation gratuite jusqu'à 12h avant</li><li>Annulation tardive = frais de transport</li><li>3 annulations = compte suspendu</li><li>Inspection obligatoire avant paiement</li></ul></div>
+      <button class="btn-p" onclick="showPanel('p-chat')">💬 Négocier & Commander</button>
+      <button class="btn-s" onclick="showToast('Producteur sauvegardé ⭐')">☆ Sauvegarder</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div class="panel" id="p-chat">
+  <div class="chat-lay">
+    <div class="chat-sb">
+      <div class="chat-sbh">💬 Messages</div>
+      <div class="chat-ci active"><div class="chat-cav">👨‍🌾</div><div><div class="chat-cn">Mamadou Diallo</div><div class="chat-cp">Reçu ! Je prépare...</div></div></div>
+    </div>
+    <div class="chat-main">
+      <div class="chat-hd"><div class="chat-hav">👨‍🌾</div><div><div class="chat-hn" id="ch-fn">Mamadou Diallo</div><div class="chat-hs">● En ligne · Saint-Louis</div></div></div>
+      <div class="chat-msgs" id="chat-msgs">
+        <div><div class="msg mt">Assalamu Alaikum ! Je suis disponible. Qu'est-ce que vous souhaitez ?</div><div class="mtime">08:14</div></div>
+        <div style="align-self:flex-end;text-align:right"><div class="msg mm">Bonjour ! Je voudrais 20 sacs d'oignons pour demain matin.</div><div class="mtime r">08:17</div></div>
+        <div><div class="msg mt">D'accord. 8 500 FCFA/sac = 170 000 FCFA. Livraison à 6h. C'est bon ?</div><div class="mtime">08:19</div></div>
+        <div class="conf-bub"><strong>✅ Bon de commande enregistré</strong>20 sacs d'oignons · 170 000 FCFA · Livraison demain 6h00<br><span style="font-size:12px;color:var(--gris);display:block;margin-top:4px">Annulation gratuite jusqu'à 18h ce soir</span></div>
+      </div>
+      <div class="chat-inp-row">
+        <button class="voice-b" onclick="showToast('🎤 Message vocal en wolof')">🎤</button>
+        <textarea class="chat-inp" placeholder="Écrivez votre message..." rows="1" id="chat-in"></textarea>
+        <button class="send-b" onclick="sendMsg()">➤</button>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- CHAT -->
-    <div class="panel" id="p-chat">
-      <div class="chat-lay">
-        <div class="chat-sb">
-          <div class="chat-sbh">💬 Messages</div>
-          <div class="chat-ci active"><div class="chat-cav">👨‍🌾</div><div><div class="chat-cn">Mamadou Diallo</div><div class="chat-cp">Reçu ! Je prépare...</div></div></div>
+<!-- COMMANDES -->
+<div class="panel" id="p-orders">
+  <div class="sec-lbl">Mes commandes</div>
+  <div class="ord-tbl">
+    <div class="ord-hd"><span>Produit</span><span>Producteur</span><span>Montant</span><span>Statut</span><span>Date</span></div>
+    <div id="ord-list"><div class="loading">⏳ Chargement...</div></div>
+  </div>
+</div>
+
+<!-- PUBLICATION -->
+<div class="panel" id="p-pub">
+  <div class="pub-lay">
+    <div class="pub-card">
+      <div class="sec-lbl" style="margin-bottom:16px">Nouvelle récolte</div>
+      <div class="voice-ar" onclick="showToast('🎤 Parlez en wolof — annonce publiée automatiquement')">
+        <div style="font-size:30px;margin-bottom:7px">🎤</div>
+        <strong style="color:var(--terre);font-size:14px;display:block;margin-bottom:3px">Annonce vocale en wolof</strong>
+        <p style="font-size:13px;color:var(--gris)">Appuyez et décrivez votre récolte.</p>
+      </div>
+      <div style="text-align:center;color:var(--gris);font-size:13px;margin:10px 0">— ou remplissez le formulaire —</div>
+      <div class="fg2"><label class="fl2">Produit</label>
+        <div class="em-pick">
+          <div class="em-opt sel" onclick="selEm(this,'🧅')">🧅</div>
+          <div class="em-opt" onclick="selEm(this,'🥕')">🥕</div>
+          <div class="em-opt" onclick="selEm(this,'🍅')">🍅</div>
+          <div class="em-opt" onclick="selEm(this,'🥬')">🥬</div>
+          <div class="em-opt" onclick="selEm(this,'🌽')">🌽</div>
+          <div class="em-opt" onclick="selEm(this,'🥔')">🥔</div>
+          <div class="em-opt" onclick="selEm(this,'🧄')">🧄</div>
+          <div class="em-opt" onclick="selEm(this,'🫑')">🫑</div>
         </div>
-        <div class="chat-main">
-          <div class="chat-hd"><div class="chat-hav">👨‍🌾</div><div><div class="chat-hn" id="ch-fn">Mamadou Diallo</div><div class="chat-hs">● En ligne · Saint-Louis</div></div></div>
-          <div class="chat-msgs" id="chat-msgs">
-            <div><div class="msg mt">Assalamu Alaikum ! Je suis disponible. Qu'est-ce que vous souhaitez ?</div><div class="mtime">08:14</div></div>
-            <div style="align-self:flex-end;text-align:right"><div class="msg mm">Bonjour ! Je voudrais 20 sacs d'oignons pour demain matin.</div><div class="mtime r">08:17</div></div>
-            <div><div class="msg mt">D'accord. 8 500 FCFA/sac = 170 000 FCFA. Livraison à 6h. C'est bon ?</div><div class="mtime">08:19</div></div>
-            <div class="conf-bub"><strong>✅ Bon de commande enregistré</strong>20 sacs d'oignons · 170 000 FCFA · Livraison demain 6h00<br><span style="font-size:12px;color:var(--gris);display:block;margin-top:4px">Annulation gratuite jusqu'à 18h ce soir</span></div>
-          </div>
-          <div class="chat-inp-row">
-            <button class="voice-b" onclick="showToast('🎤 Message vocal en wolof')">🎤</button>
-            <textarea class="chat-inp" placeholder="Écrivez votre message..." rows="1" id="chat-in"></textarea>
-            <button class="send-b" onclick="sendMsg()">➤</button>
-          </div>
-        </div>
+        <input class="fi2" type="text" placeholder="Nom du produit" id="pb-nm">
+      </div>
+      <div class="fg2"><label class="fl2">Quantité</label><input class="fi2" type="text" placeholder="Ex: 120 sacs de 30kg" id="pb-qt"></div>
+      <div class="fg2"><label class="fl2">Prix (FCFA)</label><input class="fi2" type="number" placeholder="Ex: 8500" id="pb-pr"></div>
+      <div class="fg2"><label class="fl2">Unité</label><input class="fi2" type="text" placeholder="Ex: sac, cagette" id="pb-un"></div>
+      <div class="fg2"><label class="fl2">Heure de livraison</label><input class="fi2" type="text" placeholder="Ex: Demain à 6h00" id="pb-lv"></div>
+      <button class="btn-p" onclick="publier()">Publier ma récolte</button>
+    </div>
+    <div class="pub-prev">
+      <div class="pub-prev-t">Aperçu de votre annonce</div>
+      <div style="font-size:46px;margin-bottom:10px" id="pv-em">🧅</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--blanc);margin-bottom:4px" id="pv-nm">Nom du produit</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:14px" id="pv-rg">Votre région</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:var(--soleil)" id="pv-pr">-- FCFA</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:3px" id="pv-un">par unité</div>
+      <div style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)">
+        <div style="font-size:13px;color:rgba(255,255,255,.55)" id="pv-lv">Livraison : --</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:5px" id="pv-qt">Quantité : --</div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- COMMANDES -->
-    <div class="panel" id="p-orders">
-      <div class="sec-lbl">Mes commandes</div>
-      <div class="ord-tbl">
-        <div class="ord-hd"><span>Produit</span><span>Producteur</span><span>Montant</span><span>Statut</span><span>Date</span></div>
-        <div id="ord-list"><div class="loading">⏳ Chargement...</div></div>
+<!-- PROFIL -->
+<div class="panel" id="p-prof">
+  <div class="prof-lay">
+    <div class="prof-card">
+      <div class="prof-hd">
+        <div class="prof-av">👤</div>
+        <div class="prof-nm" id="pr-nm">--</div>
+        <div class="prof-rl" id="pr-rl">--</div>
+        <div class="prof-sc">⭐⭐⭐⭐⭐ · 5/5</div>
+      </div>
+      <div class="prof-bd">
+        <div class="prof-it"><div class="prof-ii">📱</div><div><div class="prof-il">Téléphone</div><div class="prof-is" id="pr-tel">--</div></div></div>
+        <div class="prof-it"><div class="prof-ii">📍</div><div><div class="prof-il">Région</div><div class="prof-is" id="pr-rg">--</div></div></div>
+        <div class="prof-it"><div class="prof-ii">🛡️</div><div><div class="prof-il">Réputation</div><div class="prof-is" style="color:var(--vert)">Excellent · 0 pénalité</div></div></div>
+        <div class="prof-it" onclick="deco()"><div class="prof-ii">🚪</div><div><div class="prof-il">Déconnexion</div></div></div>
       </div>
     </div>
-
-    <!-- PUBLICATION -->
-    <div class="panel" id="p-pub">
-      <div class="pub-lay">
-        <div class="pub-card">
-          <div class="sec-lbl" style="margin-bottom:16px">Nouvelle récolte</div>
-          <div class="voice-ar" onclick="showToast('🎤 Parlez en wolof — annonce publiée automatiquement')">
-            <div style="font-size:30px;margin-bottom:7px">🎤</div>
-            <strong style="color:var(--terre);font-size:14px;display:block;margin-bottom:3px">Annonce vocale en wolof</strong>
-            <p style="font-size:13px;color:var(--gris)">Appuyez et décrivez votre récolte.</p>
-          </div>
-          <div style="text-align:center;color:var(--gris);font-size:13px;margin:10px 0">— ou remplissez le formulaire —</div>
-          <div class="fg2"><label class="fl2">Produit</label>
-            <div class="em-pick">
-              <div class="em-opt sel" onclick="selEm(this,'🧅')">🧅</div>
-              <div class="em-opt" onclick="selEm(this,'🥕')">🥕</div>
-              <div class="em-opt" onclick="selEm(this,'🍅')">🍅</div>
-              <div class="em-opt" onclick="selEm(this,'🥬')">🥬</div>
-              <div class="em-opt" onclick="selEm(this,'🌽')">🌽</div>
-              <div class="em-opt" onclick="selEm(this,'🥔')">🥔</div>
-              <div class="em-opt" onclick="selEm(this,'🧄')">🧄</div>
-              <div class="em-opt" onclick="selEm(this,'🫑')">🫑</div>
-            </div>
-            <input class="fi2" type="text" placeholder="Nom du produit" id="pb-nm">
-          </div>
-          <div class="fg2"><label class="fl2">Quantité</label><input class="fi2" type="text" placeholder="Ex: 120 sacs de 30kg" id="pb-qt"></div>
-          <div class="fg2"><label class="fl2">Prix (FCFA)</label><input class="fi2" type="number" placeholder="Ex: 8500" id="pb-pr"></div>
-          <div class="fg2"><label class="fl2">Unité</label><input class="fi2" type="text" placeholder="Ex: sac, cagette" id="pb-un"></div>
-          <div class="fg2"><label class="fl2">Heure de livraison</label><input class="fi2" type="text" placeholder="Ex: Demain à 6h00" id="pb-lv"></div>
-          <button class="btn-p" onclick="publier()">Publier ma récolte</button>
-        </div>
-        <div class="pub-prev">
-          <div class="pub-prev-t">Aperçu de votre annonce</div>
-          <div style="font-size:46px;margin-bottom:10px" id="pv-em">🧅</div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--blanc);margin-bottom:4px" id="pv-nm">Nom du produit</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:14px" id="pv-rg">Votre région</div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:var(--soleil)" id="pv-pr">-- FCFA</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:3px" id="pv-un">par unité</div>
-          <div style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)">
-            <div style="font-size:13px;color:rgba(255,255,255,.55)" id="pv-lv">Livraison : --</div>
-            <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:5px" id="pv-qt">Quantité : --</div>
-          </div>
-        </div>
+    <div class="prof-stats">
+      <div class="sec-lbl" style="margin-bottom:16px">Mon activité</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="d-stat"><div class="d-sn" id="pr-nb">0</div><div class="d-sl">Commandes</div></div>
+        <div class="d-stat"><div class="d-sn">0</div><div class="d-sl">Annulations</div></div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- PROFIL -->
-    <div class="panel" id="p-prof">
-      <div class="prof-lay">
-        <div class="prof-card">
-          <div class="prof-hd">
-            <div class="prof-av">👤</div>
-            <div class="prof-nm" id="pr-nm">--</div>
-            <div class="prof-rl" id="pr-rl">--</div>
-            <div class="prof-sc">⭐⭐⭐⭐⭐ · 5/5</div>
-          </div>
-          <div class="prof-bd">
-            <div class="prof-it"><div class="prof-ii">📱</div><div><div class="prof-il">Téléphone</div><div class="prof-is" id="pr-tel">--</div></div></div>
-            <div class="prof-it"><div class="prof-ii">📍</div><div><div class="prof-il">Région</div><div class="prof-is" id="pr-rg">--</div></div></div>
-            <div class="prof-it"><div class="prof-ii">🛡️</div><div><div class="prof-il">Réputation</div><div class="prof-is" style="color:var(--vert)">Excellent · 0 pénalité</div></div></div>
-            <div class="prof-it" onclick="deco()"><div class="prof-ii">🚪</div><div><div class="prof-il">Déconnexion</div></div></div>
-          </div>
-        </div>
-        <div class="prof-stats">
-          <div class="sec-lbl" style="margin-bottom:16px">Mon activité</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-            <div class="d-stat"><div class="d-sn" id="pr-nb">0</div><div class="d-sl">Commandes</div></div>
-            <div class="d-stat"><div class="d-sn">0</div><div class="d-sl">Annulations</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </main>
 
   <!-- MOBILE NAV -->
+
   <nav class="mob-nav" id="mob-nav-a">
     <button class="mob-ni active" onclick="showPanel('p-home')"><span class="mob-ic">🏠</span>Accueil</button>
     <button class="mob-ni" onclick="showPanel('p-prod')"><span class="mob-ic">🥬</span>Produits</button>
@@ -1907,6 +375,7 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
 </div>
 
 <!-- MODAL -->
+
 <div class="modal-ov" id="modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal-bx">
     <div class="modal-t">⚠️ Annuler cette commande ?</div>
@@ -2147,78 +616,10 @@ function selEm(el,em){
 }
 
 function deco(){CU=null;showToast('Déconnecté');setTimeout(()=>goTo('scr-land'),800);}
-/* =====================================================
-   CARROUSEL DE LA PAGE D'ACCUEIL
-===================================================== */
 
-let carouselIndex = 0;
-let carouselTimer;
-
-function goCarousel(index){
-
-  const track =
-    document.getElementById('carouselTrack');
-
-  const dots =
-    document.querySelectorAll('.carousel-dot');
-
-  if(!track) return;
-
-  const total = dots.length;
-
-  carouselIndex =
-    (index + total) % total;
-
-  track.style.transform =
-    `translateX(-${carouselIndex * 100}%)`;
-
-  dots.forEach((dot,i)=>{
-    dot.classList.toggle(
-      'active',
-      i === carouselIndex
-    );
-  });
-
-}
-
-function changeCarousel(direction){
-
-  goCarousel(
-    carouselIndex + direction
-  );
-
-  restartCarousel();
-
-}
-
-function startCarousel(){
-
-  clearInterval(carouselTimer);
-
-  carouselTimer = setInterval(()=>{
-
-    goCarousel(
-      carouselIndex + 1
-    );
-
-  },5000);
-
-}
-
-function restartCarousel(){
-
-  startCarousel();
-
-}
-
-document.addEventListener(
-  'DOMContentLoaded',
-  startCarousel
-);
-
-  
 loadStats();
 goTo('scr-land');
 </script>
+
 </body>
 </html>
