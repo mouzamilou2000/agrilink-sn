@@ -296,6 +296,69 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
 .mob-ni.active{color:var(--terre)}
 .mob-ic{font-size:21px}
 
+/* ── CAROUSEL IMAGES ── */
+.carousel-wrap{position:relative;overflow:hidden;margin:0 0 0;padding:20px 0}
+.carousel-track{display:flex;gap:0;transition:transform .5s ease}
+.carousel-slide{min-width:100%;position:relative;height:420px;flex-shrink:0}
+.carousel-slide img{width:100%;height:100%;object-fit:cover}
+.carousel-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(26,46,18,.85) 40%,transparent 100%)}
+.carousel-content{position:absolute;top:50%;left:40px;transform:translateY(-50%);z-index:2;max-width:480px}
+.carousel-content h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,38px);font-weight:800;color:var(--blanc);line-height:1.2;letter-spacing:-1px;margin-bottom:10px}
+.carousel-content p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:18px}
+.carousel-tag{display:inline-flex;align-items:center;gap:6px;background:var(--soleil);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--nuit)}
+.car-arrows{position:absolute;bottom:20px;right:24px;display:flex;gap:8px;z-index:3}
+.car-arr{width:36px;height:36px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);border-radius:50%;color:var(--blanc);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.car-arr:hover{background:var(--soleil);border-color:var(--soleil);color:var(--nuit)}
+.car-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:3}
+.car-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s}
+.car-dot.active{width:22px;border-radius:4px;background:var(--soleil)}
+
+/* ── COMMENT ÇA MARCHE ── */
+.how-section{padding:64px 40px;background:var(--blanc);position:relative;z-index:2}
+.how-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,36px);font-weight:800;color:var(--nuit);text-align:center;letter-spacing:-1px;margin-bottom:8px}
+.how-sub{font-size:15px;color:var(--gris);text-align:center;margin-bottom:44px}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;position:relative}
+.how-steps::before{content:'';position:absolute;top:36px;left:calc(16.66% + 20px);right:calc(16.66% + 20px);height:2px;background:linear-gradient(to right,var(--soleil),var(--vert));z-index:0}
+.how-step{text-align:center;position:relative;z-index:1}
+.how-step-num{width:72px;height:72px;border-radius:50%;background:var(--terre);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;border:4px solid var(--blanc);box-shadow:0 0 0 3px var(--terre)}
+.how-step-title{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:var(--nuit);margin-bottom:8px}
+.how-step-desc{font-size:14px;color:var(--gris);line-height:1.6}
+
+/* ── TEMOIGNAGES ── */
+.testi-section{padding:60px 40px;background:var(--ciel);position:relative;z-index:2}
+.testi-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:800;color:var(--nuit);text-align:center;letter-spacing:-0.5px;margin-bottom:6px}
+.testi-sub{font-size:14px;color:var(--gris);text-align:center;margin-bottom:36px}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.testi-card{background:var(--blanc);border-radius:16px;padding:22px;border:1.5px solid var(--bord)}
+.testi-stars{color:var(--soleil);font-size:14px;margin-bottom:10px}
+.testi-text{font-size:14px;color:var(--nuit);line-height:1.65;margin-bottom:16px;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:10px}
+.testi-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+.testi-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
+.testi-rl{font-size:12px;color:var(--gris)}
+
+/* ── CHIFFRES CLÉS ── */
+.numbers-section{padding:56px 40px;background:var(--terre);position:relative;z-index:2;overflow:hidden}
+.numbers-section::before{content:'🌾';position:absolute;right:-30px;top:-20px;font-size:200px;opacity:.04;pointer-events:none}
+.numbers-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,3vw,30px);font-weight:800;color:var(--blanc);text-align:center;margin-bottom:36px}
+.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.number-item{text-align:center}
+.number-val{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:800;color:var(--soleil);margin-bottom:6px}
+.number-lbl{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
+
+/* Responsive nouvelles sections */
+@media(max-width:900px){
+  .carousel-slide{height:280px}
+  .carousel-content{left:20px;right:20px}
+  .how-section{padding:44px 20px}
+  .how-steps{grid-template-columns:1fr;gap:24px}
+  .how-steps::before{display:none}
+  .testi-section{padding:44px 20px}
+  .testi-grid{grid-template-columns:1fr}
+  .numbers-section{padding:44px 20px}
+  .numbers-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+}
+  
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
   .l-nav{padding:16px 20px}
@@ -367,6 +430,137 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
       <div class="prev-card"><span class="prev-em">🥬</span><div class="prev-inf"><div class="prev-nm">Chou vert</div><div class="prev-or">📍 Louga · ✅ Vérifié</div></div><div class="prev-pr">1 800<span>FCFA/pièce</span></div></div>
     </div>
   </div>
+
+<!-- CAROUSEL -->
+<div class="carousel-wrap" id="land-carousel">
+  <div class="carousel-track" id="car-track">
+    <div class="carousel-slide">
+      <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1200&q=80" alt="Agriculteur sénégalais">
+      <div class="carousel-overlay"></div>
+      <div class="carousel-content">
+        <div class="carousel-tag">🧅 Oignons Bok · Saint-Louis</div>
+        <h2>Des producteurs vérifiés près de chez vous</h2>
+        <p>Mamadou Diallo cultive 3 hectares d'oignons à Saint-Louis et livre directement à Dakar à 6h du matin.</p>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ce?w=1200&q=80" alt="Marché légumes Sénégal">
+      <div class="carousel-overlay"></div>
+      <div class="carousel-content">
+        <div class="carousel-tag">🥕 Carottes fraîches · Thiès</div>
+        <h2>Frais du champ à votre cuisine</h2>
+        <p>Nos producteurs récoltent la nuit pour que vous receviez vos légumes au lever du soleil, encore frais.</p>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=1200&q=80" alt="Tomates fraîches">
+      <div class="carousel-overlay"></div>
+      <div class="carousel-content">
+        <div class="carousel-tag">🍅 Tomates · Dakar</div>
+        <h2>Prix justes, zéro intermédiaire</h2>
+        <p>En commandant directement au producteur, vous payez moins et il gagne plus. Tout le monde y gagne.</p>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&q=80" alt="Agriculture Afrique">
+      <div class="carousel-overlay"></div>
+      <div class="carousel-content">
+        <div class="carousel-tag">🌾 AgriLink SN · Sénégal</div>
+        <h2>La confiance avant tout</h2>
+        <p>Paiement cash à la livraison, système de réputation, bon de commande signé. Votre sécurité est notre priorité.</p>
+      </div>
+    </div>
+  </div>
+  <div class="car-dots" id="car-dots">
+    <div class="car-dot active" onclick="goSlide(0)"></div>
+    <div class="car-dot" onclick="goSlide(1)"></div>
+    <div class="car-dot" onclick="goSlide(2)"></div>
+    <div class="car-dot" onclick="goSlide(3)"></div>
+  </div>
+  <div class="car-arrows">
+    <button class="car-arr" onclick="prevSlide()">←</button>
+    <button class="car-arr" onclick="nextSlide()">→</button>
+  </div>
+</div>
+
+<!-- COMMENT ÇA MARCHE -->
+<div class="how-section">
+  <div class="how-title">Comment ça marche ?</div>
+  <div class="how-sub">3 étapes simples pour recevoir vos produits frais</div>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-step-num">🔍</div>
+      <div class="how-step-title">1. Choisissez vos produits</div>
+      <div class="how-step-desc">Parcourez les annonces des producteurs vérifiés près de chez vous. Filtrez par région, produit ou prix.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">💬</div>
+      <div class="how-step-title">2. Négociez directement</div>
+      <div class="how-step-desc">Discutez avec le producteur via le chat intégré. Fixez la quantité, le prix et l'heure de livraison.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">💵</div>
+      <div class="how-step-title">3. Payez à la livraison</div>
+      <div class="how-step-desc">Recevez vos produits frais à 6h du matin. Inspectez, acceptez, puis payez cash. Simple et sécurisé.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TÉMOIGNAGES -->
+<div class="testi-section">
+  <div class="testi-title">Ils nous font confiance</div>
+  <div class="testi-sub">Ce que disent nos producteurs et acheteurs</div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+      <div class="testi-text">"Avant je perdais 30% de ma récolte faute d'acheteurs. Maintenant je vends tout en 48h. AgriLink a changé ma vie."</div>
+      <div class="testi-author">
+        <div class="testi-av" style="background:#E8F2E2">👨‍🌾</div>
+        <div><div class="testi-nm">Mamadou Diallo</div><div class="testi-rl">Maraîcher · Saint-Louis</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+      <div class="testi-text">"Mon restaurant reçoit des légumes frais chaque matin à 6h. Les prix sont meilleurs qu'au marché et la qualité est constante."</div>
+      <div class="testi-author">
+        <div class="testi-av" style="background:#E0EAF5">🏪</div>
+        <div><div class="testi-nm">Fatou Sow</div><div class="testi-rl">Gérante Restaurant · Dakar</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
+      <div class="testi-text">"Le système de réputation est excellent. Je sais à l'avance si le producteur est fiable. Plus de mauvaises surprises à la livraison."</div>
+      <div class="testi-author">
+        <div class="testi-av" style="background:#FEF3DC">🏨</div>
+        <div><div class="testi-nm">Ibrahima Ba</div><div class="testi-rl">Responsable Hôtel · Thiès</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHIFFRES CLÉS -->
+<div class="numbers-section">
+  <div class="numbers-title">AgriLink SN en chiffres</div>
+  <div class="numbers-grid">
+    <div class="number-item">
+      <div class="number-val" id="n-prod">0</div>
+      <div class="number-lbl">Producteurs<br>vérifiés</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val" id="n-cmd">0</div>
+      <div class="number-lbl">Commandes<br>livrées</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val">6h</div>
+      <div class="number-lbl">Heure de<br>livraison garantie</div>
+    </div>
+    <div class="number-item">
+      <div class="number-val">0</div>
+      <div class="number-lbl">Frais<br>d'inscription</div>
+    </div>
+  </div>
+</div>
+  
   <div class="l-foot">
     <p>© 2026 AgriLink SN · Paiement cash à la livraison · Producteurs vérifiés</p>
     <p>Fait avec ❤️ pour les agriculteurs sénégalais</p>
@@ -896,6 +1090,39 @@ function selEm(el,em){
 
 function deco(){CU=null;showToast('Déconnecté');setTimeout(()=>goTo('scr-land'),800);}
 
+// ── CAROUSEL LANDING ──
+let slide=0;
+const slides=document.querySelectorAll('.carousel-slide');
+const cdots=document.querySelectorAll('.car-dot');
+function goSlide(n){
+  slide=n;
+  document.getElementById('car-track').style.transform=`translateX(-${n*100}%)`;
+  cdots.forEach((d,i)=>d.classList.toggle('active',i===n));
+}
+function nextSlide(){goSlide((slide+1)%slides.length);}
+function prevSlide(){goSlide((slide-1+slides.length)%slides.length);}
+setInterval(nextSlide,4500);
+
+// ── COMPTEURS ANIMÉS ──
+function animCount(id,target,suffix=''){
+  const el=document.getElementById(id);
+  if(!el)return;
+  let current=0;
+  const step=Math.ceil(target/40);
+  const timer=setInterval(()=>{
+    current=Math.min(current+step,target);
+    el.textContent=current+(suffix);
+    if(current>=target)clearInterval(timer);
+  },40);
+}
+async function loadNumberStats(){
+  const{count:np}=await db.from('utilisateurs').select('*',{count:'exact',head:true}).eq('role','agriculteur');
+  const{count:nc}=await db.from('commandes').select('*',{count:'exact',head:true});
+  animCount('n-prod',np||0);
+  animCount('n-cmd',nc||0);
+}
+loadNumberStats();
+  
 loadStats();
 goTo('scr-land');
 </script>
