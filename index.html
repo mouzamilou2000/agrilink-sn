@@ -296,6 +296,79 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
 .mob-ni.active{color:var(--terre)}
 .mob-ic{font-size:21px}
 
+/* ── PRODUITS ANIMÉS ── */
+.prods-section{padding:60px 40px;background:var(--blanc);position:relative;z-index:2;overflow:hidden}
+.prods-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:800;color:var(--nuit);text-align:center;letter-spacing:-0.5px;margin-bottom:6px}
+.prods-sub{font-size:14px;color:var(--gris);text-align:center;margin-bottom:36px}
+
+/* Scroll infini automatique */
+.scroll-band{overflow:hidden;position:relative;padding:10px 0}
+.scroll-band::before,.scroll-band::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.scroll-band::before{left:0;background:linear-gradient(to right,var(--blanc),transparent)}
+.scroll-band::after{right:0;background:linear-gradient(to left,var(--blanc),transparent)}
+.scroll-inner{display:flex;gap:16px;width:max-content;animation:scrollLeft 30s linear infinite}
+.scroll-inner:hover{animation-play-state:paused}
+.scroll-inner-r{display:flex;gap:16px;width:max-content;animation:scrollRight 28s linear infinite;margin-top:16px}
+.scroll-inner-r:hover{animation-play-state:paused}
+
+@keyframes scrollLeft{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes scrollRight{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+
+.prod-pill{
+  display:flex;align-items:center;gap:10px;
+  background:var(--blanc);
+  border:1.5px solid var(--bord);
+  border-radius:50px;
+  padding:10px 16px;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:all .2s;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+  flex-shrink:0;
+}
+.prod-pill:hover{border-color:var(--vert);box-shadow:0 4px 16px rgba(45,74,30,.12);transform:translateY(-2px)}
+.prod-pill-img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.prod-pill-em{width:44px;height:44px;border-radius:50%;background:var(--ciel);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.prod-pill-info{}
+.prod-pill-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
+.prod-pill-pr{font-size:12px;color:var(--vert);font-weight:500;margin-top:1px}
+.prod-pill-loc{font-size:11px;color:var(--gris)}
+
+/* Grille produits avec hover animé */
+.featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:36px}
+.feat-card{
+  background:var(--blanc);
+  border:1.5px solid var(--bord);
+  border-radius:18px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  position:relative;
+}
+.feat-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 16px 40px rgba(45,74,30,.15);border-color:var(--vert)}
+.feat-card-img{width:100%;height:160px;object-fit:cover;display:block;transition:transform .4s}
+.feat-card:hover .feat-card-img{transform:scale(1.06)}
+.feat-card-img-em{width:100%;height:160px;background:var(--ciel);display:flex;align-items:center;justify-content:center;font-size:64px}
+.feat-card-body{padding:14px 16px 16px}
+.feat-card-tag{display:inline-block;background:var(--ciel);border-radius:6px;padding:3px 8px;font-size:11px;font-weight:500;color:var(--terre);margin-bottom:8px}
+.feat-card-nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--nuit);margin-bottom:3px}
+.feat-card-loc{font-size:12px;color:var(--gris);margin-bottom:10px}
+.feat-card-bot{display:flex;align-items:center;justify-content:space-between}
+.feat-card-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--terre)}
+.feat-card-pr span{font-size:11px;font-weight:400;color:var(--gris)}
+.feat-card-btn{width:32px;height:32px;background:var(--terre);border:none;border-radius:50%;color:var(--blanc);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.feat-card:hover .feat-card-btn{background:var(--soleil);color:var(--nuit);transform:rotate(45deg)}
+
+/* Badge nouveau */
+.badge-new{position:absolute;top:10px;right:10px;background:var(--soleil);color:var(--nuit);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+.badge-hot{position:absolute;top:10px;right:10px;background:var(--argile);color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+
+@media(max-width:900px){
+  .prods-section{padding:40px 16px}
+  .featured-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .feat-card-img,.feat-card-img-em{height:120px}
+}
+  
 /* ── CAROUSEL IMAGES ── */
 .carousel-wrap{position:relative;overflow:hidden;margin:0 0 0;padding:20px 0}
 .carousel-track{display:flex;gap:0;transition:transform .5s ease}
@@ -313,6 +386,144 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
 .car-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s}
 .car-dot.active{width:22px;border-radius:4px;background:var(--soleil)}
 
+<!-- PRODUITS ANIMÉS -->
+<div class="prods-section">
+  <div class="prods-title">Produits frais disponibles maintenant</div>
+  <div class="prods-sub">Directement des champs sénégalais à votre cuisine</div>
+
+  <!-- Bande défilante ligne 1 -->
+  <div class="scroll-band">
+    <div class="scroll-inner" id="scroll-1">
+      <!-- Dupliqué 2x pour l'effet infini -->
+      <div class="prod-pill"><div class="prod-pill-em">🧅</div><div class="prod-pill-info"><div class="prod-pill-nm">Oignons Bok</div><div class="prod-pill-pr">8 500 FCFA/sac</div><div class="prod-pill-loc">📍 Saint-Louis</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥕</div><div class="prod-pill-info"><div class="prod-pill-nm">Carottes fraîches</div><div class="prod-pill-pr">3 200 FCFA/cagette</div><div class="prod-pill-loc">📍 Thiès</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🍅</div><div class="prod-pill-info"><div class="prod-pill-nm">Tomates cerises</div><div class="prod-pill-pr">4 000 FCFA/plateau</div><div class="prod-pill-loc">📍 Dakar</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥬</div><div class="prod-pill-info"><div class="prod-pill-nm">Chou vert</div><div class="prod-pill-pr">1 800 FCFA/pièce</div><div class="prod-pill-loc">📍 Louga</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🌽</div><div class="prod-pill-info"><div class="prod-pill-nm">Maïs doux</div><div class="prod-pill-pr">2 500 FCFA/régime</div><div class="prod-pill-loc">📍 Kaolack</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🧄</div><div class="prod-pill-info"><div class="prod-pill-nm">Ail blanc</div><div class="prod-pill-pr">6 000 FCFA/kg</div><div class="prod-pill-loc">📍 Diourbel</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🫑</div><div class="prod-pill-info"><div class="prod-pill-nm">Poivron rouge</div><div class="prod-pill-pr">5 500 FCFA/kg</div><div class="prod-pill-loc">📍 Ziguinchor</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥔</div><div class="prod-pill-info"><div class="prod-pill-nm">Pommes de terre</div><div class="prod-pill-pr">2 800 FCFA/sac</div><div class="prod-pill-loc">📍 Fatick</div></div></div>
+      <!-- Duplicata pour scroll infini -->
+      <div class="prod-pill"><div class="prod-pill-em">🧅</div><div class="prod-pill-info"><div class="prod-pill-nm">Oignons Bok</div><div class="prod-pill-pr">8 500 FCFA/sac</div><div class="prod-pill-loc">📍 Saint-Louis</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥕</div><div class="prod-pill-info"><div class="prod-pill-nm">Carottes fraîches</div><div class="prod-pill-pr">3 200 FCFA/cagette</div><div class="prod-pill-loc">📍 Thiès</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🍅</div><div class="prod-pill-info"><div class="prod-pill-nm">Tomates cerises</div><div class="prod-pill-pr">4 000 FCFA/plateau</div><div class="prod-pill-loc">📍 Dakar</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥬</div><div class="prod-pill-info"><div class="prod-pill-nm">Chou vert</div><div class="prod-pill-pr">1 800 FCFA/pièce</div><div class="prod-pill-loc">📍 Louga</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🌽</div><div class="prod-pill-info"><div class="prod-pill-nm">Maïs doux</div><div class="prod-pill-pr">2 500 FCFA/régime</div><div class="prod-pill-loc">📍 Kaolack</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🧄</div><div class="prod-pill-info"><div class="prod-pill-nm">Ail blanc</div><div class="prod-pill-pr">6 000 FCFA/kg</div><div class="prod-pill-loc">📍 Diourbel</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🫑</div><div class="prod-pill-info"><div class="prod-pill-nm">Poivron rouge</div><div class="prod-pill-pr">5 500 FCFA/kg</div><div class="prod-pill-loc">📍 Ziguinchor</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥔</div><div class="prod-pill-info"><div class="prod-pill-nm">Pommes de terre</div><div class="prod-pill-pr">2 800 FCFA/sac</div><div class="prod-pill-loc">📍 Fatick</div></div></div>
+    </div>
+  </div>
+
+  <!-- Bande défilante ligne 2 (sens inverse) -->
+  <div class="scroll-band">
+    <div class="scroll-inner-r">
+      <div class="prod-pill"><div class="prod-pill-em">🍆</div><div class="prod-pill-info"><div class="prod-pill-nm">Aubergine</div><div class="prod-pill-pr">3 500 FCFA/kg</div><div class="prod-pill-loc">📍 Kolda</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥜</div><div class="prod-pill-info"><div class="prod-pill-nm">Arachides</div><div class="prod-pill-pr">4 200 FCFA/sac</div><div class="prod-pill-loc">📍 Kaolack</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🌿</div><div class="prod-pill-info"><div class="prod-pill-nm">Bissap frais</div><div class="prod-pill-pr">2 000 FCFA/kg</div><div class="prod-pill-loc">📍 Louga</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥭</div><div class="prod-pill-info"><div class="prod-pill-nm">Mangues Kent</div><div class="prod-pill-pr">1 500 FCFA/kg</div><div class="prod-pill-loc">📍 Ziguinchor</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🍌</div><div class="prod-pill-info"><div class="prod-pill-nm">Bananes plantain</div><div class="prod-pill-pr">2 200 FCFA/régime</div><div class="prod-pill-loc">📍 Sédhiou</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🧅</div><div class="prod-pill-info"><div class="prod-pill-nm">Échalotes</div><div class="prod-pill-pr">7 000 FCFA/kg</div><div class="prod-pill-loc">📍 Saint-Louis</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🌶️</div><div class="prod-pill-info"><div class="prod-pill-nm">Piments rouges</div><div class="prod-pill-pr">3 800 FCFA/kg</div><div class="prod-pill-loc">📍 Thiès</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥗</div><div class="prod-pill-info"><div class="prod-pill-nm">Salade verte</div><div class="prod-pill-pr">1 200 FCFA/botte</div><div class="prod-pill-loc">📍 Dakar</div></div></div>
+      <!-- Duplicata -->
+      <div class="prod-pill"><div class="prod-pill-em">🍆</div><div class="prod-pill-info"><div class="prod-pill-nm">Aubergine</div><div class="prod-pill-pr">3 500 FCFA/kg</div><div class="prod-pill-loc">📍 Kolda</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥜</div><div class="prod-pill-info"><div class="prod-pill-nm">Arachides</div><div class="prod-pill-pr">4 200 FCFA/sac</div><div class="prod-pill-loc">📍 Kaolack</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🌿</div><div class="prod-pill-info"><div class="prod-pill-nm">Bissap frais</div><div class="prod-pill-pr">2 000 FCFA/kg</div><div class="prod-pill-loc">📍 Louga</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥭</div><div class="prod-pill-info"><div class="prod-pill-nm">Mangues Kent</div><div class="prod-pill-pr">1 500 FCFA/kg</div><div class="prod-pill-loc">📍 Ziguinchor</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🍌</div><div class="prod-pill-info"><div class="prod-pill-nm">Bananes plantain</div><div class="prod-pill-pr">2 200 FCFA/régime</div><div class="prod-pill-loc">📍 Sédhiou</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🧅</div><div class="prod-pill-info"><div class="prod-pill-nm">Échalotes</div><div class="prod-pill-pr">7 000 FCFA/kg</div><div class="prod-pill-loc">📍 Saint-Louis</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🌶️</div><div class="prod-pill-info"><div class="prod-pill-nm">Piments rouges</div><div class="prod-pill-pr">3 800 FCFA/kg</div><div class="prod-pill-loc">📍 Thiès</div></div></div>
+      <div class="prod-pill"><div class="prod-pill-em">🥗</div><div class="prod-pill-info"><div class="prod-pill-nm">Salade verte</div><div class="prod-pill-pr">1 200 FCFA/botte</div><div class="prod-pill-loc">📍 Dakar</div></div></div>
+    </div>
+  </div>
+
+  <!-- Grille produits vedettes -->
+  <div class="featured-grid">
+    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
+      <div class="feat-card-img-em">🧅</div>
+      <div class="badge-new">Nouveau</div>
+      <div class="feat-card-body">
+        <div class="feat-card-tag">Légumes · Saint-Louis</div>
+        <div class="feat-card-nm">Oignons Bok</div>
+        <div class="feat-card-loc">👨‍🌾 Mamadou Diallo · ⭐ 4.9</div>
+        <div class="feat-card-bot">
+          <div class="feat-card-pr">8 500 <span>FCFA/sac</span></div>
+          <button class="feat-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
+      <div class="feat-card-img-em">🥕</div>
+      <div class="feat-card-body">
+        <div class="feat-card-tag">Légumes · Thiès</div>
+        <div class="feat-card-nm">Carottes fraîches</div>
+        <div class="feat-card-loc">👩‍🌾 Fatou Ndiaye · ⭐ 4.8</div>
+        <div class="feat-card-bot">
+          <div class="feat-card-pr">3 200 <span>FCFA/cagette</span></div>
+          <button class="feat-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
+      <div class="feat-card-img-em">🍅</div>
+      <div class="badge-hot">🔥 Populaire</div>
+      <div class="feat-card-body">
+        <div class="feat-card-tag">Légumes · Dakar</div>
+        <div class="feat-card-nm">Tomates cerises</div>
+        <div class="feat-card-loc">👨‍🌾 Ibrahima Sow · ⭐ 5.0</div>
+        <div class="feat-card-bot">
+          <div class="feat-card-pr">4 000 <span>FCFA/plateau</span></div>
+          <button class="feat-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
+      <div class="feat-card-img-em">🥬</div>
+      <div class="feat-card-body">
+        <div class="feat-card-tag">Légumes · Louga</div>
+        <div class="feat-card-nm">Chou vert</div>
+        <div class="feat-card-loc">👩‍🌾 Aïssatou Ba · ⭐ 4.7</div>
+        <div class="feat-card-bot">
+          <div class="feat-card-pr">1 800 <span>FCFA/pièce</span></div>
+          <button class="feat-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
+      <div class="feat-card-img-em">🥭</div>
+      <div class="badge-new">Saison</div>
+      <div class="feat-card-body">
+        <div class="feat-card-tag">Fruits · Ziguinchor</div>
+        <div class="feat-card-nm">Mangues Kent</div>
+        <div class="feat-card-loc">👨‍🌾 Oumar Diatta · ⭐ 4.9</div>
+        <div class="feat-card-bot">
+          <div class="feat-card-pr">1 500 <span>FCFA/kg</span></div>
+          <button class="feat-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
+      <div class="feat-card-img-em">🌽</div>
+      <div class="feat-card-body">
+        <div class="feat-card-tag">Céréales · Kaolack</div>
+        <div class="feat-card-nm">Maïs doux</div>
+        <div class="feat-card-loc">👨‍🌾 Cheikh Fall · ⭐ 4.6</div>
+        <div class="feat-card-bot">
+          <div class="feat-card-pr">2 500 <span>FCFA/régime</span></div>
+          <button class="feat-card-btn">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:28px">
+    <button class="btn-big" onclick="goTo('scr-auth');switchTab('register')" style="display:inline-flex;align-items:center;gap:8px">
+      Voir tous les produits →
+    </button>
+  </div>
+</div>
+  
 /* ── COMMENT ÇA MARCHE ── */
 .how-section{padding:64px 40px;background:var(--blanc);position:relative;z-index:2}
 .how-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,36px);font-weight:800;color:var(--nuit);text-align:center;letter-spacing:-1px;margin-bottom:8px}
