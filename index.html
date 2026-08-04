@@ -1537,21 +1537,388 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
       </div>
     </div>
     <!-- ACCUEIL -->
-    <!-- ACCUEIL -->
-    
+
+    <!-- ACCUEIL MODERNE -->
 <div class="panel active" id="p-home">
 
-  <!-- Carte de bienvenue -->
-  <div class="dash-welcome">
-    <div class="dash-welcome-left">
-      <h2>Bonjour, <span id="dw-name">--</span> 👋</h2>
-      <p>Voici les produits frais disponibles aujourd'hui.<br>Livraison garantie à 6h du matin.</p>
+  <!-- Grande bannière -->
+  <section class="home-welcome">
+    <div class="home-welcome-content">
+
+      <div class="home-badge">
+        🌱 La marketplace agricole du Sénégal
+      </div>
+
+      <h1>
+        Des produits frais,
+        <span>directement du producteur</span>
+      </h1>
+
+      <p>
+        Découvrez des récoltes locales, échangez directement avec les
+        producteurs et commandez simplement depuis AgriLink SN.
+      </p>
+
+      <div class="home-actions">
+        <button class="home-primary"
+                onclick="showPanel('p-prod')">
+          Découvrir les produits →
+        </button>
+
+        <button class="home-secondary"
+                onclick="showToast('💬 Contactez directement un producteur depuis la fiche produit')">
+          Comment ça marche ?
+        </button>
+      </div>
+
     </div>
-    <div class="dash-welcome-time">
-      <div class="time" id="dw-time">--:--</div>
-      <div class="date" id="dw-date">--</div>
+  </section>
+
+
+  <!-- Statistiques -->
+  <div class="d-stats">
+
+    <div class="d-stat">
+      <div class="d-sn" id="ds-p">--</div>
+      <div class="d-sl">Producteurs actifs</div>
+      <div class="d-ss">● Disponibles sur la plateforme</div>
     </div>
+
+    <div class="d-stat">
+      <div class="d-sn" id="ds-i">--</div>
+      <div class="d-sl">Produits disponibles</div>
+      <div class="d-ss">● Récoltes actuellement publiées</div>
+    </div>
+
+    <div class="d-stat">
+      <div class="d-sn">4.8★</div>
+      <div class="d-sl">Satisfaction moyenne</div>
+      <div class="d-ss">● Une expérience plus simple</div>
+    </div>
+
   </div>
+
+
+  <!-- Carrousel -->
+  <section class="product-carousel">
+
+    <div class="carousel-track" id="carouselTrack">
+
+      <article class="carousel-slide"
+        style="background-image:url('https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=1600&q=85')">
+
+        <div class="carousel-content">
+          <div class="carousel-tag">🥬 Produits frais</div>
+
+          <h2>Des légumes récoltés avec soin</h2>
+
+          <p>
+            Trouvez des produits frais proposés directement
+            par des producteurs locaux.
+          </p>
+
+          <button class="carousel-button"
+                  onclick="showPanel('p-prod')">
+            Voir les produits →
+          </button>
+        </div>
+
+      </article>
+
+
+      <article class="carousel-slide"
+        style="background-image:url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=85')">
+
+        <div class="carousel-content">
+          <div class="carousel-tag">🌾 Agriculture locale</div>
+
+          <h2>Soutenez les producteurs sénégalais</h2>
+
+          <p>
+            Achetez local et participez au développement
+            d'une agriculture plus accessible.
+          </p>
+
+          <button class="carousel-button"
+                  onclick="showPanel('p-prod')">
+            Découvrir le marché →
+          </button>
+        </div>
+
+      </article>
+
+
+      <article class="carousel-slide"
+        style="background-image:url('https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=1600&q=85')">
+
+        <div class="carousel-content">
+          <div class="carousel-tag">🚚 Livraison</div>
+
+          <h2>Commandez aujourd'hui, recevez frais</h2>
+
+          <p>
+            Échangez avec le producteur, confirmez votre
+            commande et payez à la livraison.
+          </p>
+
+          <button class="carousel-button"
+                  onclick="showPanel('p-prod')">
+            Commander maintenant →
+          </button>
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <div class="carousel-dots">
+
+      <button class="carousel-dot active"
+              onclick="goCarousel(0)"
+              aria-label="Image 1"></button>
+
+      <button class="carousel-dot"
+              onclick="goCarousel(1)"
+              aria-label="Image 2"></button>
+
+      <button class="carousel-dot"
+              onclick="goCarousel(2)"
+              aria-label="Image 3"></button>
+
+    </div>
+
+
+    <div class="carousel-controls">
+
+      <button class="carousel-control"
+              onclick="changeCarousel(-1)"
+              aria-label="Image précédente">
+        ←
+      </button>
+
+      <button class="carousel-control"
+              onclick="changeCarousel(1)"
+              aria-label="Image suivante">
+        →
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- Produits récents -->
+  <section class="home-section">
+
+    <div class="home-section-head">
+
+      <div>
+        <h2>Produits récemment publiés</h2>
+
+        <p>
+          Découvrez les dernières récoltes disponibles
+          sur AgriLink SN.
+        </p>
+      </div>
+
+      <button class="home-link"
+              onclick="showPanel('p-prod')">
+        Voir tout →
+      </button>
+
+    </div>
+
+    <!-- IMPORTANT :
+         Nous gardons exactement l'id hp,
+         car loadHome() utilise cet élément. -->
+
+    <div class="p-grid" id="hp">
+      <div class="loading">
+        ⏳ Chargement des produits...
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- Avantages -->
+  <section class="home-section">
+
+    <div class="home-section-head">
+
+      <div>
+        <h2>Pourquoi choisir AgriLink SN ?</h2>
+
+        <p>
+          Une plateforme pensée pour rapprocher
+          les producteurs et les acheteurs.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="benefits-grid">
+
+      <article class="benefit-card">
+
+        <div class="benefit-icon">👨‍🌾</div>
+
+        <h3>Producteurs locaux</h3>
+
+        <p>
+          Échangez directement avec les producteurs
+          et découvrez l'origine de vos produits.
+        </p>
+
+      </article>
+
+
+      <article class="benefit-card">
+
+        <div class="benefit-icon">🥬</div>
+
+        <h3>Produits frais</h3>
+
+        <p>
+          Consultez les récoltes disponibles
+          et choisissez selon vos besoins.
+        </p>
+
+      </article>
+
+
+      <article class="benefit-card">
+
+        <div class="benefit-icon">💬</div>
+
+        <h3>Discussion directe</h3>
+
+        <p>
+          Posez vos questions et échangez
+          avec le producteur avant de commander.
+        </p>
+
+      </article>
+
+
+      <article class="benefit-card">
+
+        <div class="benefit-icon">💵</div>
+
+        <h3>Paiement à la livraison</h3>
+
+        <p>
+          Inspectez vos produits et effectuez
+          votre paiement lors de la livraison.
+        </p>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="app-footer">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+
+        <div class="footer-logo">
+
+          <div class="footer-logo-icon">🌾</div>
+
+          AgriLink SN
+
+        </div>
+
+        <p>
+          AgriLink SN rapproche les producteurs
+          agricoles et les acheteurs afin de faciliter
+          l'accès aux produits locaux au Sénégal.
+        </p>
+
+      </div>
+
+
+      <div class="footer-col">
+
+        <h4>Découvrir</h4>
+
+        <button onclick="showPanel('p-home')">
+          Accueil
+        </button>
+
+        <button onclick="showPanel('p-prod')">
+          Produits disponibles
+        </button>
+
+        <button onclick="showToast('🌱 De nouvelles fonctionnalités arrivent bientôt')">
+          Comment ça marche
+        </button>
+
+      </div>
+
+
+      <div class="footer-col">
+
+        <h4>Mon compte</h4>
+
+        <button onclick="showPanel('p-prof')">
+          Mon profil
+        </button>
+
+        <button onclick="showPanel('p-orders');loadOrders()">
+          Mes commandes
+        </button>
+
+        <button onclick="showPanel('p-chat')">
+          Messages
+        </button>
+
+      </div>
+
+
+      <div class="footer-col">
+
+        <h4>Assistance</h4>
+
+        <button onclick="showToast('📞 Assistance bientôt disponible')">
+          Nous contacter
+        </button>
+
+        <button onclick="showToast('❓ Centre d’aide bientôt disponible')">
+          Centre d'aide
+        </button>
+
+        <button onclick="showToast('🛡️ Vos données sont protégées')">
+          Confidentialité
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 AgriLink SN. Tous droits réservés.
+      </span>
+
+      <span>
+        🇸🇳 Conçu pour valoriser l'agriculture sénégalaise
+      </span>
+
+    </div>
+
+  </footer>
+
+</div>
 
   <!-- Accès rapide -->
   <div class="quick-access">
@@ -2126,7 +2493,74 @@ async function loadNumberStats(){
 }
 loadNumberStats();
 
+/* =====================================================
+   CARROUSEL DE LA PAGE D'ACCUEIL
+===================================================== */
 
+let carouselIndex = 0;
+let carouselTimer;
+
+function goCarousel(index){
+
+  const track =
+    document.getElementById('carouselTrack');
+
+  const dots =
+    document.querySelectorAll('.carousel-dot');
+
+  if(!track) return;
+
+  const total = dots.length;
+
+  carouselIndex =
+    (index + total) % total;
+
+  track.style.transform =
+    `translateX(-${carouselIndex * 100}%)`;
+
+  dots.forEach((dot,i)=>{
+    dot.classList.toggle(
+      'active',
+      i === carouselIndex
+    );
+  });
+
+}
+
+function changeCarousel(direction){
+
+  goCarousel(
+    carouselIndex + direction
+  );
+
+  restartCarousel();
+
+}
+
+function startCarousel(){
+
+  clearInterval(carouselTimer);
+
+  carouselTimer = setInterval(()=>{
+
+    goCarousel(
+      carouselIndex + 1
+    );
+
+  },5000);
+
+}
+
+function restartCarousel(){
+
+  startCarousel();
+
+}
+
+document.addEventListener(
+  'DOMContentLoaded',
+  startCarousel
+);
 
 loadStats();
 goTo('scr-land');
