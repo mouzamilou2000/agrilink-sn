@@ -184,11 +184,8 @@ body { font-family:'Noto Sans', sans-serif; background:var(--ciel); color:var(--
 .scroll-band::after { right:0; background:linear-gradient(to left,var(--blanc),transparent); }
 .scroll-inner { display:flex; gap:16px; width:max-content; animation:scrollLeft 30s linear infinite; }
 .scroll-inner:hover { animation-play-state:paused; }
-.scroll-inner-r { display:flex; gap:16px; width:max-content; animation:scrollRight 28s linear infinite; margin-top:16px; }
-.scroll-inner-r:hover { animation-play-state:paused; }
 
 @keyframes scrollLeft { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
-@keyframes scrollRight { 0% { transform:translateX(-50%); } 100% { transform:translateX(0); } }
 
 .prod-pill { display:flex; align-items:center; gap:12px; background:var(--blanc); border:1.5px solid var(--bord); border-radius:50px; padding:8px 16px 8px 8px; white-space:nowrap; cursor:pointer; transition:all .2s; box-shadow:0 2px 8px rgba(0,0,0,.04); flex-shrink:0; }
 .prod-pill:hover { border-color:var(--vert); box-shadow:0 4px 16px rgba(45,74,30,.12); transform:translateY(-2px); }
@@ -425,7 +422,6 @@ body { font-family:'Noto Sans', sans-serif; background:var(--ciel); color:var(--
           <img class="prod-pill-img" src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=100&q=80" alt="Tomate">
           <div><div class="prod-pill-nm">Tomates cerises</div><div class="prod-pill-pr">4 000 FCFA</div><div class="prod-pill-loc">📍 Dakar</div></div>
         </div>
-        <!-- Répétition pour effet scroll continu -->
         <div class="prod-pill">
           <img class="prod-pill-img" src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8ce?auto=format&fit=crop&w=100&q=80" alt="Oignon">
           <div><div class="prod-pill-nm">Oignons Bok</div><div class="prod-pill-pr">8 500 FCFA</div><div class="prod-pill-loc">📍 Saint-Louis</div></div>
