@@ -6,666 +6,331 @@
 <title>AgriLink SN</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Noto+Sans:wght@400;500&display=swap');
-:root{--terre:#2D4A1E;--terre2:#1A2E12;--soleil:#E8A020;--ciel:#F0F4EC;--blanc:#FAFAF7;--nuit:#1A2614;--argile:#C4622D;--vert:#5A8A3C;--gris:#8A9180;--bord:#D6DDD0;--sw:260px}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit);min-height:100vh}
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Noto+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --terre: #2D4A1E;
+  --terre2: #1A2E12;
+  --soleil: #E8A020;
+  --ciel: #F0F4EC;
+  --blanc: #FAFAF7;
+  --nuit: #1A2614;
+  --argile: #C4622D;
+  --vert: #5A8A3C;
+  --gris: #6B7280;
+  --bord: #D6DDD0;
+  --sw: 260px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans', sans-serif; background:var(--ciel); color:var(--nuit); min-height:100vh; line-height:1.5; }
 
 /* SCREENS */
-.screen{display:none;min-height:100vh}
-.screen.active{display:block}
+.screen { display:none; min-height:100vh; }
+.screen.active { display:block; }
 
-/* ── LANDING ── */
-#scr-land{background:var(--terre2);display:none;flex-direction:column;min-height:100vh}
-#scr-land.active{display:flex}
-.l-bg{position:absolute;inset:0;background:radial-gradient(circle at 15% 50%,rgba(232,160,32,.07),transparent 50%),radial-gradient(circle at 85% 20%,rgba(90,138,60,.1),transparent 50%);pointer-events:none}
-.l-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 40px;position:relative;z-index:2}
-.l-logo{display:flex;align-items:center;gap:10px}
-.l-logo-ic{width:38px;height:38px;background:var(--soleil);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
-.l-logo-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--blanc)}
-.l-btns{display:flex;gap:10px}
-.btn-out{background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:10px;padding:9px 18px;color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor:pointer}
-.btn-sol{background:var(--soleil);border:none;border-radius:10px;padding:9px 18px;color:var(--nuit);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;cursor:pointer}
-.l-hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:60px 40px 40px;flex:1;align-items:center;position:relative;z-index:2}
-.l-eyebrow{display:inline-flex;align-items:center;gap:6px;background:rgba(232,160,32,.15);border:1px solid rgba(232,160,32,.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:500;color:var(--soleil);margin-bottom:18px}
-.l-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,5vw,60px);font-weight:800;color:var(--blanc);line-height:1.1;letter-spacing:-2px;margin-bottom:18px}
-.l-title span{color:var(--soleil)}
-.l-desc{font-size:16px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:30px;max-width:460px}
-.l-ctas{display:flex;gap:12px;flex-wrap:wrap}
-.btn-big{background:var(--soleil);border:none;border-radius:14px;padding:15px 26px;color:var(--nuit);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 8px 24px rgba(232,160,32,.3)}
-.btn-ghost{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:14px;padding:15px 26px;color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;cursor:pointer}
-.l-stats{display:flex;gap:32px;margin-top:36px}
-.ls-num{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:var(--soleil)}
-.ls-lbl{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
-.l-right{display:flex;flex-direction:column;gap:12px}
-.prev-card{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s}
-.prev-card:hover{transform:translateX(-4px);border-color:rgba(232,160,32,.4)}
-.prev-card.ft{background:rgba(232,160,32,.1);border-color:rgba(232,160,32,.3)}
-.prev-em{font-size:34px;flex-shrink:0}
-.prev-inf{flex:1}
-.prev-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--blanc)}
-.prev-or{font-size:12px;color:rgba(255,255,255,.45);margin-top:2px}
-.prev-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:var(--soleil);text-align:right}
-.prev-pr span{font-size:11px;font-weight:400;color:rgba(255,255,255,.4);display:block}
-.l-foot{padding:20px 40px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
-.l-foot p{font-size:12px;color:rgba(255,255,255,.3)}
+/* LANDING */
+#scr-land { background:var(--terre2); display:none; flex-direction:column; min-height:100vh; }
+#scr-land.active { display:flex; }
+.l-bg { position:absolute; inset:0; background:radial-gradient(circle at 15% 50%,rgba(232,160,32,.07),transparent 50%),radial-gradient(circle at 85% 20%,rgba(90,138,60,.1),transparent 50%); pointer-events:none; }
+.l-nav { display:flex; align-items:center; justify-content:space-between; padding:20px 40px; position:relative; z-index:2; }
+.l-logo { display:flex; align-items:center; gap:10px; }
+.l-logo-ic { width:38px; height:38px; background:var(--soleil); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px; }
+.l-logo-tx { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:19px; color:var(--blanc); }
+.l-btns { display:flex; gap:10px; }
+.btn-out { background:rgba(255,255,255,.1); border:1.5px solid rgba(255,255,255,.2); border-radius:10px; padding:9px 18px; color:var(--blanc); font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; cursor:pointer; }
+.btn-sol { background:var(--soleil); border:none; border-radius:10px; padding:9px 18px; color:var(--nuit); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px; cursor:pointer; }
+.l-hero { display:grid; grid-template-columns:1fr 1fr; gap:60px; padding:60px 40px 40px; flex:1; align-items:center; position:relative; z-index:2; }
+.l-eyebrow { display:inline-flex; align-items:center; gap:6px; background:rgba(232,160,32,.15); border:1px solid rgba(232,160,32,.3); border-radius:20px; padding:5px 14px; font-size:12px; font-weight:500; color:var(--soleil); margin-bottom:18px; }
+.l-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(34px,5vw,60px); font-weight:800; color:var(--blanc); line-height:1.1; letter-spacing:-2px; margin-bottom:18px; }
+.l-title span { color:var(--soleil); }
+.l-desc { font-size:16px; color:rgba(255,255,255,.7); line-height:1.7; margin-bottom:30px; max-width:460px; }
+.l-ctas { display:flex; gap:12px; flex-wrap:wrap; }
+.btn-big { background:var(--soleil); border:none; border-radius:14px; padding:15px 26px; color:var(--nuit); font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; cursor:pointer; box-shadow:0 8px 24px rgba(232,160,32,.3); transition:transform .2s; }
+.btn-big:hover { transform:translateY(-2px); }
+.btn-ghost { background:rgba(255,255,255,.08); border:1.5px solid rgba(255,255,255,.15); border-radius:14px; padding:15px 26px; color:var(--blanc); font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; cursor:pointer; }
+.l-stats { display:flex; gap:32px; margin-top:36px; }
+.ls-num { font-family:'Space Grotesk',sans-serif; font-size:26px; font-weight:800; color:var(--soleil); }
+.ls-lbl { font-size:12px; color:rgba(255,255,255,.6); margin-top:2px; }
+.l-right { display:flex; flex-direction:column; gap:12px; }
+.prev-card { background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.1); border-radius:16px; padding:12px 18px; display:flex; align-items:center; gap:14px; cursor:pointer; transition:all .2s; }
+.prev-card:hover { transform:translateX(-4px); border-color:rgba(232,160,32,.4); }
+.prev-card.ft { background:rgba(232,160,32,.1); border-color:rgba(232,160,32,.3); }
+.prev-img { width:48px; height:48px; border-radius:12px; object-fit:cover; flex-shrink:0; }
+.prev-inf { flex:1; }
+.prev-nm { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--blanc); }
+.prev-or { font-size:12px; color:rgba(255,255,255,.6); margin-top:2px; }
+.prev-pr { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--soleil); text-align:right; }
+.prev-pr span { font-size:11px; font-weight:400; color:rgba(255,255,255,.5); display:block; }
+.l-foot { padding:20px 40px; border-top:1px solid rgba(255,255,255,.06); display:flex; align-items:center; justify-content:space-between; position:relative; z-index:2; }
+.l-foot p { font-size:12px; color:rgba(255,255,255,.4); }
 
-/* ── AUTH ── */
-#scr-auth{display:none}
-#scr-auth.active{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
-.a-left{background:var(--terre);padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.a-left::after{content:'🌾';position:absolute;right:-20px;bottom:-30px;font-size:150px;opacity:.05;pointer-events:none}
-.a-ll{display:flex;align-items:center;gap:10px;margin-bottom:44px}
-.a-ll-ic{width:34px;height:34px;background:var(--soleil);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
-.a-ll-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--blanc)}
-.a-lt{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;color:var(--blanc);line-height:1.2;letter-spacing:-1px;margin-bottom:12px}
-.a-lt span{color:var(--soleil)}
-.a-ld{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7}
-.a-feats{margin-top:28px;display:flex;flex-direction:column;gap:10px}
-.a-feat{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.7)}
-.a-feat-ic{width:30px;height:30px;background:rgba(255,255,255,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.a-back{background:none;border:none;color:rgba(255,255,255,.45);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px}
-.a-right{background:var(--blanc);padding:48px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
-.a-rtit{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:var(--nuit);margin-bottom:5px;letter-spacing:-.5px}
-.a-rsub{font-size:14px;color:var(--gris);margin-bottom:24px}
-.a-tabs{display:flex;background:var(--ciel);border-radius:12px;padding:4px;gap:4px;margin-bottom:22px}
-.a-tab{flex:1;padding:9px;border:none;border-radius:9px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor:pointer;background:none;color:var(--gris);transition:all .2s}
-.a-tab.active{background:var(--blanc);color:var(--terre);box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.role-ch{display:flex;gap:10px;margin-bottom:18px}
-.role-c{flex:1;padding:14px 10px;border:2px solid var(--bord);border-radius:14px;background:var(--blanc);cursor:pointer;text-align:center;transition:all .15s}
-.role-c.sel{border-color:var(--terre);background:var(--ciel)}
-.role-ic{font-size:24px;display:block;margin-bottom:5px}
-.role-lb{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--nuit)}
-.role-sb{font-size:11px;color:var(--gris);margin-top:2px}
-.fg{margin-bottom:15px}
-.fl{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
-.fi{width:100%;border:1.5px solid var(--bord);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'Noto Sans',sans-serif;outline:none;background:var(--blanc);color:var(--nuit);transition:border-color .15s}
-.fi:focus{border-color:var(--terre)}
-.fs{width:100%;border:1.5px solid var(--bord);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'Noto Sans',sans-serif;outline:none;background:var(--blanc);color:var(--nuit);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9180' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
-.ph-wrap{display:flex;gap:8px}
-.ph-pre{background:var(--ciel);border:1.5px solid var(--bord);border-radius:12px;padding:12px 13px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit);white-space:nowrap;display:flex;align-items:center;gap:6px}
-.ph-wrap .fi{flex:1}
-.fhint{font-size:11px;color:var(--gris);margin-top:4px}
-.cgu-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px}
-.cgu-ck{width:20px;height:20px;border:2px solid var(--bord);border-radius:6px;cursor:pointer;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.cgu-ck.ck{background:var(--terre);border-color:var(--terre)}
-.cgu-tx{font-size:13px;color:var(--gris);line-height:1.5}
-.cgu-tx button{background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer;text-decoration:underline}
-.btn-auth{width:100%;background:var(--terre);color:var(--blanc);border:none;border-radius:13px;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(45,74,30,.2);transition:all .15s}
-.btn-auth:hover{background:var(--terre2)}
-.btn-auth:disabled{background:var(--bord);color:var(--gris);box-shadow:none;cursor:not-allowed}
-.sw-link{text-align:center;margin-top:14px;font-size:13px;color:var(--gris)}
-.sw-link button{background:none;border:none;color:var(--terre);font-weight:600;font-size:13px;cursor:pointer}
+/* AUTH */
+#scr-auth { display:none; }
+#scr-auth.active { display:grid; grid-template-columns:1fr 1fr; min-height:100vh; }
+.a-left { background:var(--terre); padding:48px; display:flex; flex-direction:column; justify-content:space-between; position:relative; overflow:hidden; }
+.a-left::after { content:'🌾'; position:absolute; right:-20px; bottom:-30px; font-size:150px; opacity:.05; pointer-events:none; }
+.a-ll { display:flex; align-items:center; gap:10px; margin-bottom:44px; }
+.a-ll-ic { width:34px; height:34px; background:var(--soleil); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:17px; }
+.a-ll-tx { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; color:var(--blanc); }
+.a-lt { font-family:'Space Grotesk',sans-serif; font-size:32px; font-weight:800; color:var(--blanc); line-height:1.2; letter-spacing:-1px; margin-bottom:12px; }
+.a-lt span { color:var(--soleil); }
+.a-ld { font-size:14px; color:rgba(255,255,255,.7); line-height:1.7; }
+.a-feats { margin-top:28px; display:flex; flex-direction:column; gap:10px; }
+.a-feat { display:flex; align-items:center; gap:10px; font-size:13px; color:rgba(255,255,255,.8); }
+.a-feat-ic { width:30px; height:30px; background:rgba(255,255,255,.1); border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.a-back { background:none; border:none; color:rgba(255,255,255,.6); font-size:13px; cursor:pointer; display:flex; align-items:center; gap:6px; }
+.a-right { background:var(--blanc); padding:48px; display:flex; flex-direction:column; justify-content:center; overflow-y:auto; }
+.a-rtit { font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:800; color:var(--nuit); margin-bottom:5px; letter-spacing:-.5px; }
+.a-rsub { font-size:14px; color:var(--gris); margin-bottom:24px; }
+.a-tabs { display:flex; background:var(--ciel); border-radius:12px; padding:4px; gap:4px; margin-bottom:22px; }
+.a-tab { flex:1; padding:9px; border:none; border-radius:9px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; cursor:pointer; background:none; color:var(--gris); transition:all .2s; }
+.a-tab.active { background:var(--blanc); color:var(--terre); box-shadow:0 1px 4px rgba(0,0,0,.08); }
+.role-ch { display:flex; gap:10px; margin-bottom:18px; }
+.role-c { flex:1; padding:14px 10px; border:2px solid var(--bord); border-radius:14px; background:var(--blanc); cursor:pointer; text-align:center; transition:all .15s; }
+.role-c.sel { border-color:var(--terre); background:var(--ciel); }
+.role-ic { font-size:24px; display:block; margin-bottom:5px; }
+.role-lb { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; color:var(--nuit); }
+.role-sb { font-size:11px; color:var(--gris); margin-top:2px; }
+.fg { margin-bottom:15px; }
+.fl { display:block; font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; color:var(--gris); text-transform:uppercase; letter-spacing:.07em; margin-bottom:6px; }
+.fi { width:100%; border:1.5px solid var(--bord); border-radius:12px; padding:12px 14px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); transition:border-color .15s; }
+.fi:focus { border-color:var(--terre); }
+.fs { width:100%; border:1.5px solid var(--bord); border-radius:12px; padding:12px 14px; font-size:15px; font-family:'Noto Sans',sans-serif; outline:none; background:var(--blanc); color:var(--nuit); cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A9180' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; }
+.ph-wrap { display:flex; gap:8px; }
+.ph-pre { background:var(--ciel); border:1.5px solid var(--bord); border-radius:12px; padding:12px 13px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--nuit); white-space:nowrap; display:flex; align-items:center; gap:6px; }
+.ph-wrap .fi { flex:1; }
+.fhint { font-size:11px; color:var(--gris); margin-top:4px; }
+.cgu-row { display:flex; align-items:flex-start; gap:10px; margin-bottom:18px; }
+.cgu-ck { width:20px; height:20px; border:2px solid var(--bord); border-radius:6px; cursor:pointer; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all .15s; }
+.cgu-ck.ck { background:var(--terre); border-color:var(--terre); }
+.cgu-tx { font-size:13px; color:var(--gris); line-height:1.5; }
+.cgu-tx button { background:none; border:none; color:var(--terre); font-weight:600; font-size:13px; cursor:pointer; text-decoration:underline; }
+.btn-auth { width:100%; background:var(--terre); color:var(--blanc); border:none; border-radius:13px; padding:14px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; cursor:pointer; box-shadow:0 4px 14px rgba(45,74,30,.2); transition:all .15s; }
+.btn-auth:hover { background:var(--terre2); }
+.sw-link { text-align:center; margin-top:14px; font-size:13px; color:var(--gris); }
+.sw-link button { background:none; border:none; color:var(--terre); font-weight:600; font-size:13px; cursor:pointer; }
 
-/* ── OTP ── */
-#scr-otp{display:none}
-#scr-otp.active{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
-.o-left{background:var(--terre);padding:48px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-.o-left::after{content:'📱';position:absolute;right:-20px;bottom:-20px;font-size:150px;opacity:.05;pointer-events:none}
-.o-lt{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;color:var(--blanc);letter-spacing:-1px;margin-bottom:12px}
-.o-ld{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7}
-.o-right{background:var(--blanc);padding:48px;display:flex;flex-direction:column;justify-content:center;align-items:center}
-.o-icon{font-size:52px;margin-bottom:16px}
-.o-tit{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--nuit);margin-bottom:8px}
-.o-sub{font-size:14px;color:var(--gris);text-align:center;line-height:1.6;margin-bottom:24px}
-.otp-row{display:flex;gap:10px;justify-content:center;margin-bottom:20px}
-.ob{width:54px;height:62px;border:2px solid var(--bord);border-radius:13px;font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;text-align:center;outline:none;background:var(--blanc);color:var(--nuit);transition:border-color .15s}
-.ob:focus{border-color:var(--terre)}
-.o-resend{font-size:13px;color:var(--gris);margin-bottom:18px;text-align:center}
-.o-resend button{background:none;border:none;color:var(--terre);font-weight:600;cursor:pointer}
+/* OTP */
+#scr-otp { display:none; }
+#scr-otp.active { display:grid; grid-template-columns:1fr 1fr; min-height:100vh; }
+.o-left { background:var(--terre); padding:48px; display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden; }
+.o-lt { font-family:'Space Grotesk',sans-serif; font-size:30px; font-weight:800; color:var(--blanc); letter-spacing:-1px; margin-bottom:12px; }
+.o-ld { font-size:14px; color:rgba(255,255,255,.7); line-height:1.7; }
+.o-right { background:var(--blanc); padding:48px; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+.o-icon { font-size:52px; margin-bottom:16px; }
+.o-tit { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:800; color:var(--nuit); margin-bottom:8px; }
+.o-sub { font-size:14px; color:var(--gris); text-align:center; line-height:1.6; margin-bottom:24px; }
+.otp-row { display:flex; gap:10px; justify-content:center; margin-bottom:20px; }
+.ob { width:54px; height:62px; border:2px solid var(--bord); border-radius:13px; font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight:700; text-align:center; outline:none; background:var(--blanc); color:var(--nuit); transition:border-color .15s; }
+.ob:focus { border-color:var(--terre); }
+.o-resend { font-size:13px; color:var(--gris); margin-bottom:18px; text-align:center; }
+.o-resend button { background:none; border:none; color:var(--terre); font-weight:600; cursor:pointer; }
 
-/* ── APP LAYOUT ── */
-.app-layout{display:none;min-height:100vh}
-.app-layout.active{display:flex}
-.sidebar{width:var(--sw);background:var(--terre2);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:30;transition:transform .3s}
-.sb-logo{padding:22px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
-.sb-logo-ic{width:34px;height:34px;background:var(--soleil);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px}
-.sb-logo-tx{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--blanc)}
-.sb-nav{flex:1;padding:14px 10px;display:flex;flex-direction:column;gap:3px;overflow-y:auto}
-.sb-sec{padding:14px 12px 5px;font-size:10px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em}
-.sb-item{display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:11px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,.55);font-size:13px;font-family:'Noto Sans',sans-serif;width:100%;text-align:left;transition:all .15s}
-.sb-item:hover{background:rgba(255,255,255,.06);color:var(--blanc)}
-.sb-item.active{background:rgba(232,160,32,.15);color:var(--soleil)}
-.si{font-size:18px;flex-shrink:0}
-.sb-bot{padding:14px 10px;border-top:1px solid rgba(255,255,255,.06)}
-.sb-user{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:11px}
-.sb-av{width:34px;height:34px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.sb-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--blanc)}
-.sb-rl{font-size:11px;color:rgba(255,255,255,.4)}
-.main{margin-left:var(--sw);flex:1;display:flex;flex-direction:column;min-height:100vh;background:var(--ciel)}
-.m-top{background:var(--blanc);border-bottom:1.5px solid var(--bord);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20}
-.m-top-tit{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--nuit)}
-.m-top-r{display:flex;align-items:center;gap:10px}
-.tb-btn{width:36px;height:36px;border-radius:9px;background:var(--ciel);border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;position:relative}
-.nd{position:absolute;top:6px;right:6px;width:7px;height:7px;background:var(--argile);border-radius:50%;border:1.5px solid var(--blanc)}
-.hmb{display:none;background:none;border:none;font-size:22px;cursor:pointer}
+/* APP LAYOUT */
+.app-layout { display:none; min-height:100vh; }
+.app-layout.active { display:flex; }
+.sidebar { width:var(--sw); background:var(--terre2); display:flex; flex-direction:column; position:fixed; top:0; left:0; bottom:0; z-index:30; transition:transform .3s; }
+.sb-logo { padding:22px 18px; display:flex; align-items:center; gap:10px; border-bottom:1px solid rgba(255,255,255,.06); }
+.sb-logo-ic { width:34px; height:34px; background:var(--soleil); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:17px; }
+.sb-logo-tx { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; color:var(--blanc); }
+.sb-nav { flex:1; padding:14px 10px; display:flex; flex-direction:column; gap:3px; overflow-y:auto; }
+.sb-sec { padding:14px 12px 5px; font-size:10px; font-weight:600; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:.1em; }
+.sb-item { display:flex; align-items:center; gap:11px; padding:10px 13px; border-radius:11px; cursor:pointer; border:none; background:none; color:rgba(255,255,255,.65); font-size:13px; font-family:'Noto Sans',sans-serif; width:100%; text-align:left; transition:all .15s; }
+.sb-item:hover { background:rgba(255,255,255,.06); color:var(--blanc); }
+.sb-item.active { background:rgba(232,160,32,.15); color:var(--soleil); }
+.si { font-size:18px; flex-shrink:0; }
+.sb-bot { padding:14px 10px; border-top:1px solid rgba(255,255,255,.06); }
+.sb-user { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:11px; }
+.sb-av { width:34px; height:34px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+.sb-nm { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; color:var(--blanc); }
+.sb-rl { font-size:11px; color:rgba(255,255,255,.5); }
+.main { margin-left:var(--sw); flex:1; display:flex; flex-direction:column; min-height:100vh; background:var(--ciel); }
+.m-top { background:var(--blanc); border-bottom:1.5px solid var(--bord); padding:14px 28px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:20; }
+.m-top-tit { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:19px; color:var(--nuit); }
+.m-top-r { display:flex; align-items:center; gap:10px; }
+.tb-btn { width:36px; height:36px; border-radius:9px; background:var(--ciel); border:none; cursor:pointer; font-size:17px; display:flex; align-items:center; justify-content:center; position:relative; }
+.nd { position:absolute; top:6px; right:6px; width:7px; height:7px; background:var(--argile); border-radius:50%; border:1.5px solid var(--blanc); }
+.hmb { display:none; background:none; border:none; font-size:22px; cursor:pointer; }
 
-/* ── PANELS ── */
-.panel{display:none;padding:28px}
-.panel.active{display:block}
-.sec-lbl{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+/* PANELS */
+.panel { display:none; padding:28px; }
+.panel.active { display:block; }
 
-/* Stats */
-.d-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
-.d-stat{background:var(--blanc);border-radius:15px;padding:18px 22px;border:1.5px solid var(--bord)}
-.d-sn{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:var(--terre)}
-.d-sl{font-size:13px;color:var(--gris);margin-top:3px}
-.d-ss{font-size:12px;color:var(--vert);margin-top:5px;font-weight:500}
+/* CAROUSEL */
+.carousel-wrap { position:relative; overflow:hidden; margin:0 0 40px; }
+.carousel-track { display:flex; gap:0; transition:transform .5s ease; }
+.carousel-slide { min-width:100%; position:relative; height:420px; flex-shrink:0; }
+.carousel-slide img { width:100%; height:100%; object-fit:cover; }
+.carousel-overlay { position:absolute; inset:0; background:linear-gradient(to right,rgba(26,46,18,.85) 40%,transparent 100%); }
+.carousel-content { position:absolute; top:50%; left:40px; transform:translateY(-50%); z-index:2; max-width:480px; }
+.carousel-content h2 { font-family:'Space Grotesk',sans-serif; font-size:clamp(22px,4vw,38px); font-weight:800; color:var(--blanc); line-height:1.2; letter-spacing:-1px; margin-bottom:10px; }
+.carousel-content p { font-size:15px; color:rgba(255,255,255,.8); line-height:1.6; margin-bottom:18px; }
+.carousel-tag { display:inline-flex; align-items:center; gap:6px; background:var(--soleil); border-radius:20px; padding:6px 14px; font-size:13px; font-weight:600; color:var(--nuit); margin-bottom:10px; }
+.car-arrows { position:absolute; bottom:20px; right:24px; display:flex; gap:8px; z-index:3; }
+.car-arr { width:36px; height:36px; background:rgba(255,255,255,.15); border:1.5px solid rgba(255,255,255,.25); border-radius:50%; color:var(--blanc); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.car-arr:hover { background:var(--soleil); border-color:var(--soleil); color:var(--nuit); }
+.car-dots { position:absolute; bottom:24px; left:50%; transform:translateX(-50%); display:flex; gap:7px; z-index:3; }
+.car-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.4); cursor:pointer; transition:all .3s; }
+.car-dot.active { width:22px; border-radius:4px; background:var(--soleil); }
 
-/* Hero band */
-.h-band{background:var(--terre);border-radius:16px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
-.h-band h2{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--blanc)}
-.h-band p{font-size:13px;color:rgba(255,255,255,.6);margin-top:3px}
-.h-btn{background:var(--soleil);border:none;border-radius:11px;padding:11px 18px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--nuit);cursor:pointer;white-space:nowrap}
+/* PRODUITS SCROLL & GRILLE DE VEDETTES */
+.prods-section { padding:60px 40px; background:var(--blanc); position:relative; z-index:2; overflow:hidden; }
+.prods-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(22px,3vw,32px); font-weight:800; color:var(--nuit); text-align:center; letter-spacing:-0.5px; margin-bottom:6px; }
+.prods-sub { font-size:14px; color:var(--gris); text-align:center; margin-bottom:36px; }
+.scroll-band { overflow:hidden; position:relative; padding:10px 0; }
+.scroll-band::before, .scroll-band::after { content:''; position:absolute; top:0; bottom:0; width:80px; z-index:2; pointer-events:none; }
+.scroll-band::before { left:0; background:linear-gradient(to right,var(--blanc),transparent); }
+.scroll-band::after { right:0; background:linear-gradient(to left,var(--blanc),transparent); }
+.scroll-inner { display:flex; gap:16px; width:max-content; animation:scrollLeft 30s linear infinite; }
+.scroll-inner:hover { animation-play-state:paused; }
+.scroll-inner-r { display:flex; gap:16px; width:max-content; animation:scrollRight 28s linear infinite; margin-top:16px; }
+.scroll-inner-r:hover { animation-play-state:paused; }
 
-/* Products grid */
-.p-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.p-card{background:var(--blanc);border:1.5px solid var(--bord);border-radius:15px;padding:18px;cursor:pointer;transition:all .15s}
-.p-card:hover{border-color:var(--vert);box-shadow:0 4px 18px rgba(45,74,30,.1);transform:translateY(-2px)}
-.p-em{font-size:38px;display:block;margin-bottom:12px}
-.p-nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--nuit);margin-bottom:3px}
-.p-fm{font-size:13px;color:var(--gris);margin-bottom:12px}
-.p-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;color:var(--terre);margin-bottom:10px}
-.p-pr span{font-size:13px;font-weight:400;color:var(--gris)}
-.p-tags{display:flex;gap:6px;flex-wrap:wrap}
-.tag{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:500}
-.tg{background:#E8F2E2;color:var(--terre)}
-.ty{background:#FEF3DC;color:#A06010}
-.tb{background:#E0EAF5;color:#2A5580}
-.tr{background:#FDE8E0;color:var(--argile)}
+@keyframes scrollLeft { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
+@keyframes scrollRight { 0% { transform:translateX(-50%); } 100% { transform:translateX(0); } }
 
-/* Detail */
-.det-lay{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.det-l{background:var(--blanc);border-radius:16px;padding:28px;border:1.5px solid var(--bord)}
-.det-em{font-size:64px;display:block;margin-bottom:14px}
-.det-tit{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:var(--nuit);margin-bottom:5px}
-.det-farm{display:flex;align-items:center;gap:10px;margin-bottom:22px}
-.farm-av{width:36px;height:36px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px}
-.farm-nm{font-weight:600;font-size:14px;color:var(--nuit)}
-.farm-sb{font-size:12px;color:var(--gris)}
-.inf-row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--bord)}
-.inf-l{font-size:13px;color:var(--gris)}
-.inf-v{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
-.inf-v.pr{color:var(--terre);font-size:19px}
-.map-bx{background:var(--ciel);border-radius:14px;height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:1.5px dashed var(--bord);cursor:pointer;margin:14px 0}
-.det-r{display:flex;flex-direction:column;gap:14px}
-.rules{background:#FEF3DC;border-radius:14px;padding:18px;border-left:4px solid var(--soleil)}
-.rules-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:#A06010;margin-bottom:8px}
-.rules ul{list-style:none}
-.rules li{font-size:13px;color:#7A4A10;padding:3px 0 3px 18px;position:relative;line-height:1.5}
-.rules li::before{content:'•';position:absolute;left:5px;color:var(--soleil)}
-.btn-p{width:100%;background:var(--terre);color:var(--blanc);border:none;border-radius:13px;padding:14px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all .15s;margin-top:6px}
-.btn-p:hover{background:var(--terre2)}
-.btn-s{width:100%;background:var(--blanc);color:var(--terre);border:1.5px solid var(--bord);border-radius:13px;padding:12px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;cursor:pointer;margin-top:8px}
+.prod-pill { display:flex; align-items:center; gap:12px; background:var(--blanc); border:1.5px solid var(--bord); border-radius:50px; padding:8px 16px 8px 8px; white-space:nowrap; cursor:pointer; transition:all .2s; box-shadow:0 2px 8px rgba(0,0,0,.04); flex-shrink:0; }
+.prod-pill:hover { border-color:var(--vert); box-shadow:0 4px 16px rgba(45,74,30,.12); transform:translateY(-2px); }
+.prod-pill-img { width:44px; height:44px; border-radius:50%; object-fit:cover; flex-shrink:0; }
+.prod-pill-nm { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--nuit); }
+.prod-pill-pr { font-size:12px; color:var(--vert); font-weight:600; margin-top:1px; }
+.prod-pill-loc { font-size:11px; color:var(--gris); }
 
-/* Chat */
-.chat-lay{display:grid;grid-template-columns:280px 1fr;background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow:hidden;height:calc(100vh - 140px)}
-.chat-sb{border-right:1.5px solid var(--bord);overflow-y:auto}
-.chat-sbh{padding:18px;border-bottom:1.5px solid var(--bord);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px}
-.chat-ci{padding:13px 18px;border-bottom:1px solid var(--bord);cursor:pointer;display:flex;gap:10px;align-items:center;transition:background .15s}
-.chat-ci:hover{background:var(--ciel)}
-.chat-ci.active{background:#E8F2E2}
-.chat-cav{width:38px;height:38px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.chat-cn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px}
-.chat-cp{font-size:12px;color:var(--gris);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chat-main{display:flex;flex-direction:column}
-.chat-hd{padding:14px 18px;border-bottom:1.5px solid var(--bord);display:flex;align-items:center;gap:10px}
-.chat-hav{width:36px;height:36px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px}
-.chat-hn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px}
-.chat-hs{font-size:12px;color:var(--vert)}
-.chat-msgs{flex:1;padding:18px;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:65%;padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.5}
-.mt{background:var(--ciel);color:var(--nuit);border-bottom-left-radius:4px;align-self:flex-start}
-.mm{background:var(--terre);color:var(--blanc);border-bottom-right-radius:4px;align-self:flex-end}
-.mtime{font-size:11px;color:var(--gris);margin-top:3px}
-.mtime.r{text-align:right}
-.conf-bub{background:#E8F2E2;border:1.5px solid var(--vert);border-radius:13px;padding:13px;font-size:13px;color:var(--terre)}
-.conf-bub strong{font-family:'Space Grotesk',sans-serif;display:block;margin-bottom:5px}
-.chat-inp-row{padding:14px 18px;border-top:1.5px solid var(--bord);display:flex;gap:9px;align-items:flex-end}
-.chat-inp{flex:1;border:1.5px solid var(--bord);border-radius:11px;padding:10px 13px;font-size:14px;font-family:'Noto Sans',sans-serif;resize:none;outline:none;background:var(--blanc);transition:border-color .15s}
-.chat-inp:focus{border-color:var(--vert)}
-.send-b{width:40px;height:40px;background:var(--terre);border:none;border-radius:10px;color:var(--blanc);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.voice-b{width:40px;height:40px;background:var(--ciel);border:1.5px solid var(--bord);border-radius:10px;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.featured-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; margin-top:36px; }
+.feat-card { background:var(--blanc); border:1.5px solid var(--bord); border-radius:18px; overflow:hidden; cursor:pointer; transition:all .3s cubic-bezier(.34,1.56,.64,1); position:relative; }
+.feat-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(45,74,30,.12); border-color:var(--vert); }
+.feat-card-img { width:100%; height:160px; object-fit:cover; display:block; transition:transform .4s; }
+.feat-card:hover .feat-card-img { transform:scale(1.05); }
+.feat-card-body { padding:14px 16px 16px; }
+.feat-card-tag { display:inline-block; background:var(--ciel); border-radius:6px; padding:3px 8px; font-size:11px; font-weight:500; color:var(--terre); margin-bottom:8px; }
+.feat-card-nm { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; color:var(--nuit); margin-bottom:3px; }
+.feat-card-loc { font-size:12px; color:var(--gris); margin-bottom:10px; }
+.feat-card-bot { display:flex; align-items:center; justify-content:space-between; }
+.feat-card-pr { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; color:var(--terre); }
+.feat-card-pr span { font-size:11px; font-weight:400; color:var(--gris); }
+.feat-card-btn { width:32px; height:32px; background:var(--terre); border:none; border-radius:50%; color:var(--blanc); font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0; }
+.feat-card:hover .feat-card-btn { background:var(--soleil); color:var(--nuit); }
+.badge-new { position:absolute; top:10px; right:10px; background:var(--soleil); color:var(--nuit); font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; padding:4px 10px; border-radius:20px; z-index:1; }
+.badge-hot { position:absolute; top:10px; right:10px; background:var(--argile); color:var(--blanc); font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; padding:4px 10px; border-radius:20px; z-index:1; }
 
-/* Orders table */
-.ord-tbl{background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow:hidden}
-.ord-hd{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;gap:14px;padding:12px 18px;background:var(--ciel);border-bottom:1.5px solid var(--bord);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.06em}
-.ord-row{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr 1fr;gap:14px;padding:14px 18px;border-bottom:1px solid var(--bord);align-items:center;cursor:pointer;transition:background .15s}
-.ord-row:hover{background:var(--ciel)}
-.ord-row:last-child{border-bottom:none}
-.ord-pc{display:flex;align-items:center;gap:9px}
-.ord-em{font-size:22px}
-.ord-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
-.ord-qt{font-size:12px;color:var(--gris);margin-top:1px}
-.sp{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;display:inline-block}
-.sp-p{background:#FEF3DC;color:#A06010}
-.sp-c{background:#E8F2E2;color:var(--terre)}
-.sp-d{background:#E0EAF5;color:#2A5580}
-.ord-am{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;color:var(--terre)}
+/* DASHBOARD ACHETEUR INTERNE */
+.dash-welcome { background:linear-gradient(135deg,var(--terre) 0%,var(--vert) 100%); border-radius:18px; padding:24px 28px; display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; position:relative; overflow:hidden; }
+.dash-welcome::after { content:'🌾'; position:absolute; right:-10px; bottom:-20px; font-size:100px; opacity:.08; pointer-events:none; }
+.dash-welcome-left h2 { font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:700; color:var(--blanc); margin-bottom:4px; }
+.dash-welcome-left p { font-size:13px; color:rgba(255,255,255,.75); line-height:1.5; }
+.dash-welcome-time { background:rgba(255,255,255,.12); border-radius:12px; padding:10px 16px; text-align:center; flex-shrink:0; }
+.dash-welcome-time .time { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:var(--blanc); }
+.dash-welcome-time .date { font-size:11px; color:rgba(255,255,255,.65); margin-top:2px; }
 
-/* Publish */
-.pub-lay{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.pub-card{background:var(--blanc);border-radius:16px;padding:26px;border:1.5px solid var(--bord)}
-.pub-prev{background:var(--terre);border-radius:16px;padding:26px}
-.pub-prev-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px}
-.fg2{margin-bottom:16px}
-.fl2{display:block;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
-.fi2{width:100%;border:1.5px solid var(--bord);border-radius:11px;padding:11px 13px;font-size:14px;font-family:'Noto Sans',sans-serif;outline:none;background:var(--blanc);color:var(--nuit);transition:border-color .15s}
-.fi2:focus{border-color:var(--vert)}
-.em-pick{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
-.em-opt{width:42px;height:42px;border:1.5px solid var(--bord);border-radius:9px;background:var(--ciel);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.em-opt.sel{border-color:var(--vert);background:#E8F2E2}
-.voice-ar{background:var(--ciel);border:1.5px dashed var(--bord);border-radius:13px;padding:20px;text-align:center;cursor:pointer;margin-bottom:18px;transition:all .15s}
-.voice-ar:hover{background:#E8F2E2;border-color:var(--vert)}
+.search-bar { display:flex; align-items:center; gap:10px; background:var(--blanc); border:1.5px solid var(--bord); border-radius:14px; padding:12px 16px; margin-bottom:16px; transition:border-color .15s,box-shadow .15s; }
+.search-bar:focus-within { border-color:var(--vert); box-shadow:0 0 0 3px rgba(90,138,60,.1); }
+.search-icon { font-size:18px; flex-shrink:0; color:var(--gris); }
+.search-input { flex:1; border:none; outline:none; font-size:15px; font-family:'Noto Sans',sans-serif; color:var(--nuit); background:transparent; }
 
-/* Profile */
-.prof-lay{display:grid;grid-template-columns:300px 1fr;gap:20px}
-.prof-card{background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);overflow:hidden}
-.prof-hd{background:var(--terre);padding:28px 22px;text-align:center}
-.prof-av{width:76px;height:76px;background:var(--soleil);border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:38px;border:3px solid rgba(255,255,255,.3)}
-.prof-nm{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--blanc)}
-.prof-rl{font-size:13px;color:rgba(255,255,255,.6);margin-top:3px}
-.prof-sc{display:flex;align-items:center;justify-content:center;gap:4px;margin-top:9px;font-size:13px;color:var(--soleil);font-weight:600}
-.prof-bd{padding:18px 22px}
-.prof-it{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--bord);cursor:pointer}
-.prof-it:last-child{border-bottom:none}
-.prof-ii{width:36px;height:36px;background:var(--ciel);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.prof-il{font-weight:500;font-size:14px;color:var(--nuit)}
-.prof-is{font-size:12px;color:var(--gris);margin-top:1px}
-.prof-stats{background:var(--blanc);border-radius:16px;border:1.5px solid var(--bord);padding:22px}
+.filters-wrap { display:flex; gap:8px; margin-bottom:22px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; }
+.filters-wrap::-webkit-scrollbar { display:none; }
+.filter-chip { display:flex; align-items:center; gap:6px; padding:7px 14px; border-radius:20px; border:1.5px solid var(--bord); background:var(--blanc); font-family:'Space Grotesk',sans-serif; font-weight:500; font-size:13px; color:var(--gris); cursor:pointer; white-space:nowrap; transition:all .15s; flex-shrink:0; }
+.filter-chip:hover { border-color:var(--vert); color:var(--terre); }
+.filter-chip.active { background:var(--terre); border-color:var(--terre); color:var(--blanc); }
 
-/* Utils */
-.loading{text-align:center;padding:50px 20px;color:var(--gris);font-size:14px}
-.empty{text-align:center;padding:50px 20px}
-.empty-ic{font-size:44px;margin-bottom:10px}
-.empty p{font-size:14px;color:var(--gris);line-height:1.6}
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;display:none;align-items:center;justify-content:center}
-.modal-ov.open{display:flex}
-.modal-bx{background:var(--blanc);border-radius:18px;padding:28px;width:100%;max-width:420px;box-shadow:0 20px 50px rgba(0,0,0,.2)}
-.modal-t{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;color:var(--nuit);margin-bottom:7px}
-.modal-s{font-size:14px;color:var(--gris);line-height:1.6;margin-bottom:18px}
-.pen-bx{background:#FDE8E0;border-radius:11px;padding:14px;margin-bottom:18px;border-left:4px solid var(--argile)}
-.pen-t{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--argile);margin-bottom:5px}
-.pen-tx{font-size:13px;color:#8B3820;line-height:1.5}
-.toast{position:fixed;bottom:28px;right:28px;background:var(--nuit);color:var(--blanc);padding:13px 20px;border-radius:13px;font-size:14px;font-weight:500;z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;box-shadow:0 8px 22px rgba(0,0,0,.2)}
-.toast.show{opacity:1}
+.p-grid-new { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+.pcard-new { background:var(--blanc); border:1.5px solid var(--bord); border-radius:18px; overflow:hidden; cursor:pointer; transition:all .25s cubic-bezier(.34,1.56,.64,1); position:relative; }
+.pcard-new:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(45,74,30,.12); border-color:var(--vert); }
+.pcard-top-img { width:100%; height:140px; object-fit:cover; display:block; }
+.pcard-body { padding:14px 16px 16px; }
+.pcard-cat { font-size:11px; font-weight:600; color:var(--vert); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px; }
+.pcard-nm { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; color:var(--nuit); margin-bottom:4px; }
+.pcard-farm { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--gris); margin-bottom:12px; }
+.pcard-farm-av { width:22px; height:22px; background:var(--soleil); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0; font-weight:bold; }
+.pcard-bot { display:flex; align-items:center; justify-content:space-between; }
+.pcard-pr { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; color:var(--terre); }
+.pcard-pr span { font-size:11px; font-weight:400; color:var(--gris); }
+.pcard-action { background:var(--terre); border:none; border-radius:10px; padding:8px 14px; color:var(--blanc); font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:12px; cursor:pointer; transition:all .2s; }
+.pcard-action:hover { background:var(--soleil); color:var(--nuit); }
 
-/* Mobile nav */
-.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--blanc);border-top:1.5px solid var(--bord);z-index:25;padding:8px 0 12px}
-.mob-ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0;border:none;background:none;color:var(--gris);font-size:11px;font-family:'Noto Sans',sans-serif}
-.mob-ni.active{color:var(--terre)}
-.mob-ic{font-size:21px}
-/* ── DASHBOARD ACHETEUR ── */
-.dash-welcome{
-  background:linear-gradient(135deg,var(--terre) 0%,var(--vert) 100%);
-  border-radius:18px;padding:24px 28px;
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:22px;position:relative;overflow:hidden;
+/* SECTIONS INFORMATIVES */
+.how-section { padding:64px 40px; background:var(--blanc); position:relative; z-index:2; }
+.how-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(24px,4vw,36px); font-weight:800; color:var(--nuit); text-align:center; letter-spacing:-1px; margin-bottom:8px; }
+.how-sub { font-size:15px; color:var(--gris); text-align:center; margin-bottom:44px; }
+.how-steps { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; position:relative; }
+.how-steps::before { content:''; position:absolute; top:36px; left:calc(16.66% + 20px); right:calc(16.66% + 20px); height:2px; background:linear-gradient(to right,var(--soleil),var(--vert)); z-index:0; }
+.how-step { text-align:center; position:relative; z-index:1; }
+.how-step-num { width:72px; height:72px; border-radius:50%; background:var(--terre); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:28px; border:4px solid var(--blanc); box-shadow:0 0 0 3px var(--terre); }
+.how-step-title { font-family:'Space Grotesk',sans-serif; font-size:17px; font-weight:700; color:var(--nuit); margin-bottom:8px; }
+.how-step-desc { font-size:14px; color:var(--gris); line-height:1.6; }
+
+.testi-section { padding:60px 40px; background:var(--ciel); position:relative; z-index:2; }
+.testi-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(22px,3vw,32px); font-weight:800; color:var(--nuit); text-align:center; letter-spacing:-0.5px; margin-bottom:6px; }
+.testi-sub { font-size:14px; color:var(--gris); text-align:center; margin-bottom:36px; }
+.testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.testi-card { background:var(--blanc); border-radius:16px; padding:22px; border:1.5px solid var(--bord); }
+.testi-stars { color:var(--soleil); font-size:14px; margin-bottom:10px; }
+.testi-text { font-size:14px; color:var(--nuit); line-height:1.65; margin-bottom:16px; font-style:italic; }
+.testi-author { display:flex; align-items:center; gap:10px; }
+.testi-av { width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:19px; flex-shrink:0; }
+.testi-nm { font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; color:var(--nuit); }
+.testi-rl { font-size:12px; color:var(--gris); }
+
+.numbers-section { padding:56px 40px; background:var(--terre); position:relative; z-index:2; overflow:hidden; }
+.numbers-title { font-family:'Space Grotesk',sans-serif; font-size:clamp(22px,3vw,30px); font-weight:800; color:var(--blanc); text-align:center; margin-bottom:36px; }
+.numbers-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; }
+.number-item { text-align:center; }
+.number-val { font-family:'Space Grotesk',sans-serif; font-size:clamp(28px,4vw,44px); font-weight:800; color:var(--soleil); margin-bottom:6px; }
+.number-lbl { font-size:13px; color:rgba(255,255,255,.7); line-height:1.5; }
+
+/* UTILS & MOBILES */
+.toast { position:fixed; bottom:28px; right:28px; background:var(--nuit); color:var(--blanc); padding:13px 20px; border-radius:13px; font-size:14px; font-weight:500; z-index:200; opacity:0; transition:opacity .3s; pointer-events:none; box-shadow:0 8px 22px rgba(0,0,0,.2); }
+.toast.show { opacity:1; }
+.mob-nav { display:none; position:fixed; bottom:0; left:0; right:0; background:var(--blanc); border-top:1.5px solid var(--bord); z-index:25; padding:8px 0 12px; }
+.mob-ni { flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; cursor:pointer; padding:4px 0; border:none; background:none; color:var(--gris); font-size:11px; font-family:'Noto Sans',sans-serif; }
+.mob-ni.active { color:var(--terre); }
+.mob-ic { font-size:21px; }
+
+@media(max-width:900px) {
+  .l-nav { padding:16px 20px; }
+  .l-btns .btn-out { display:none; }
+  .l-hero { grid-template-columns:1fr; padding:28px 20px 20px; gap:24px; }
+  .l-right { display:none; }
+  .l-title { font-size:34px; }
+  .l-ctas { flex-direction:column; }
+  .btn-big, .btn-ghost { width:100%; text-align:center; }
+  .l-foot { flex-direction:column; gap:6px; text-align:center; padding:18px 20px; }
+  #scr-auth.active { grid-template-columns:1fr; }
+  .a-left { display:none; }
+  .a-right { padding:28px 22px; }
+  #scr-otp.active { grid-template-columns:1fr; }
+  .o-left { display:none; }
+  .o-right { padding:36px 22px; }
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main { margin-left:0; padding-bottom:64px; }
+  .m-top { padding:12px 18px; }
+  .panel { padding:14px; }
+  .carousel-slide { height:280px; }
+  .carousel-content { left:20px; right:20px; }
+  .how-section { padding:44px 20px; }
+  .how-steps { grid-template-columns:1fr; gap:24px; }
+  .how-steps::before { display:none; }
+  .testi-section { padding:44px 20px; }
+  .testi-grid { grid-template-columns:1fr; }
+  .numbers-section { padding:44px 20px; }
+  .numbers-grid { grid-template-columns:repeat(2,1fr); gap:16px; }
+  .dash-welcome { flex-direction:column; gap:14px; align-items:flex-start; }
+  .p-grid-new { grid-template-columns:1fr 1fr; }
+  .mob-nav { display:flex; }
+  .hmb { display:block; }
 }
-.dash-welcome::after{content:'🌾';position:absolute;right:-10px;bottom:-20px;font-size:100px;opacity:.08;pointer-events:none}
-.dash-welcome-left h2{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--blanc);margin-bottom:4px}
-.dash-welcome-left p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.5}
-.dash-welcome-time{background:rgba(255,255,255,.12);border-radius:12px;padding:10px 16px;text-align:center;flex-shrink:0}
-.dash-welcome-time .time{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--blanc)}
-.dash-welcome-time .date{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}
-
-/* Recherche */
-.search-bar{
-  display:flex;align-items:center;gap:10px;
-  background:var(--blanc);border:1.5px solid var(--bord);
-  border-radius:14px;padding:12px 16px;
-  margin-bottom:16px;
-  transition:border-color .15s,box-shadow .15s;
-}
-.search-bar:focus-within{border-color:var(--vert);box-shadow:0 0 0 3px rgba(90,138,60,.1)}
-.search-icon{font-size:18px;flex-shrink:0;color:var(--gris)}
-.search-input{flex:1;border:none;outline:none;font-size:15px;font-family:'Noto Sans',sans-serif;color:var(--nuit);background:transparent}
-.search-input::placeholder{color:var(--gris)}
-.search-clear{background:var(--ciel);border:none;border-radius:8px;padding:5px 10px;font-size:12px;color:var(--gris);cursor:pointer;display:none}
-.search-clear.show{display:block}
-
-/* Filtres */
-.filters-wrap{display:flex;gap:8px;margin-bottom:22px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-.filters-wrap::-webkit-scrollbar{display:none}
-.filter-chip{
-  display:flex;align-items:center;gap:6px;
-  padding:7px 14px;border-radius:20px;
-  border:1.5px solid var(--bord);background:var(--blanc);
-  font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:13px;
-  color:var(--gris);cursor:pointer;white-space:nowrap;
-  transition:all .15s;flex-shrink:0;
-}
-.filter-chip:hover{border-color:var(--vert);color:var(--terre)}
-.filter-chip.active{background:var(--terre);border-color:var(--terre);color:var(--blanc)}
-
-/* Cartes produits améliorées */
-.p-grid-new{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
-.pcard-new{
-  background:var(--blanc);border:1.5px solid var(--bord);
-  border-radius:18px;overflow:hidden;cursor:pointer;
-  transition:all .25s cubic-bezier(.34,1.56,.64,1);
-  position:relative;
-}
-.pcard-new:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(45,74,30,.12);border-color:var(--vert)}
-.pcard-top{height:130px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;background:var(--ciel);transition:background .2s}
-.pcard-new:hover .pcard-top{background:#E8F2E2}
-.pcard-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
-.pcard-badge.new{background:var(--soleil);color:var(--nuit)}
-.pcard-badge.hot{background:var(--argile);color:var(--blanc)}
-.pcard-badge.fresh{background:var(--vert);color:var(--blanc)}
-.pcard-fav{position:absolute;top:10px;right:10px;width:28px;height:28px;background:var(--blanc);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:all .2s}
-.pcard-fav:hover{transform:scale(1.2)}
-.pcard-body{padding:14px 16px 16px}
-.pcard-cat{font-size:11px;font-weight:500;color:var(--vert);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
-.pcard-nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--nuit);margin-bottom:4px}
-.pcard-farm{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gris);margin-bottom:12px}
-.pcard-farm-av{width:20px;height:20px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
-.pcard-bot{display:flex;align-items:center;justify-content:space-between}
-.pcard-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--terre)}
-.pcard-pr span{font-size:11px;font-weight:400;color:var(--gris)}
-.pcard-action{background:var(--terre);border:none;border-radius:10px;padding:8px 14px;color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap}
-.pcard-action:hover{background:var(--soleil);color:var(--nuit)}
-.pcard-info-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.pcard-tag{padding:3px 8px;border-radius:6px;font-size:11px;font-weight:500}
-
-/* Section rapide accès */
-.quick-access{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
-.qa-item{background:var(--blanc);border:1.5px solid var(--bord);border-radius:14px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .2s}
-.qa-item:hover{border-color:var(--vert);background:var(--ciel);transform:translateY(-2px)}
-.qa-icon{font-size:26px;margin-bottom:6px}
-.qa-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--nuit)}
-.qa-sub{font-size:11px;color:var(--gris);margin-top:2px}
-
-/* Aucun résultat */
-.no-results{text-align:center;padding:40px 20px;color:var(--gris)}
-.no-results-icon{font-size:40px;margin-bottom:10px}
-.no-results p{font-size:14px;line-height:1.6}
-
-@media(max-width:900px){
-  .dash-welcome{flex-direction:column;gap:14px;align-items:flex-start}
-  .quick-access{grid-template-columns:repeat(2,1fr)}
-  .p-grid-new{grid-template-columns:1fr 1fr}
-  .pcard-top{height:100px;font-size:44px}
-}
-@media(max-width:480px){
-  .p-grid-new{grid-template-columns:1fr}
-}
-  
-/* ── PRODUITS ANIMÉS ── */
-.prods-section{padding:60px 40px;background:var(--blanc);position:relative;z-index:2;overflow:hidden}
-.prods-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:800;color:var(--nuit);text-align:center;letter-spacing:-0.5px;margin-bottom:6px}
-.prods-sub{font-size:14px;color:var(--gris);text-align:center;margin-bottom:36px}
-
-/* Scroll infini automatique */
-.scroll-band{overflow:hidden;position:relative;padding:10px 0}
-.scroll-band::before,.scroll-band::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
-.scroll-band::before{left:0;background:linear-gradient(to right,var(--blanc),transparent)}
-.scroll-band::after{right:0;background:linear-gradient(to left,var(--blanc),transparent)}
-.scroll-inner{display:flex;gap:16px;width:max-content;animation:scrollLeft 30s linear infinite}
-.scroll-inner:hover{animation-play-state:paused}
-.scroll-inner-r{display:flex;gap:16px;width:max-content;animation:scrollRight 28s linear infinite;margin-top:16px}
-.scroll-inner-r:hover{animation-play-state:paused}
-
-@keyframes scrollLeft{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes scrollRight{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
-
-.prod-pill{
-  display:flex;align-items:center;gap:10px;
-  background:var(--blanc);
-  border:1.5px solid var(--bord);
-  border-radius:50px;
-  padding:10px 16px;
-  white-space:nowrap;
-  cursor:pointer;
-  transition:all .2s;
-  box-shadow:0 2px 8px rgba(0,0,0,.04);
-  flex-shrink:0;
-}
-.prod-pill:hover{border-color:var(--vert);box-shadow:0 4px 16px rgba(45,74,30,.12);transform:translateY(-2px)}
-.prod-pill-img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.prod-pill-em{width:44px;height:44px;border-radius:50%;background:var(--ciel);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.prod-pill-info{}
-.prod-pill-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
-.prod-pill-pr{font-size:12px;color:var(--vert);font-weight:500;margin-top:1px}
-.prod-pill-loc{font-size:11px;color:var(--gris)}
-
-/* Grille produits avec hover animé */
-.featured-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:36px}
-.feat-card{
-  background:var(--blanc);
-  border:1.5px solid var(--bord);
-  border-radius:18px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:all .3s cubic-bezier(.34,1.56,.64,1);
-  position:relative;
-}
-.feat-card:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 16px 40px rgba(45,74,30,.15);border-color:var(--vert)}
-.feat-card-img{width:100%;height:160px;object-fit:cover;display:block;transition:transform .4s}
-.feat-card:hover .feat-card-img{transform:scale(1.06)}
-.feat-card-img-em{width:100%;height:160px;background:var(--ciel);display:flex;align-items:center;justify-content:center;font-size:64px}
-.feat-card-body{padding:14px 16px 16px}
-.feat-card-tag{display:inline-block;background:var(--ciel);border-radius:6px;padding:3px 8px;font-size:11px;font-weight:500;color:var(--terre);margin-bottom:8px}
-.feat-card-nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--nuit);margin-bottom:3px}
-.feat-card-loc{font-size:12px;color:var(--gris);margin-bottom:10px}
-.feat-card-bot{display:flex;align-items:center;justify-content:space-between}
-.feat-card-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--terre)}
-.feat-card-pr span{font-size:11px;font-weight:400;color:var(--gris)}
-.feat-card-btn{width:32px;height:32px;background:var(--terre);border:none;border-radius:50%;color:var(--blanc);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
-.feat-card:hover .feat-card-btn{background:var(--soleil);color:var(--nuit);transform:rotate(45deg)}
-
-/* Badge nouveau */
-.badge-new{position:absolute;top:10px;right:10px;background:var(--soleil);color:var(--nuit);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
-.badge-hot{position:absolute;top:10px;right:10px;background:var(--argile);color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
-
-@media(max-width:900px){
-  .prods-section{padding:40px 16px}
-  .featured-grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .feat-card-img,.feat-card-img-em{height:120px}
-}
-  
-/* ── CAROUSEL IMAGES ── */
-.carousel-wrap{position:relative;overflow:hidden;margin:0 0 0;padding:20px 0}
-.carousel-track{display:flex;gap:0;transition:transform .5s ease}
-.carousel-slide{min-width:100%;position:relative;height:420px;flex-shrink:0}
-.carousel-slide img{width:100%;height:100%;object-fit:cover}
-.carousel-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(26,46,18,.85) 40%,transparent 100%)}
-.carousel-content{position:absolute;top:50%;left:40px;transform:translateY(-50%);z-index:2;max-width:480px}
-.carousel-content h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,4vw,38px);font-weight:800;color:var(--blanc);line-height:1.2;letter-spacing:-1px;margin-bottom:10px}
-.carousel-content p{font-size:15px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:18px}
-.carousel-tag{display:inline-flex;align-items:center;gap:6px;background:var(--soleil);border-radius:20px;padding:6px 14px;font-size:13px;font-weight:600;color:var(--nuit)}
-.car-arrows{position:absolute;bottom:20px;right:24px;display:flex;gap:8px;z-index:3}
-.car-arr{width:36px;height:36px;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);border-radius:50%;color:var(--blanc);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.car-arr:hover{background:var(--soleil);border-color:var(--soleil);color:var(--nuit)}
-.car-dots{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:3}
-.car-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:all .3s}
-.car-dot.active{width:22px;border-radius:4px;background:var(--soleil)}
-
-  /* ── DASHBOARD ACHETEUR ── */
-.dash-welcome{
-  background:linear-gradient(135deg,var(--terre) 0%,var(--vert) 100%);
-  border-radius:18px;padding:24px 28px;
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:22px;position:relative;overflow:hidden;
-}
-.dash-welcome::after{content:'🌾';position:absolute;right:-10px;bottom:-20px;font-size:100px;opacity:.08;pointer-events:none}
-.dash-welcome-left h2{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--blanc);margin-bottom:4px}
-.dash-welcome-left p{font-size:13px;color:rgba(255,255,255,.65);line-height:1.5}
-.dash-welcome-time{background:rgba(255,255,255,.12);border-radius:12px;padding:10px 16px;text-align:center;flex-shrink:0}
-.dash-welcome-time .time{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--blanc)}
-.dash-welcome-time .date{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}
-
-/* Recherche */
-.search-bar{
-  display:flex;align-items:center;gap:10px;
-  background:var(--blanc);border:1.5px solid var(--bord);
-  border-radius:14px;padding:12px 16px;
-  margin-bottom:16px;
-  transition:border-color .15s,box-shadow .15s;
-}
-.search-bar:focus-within{border-color:var(--vert);box-shadow:0 0 0 3px rgba(90,138,60,.1)}
-.search-icon{font-size:18px;flex-shrink:0;color:var(--gris)}
-.search-input{flex:1;border:none;outline:none;font-size:15px;font-family:'Noto Sans',sans-serif;color:var(--nuit);background:transparent}
-.search-input::placeholder{color:var(--gris)}
-.search-clear{background:var(--ciel);border:none;border-radius:8px;padding:5px 10px;font-size:12px;color:var(--gris);cursor:pointer;display:none}
-.search-clear.show{display:block}
-
-/* Filtres */
-.filters-wrap{display:flex;gap:8px;margin-bottom:22px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-.filters-wrap::-webkit-scrollbar{display:none}
-.filter-chip{
-  display:flex;align-items:center;gap:6px;
-  padding:7px 14px;border-radius:20px;
-  border:1.5px solid var(--bord);background:var(--blanc);
-  font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:13px;
-  color:var(--gris);cursor:pointer;white-space:nowrap;
-  transition:all .15s;flex-shrink:0;
-}
-.filter-chip:hover{border-color:var(--vert);color:var(--terre)}
-.filter-chip.active{background:var(--terre);border-color:var(--terre);color:var(--blanc)}
-
-/* Cartes produits améliorées */
-.p-grid-new{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
-.pcard-new{
-  background:var(--blanc);border:1.5px solid var(--bord);
-  border-radius:18px;overflow:hidden;cursor:pointer;
-  transition:all .25s cubic-bezier(.34,1.56,.64,1);
-  position:relative;
-}
-.pcard-new:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(45,74,30,.12);border-color:var(--vert)}
-.pcard-top{height:130px;display:flex;align-items:center;justify-content:center;font-size:60px;position:relative;background:var(--ciel);transition:background .2s}
-.pcard-new:hover .pcard-top{background:#E8F2E2}
-.pcard-badge{position:absolute;top:10px;left:10px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
-.pcard-badge.new{background:var(--soleil);color:var(--nuit)}
-.pcard-badge.hot{background:var(--argile);color:var(--blanc)}
-.pcard-badge.fresh{background:var(--vert);color:var(--blanc)}
-.pcard-fav{position:absolute;top:10px;right:10px;width:28px;height:28px;background:var(--blanc);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.1);transition:all .2s}
-.pcard-fav:hover{transform:scale(1.2)}
-.pcard-body{padding:14px 16px 16px}
-.pcard-cat{font-size:11px;font-weight:500;color:var(--vert);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
-.pcard-nm{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--nuit);margin-bottom:4px}
-.pcard-farm{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gris);margin-bottom:12px}
-.pcard-farm-av{width:20px;height:20px;background:var(--soleil);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
-.pcard-bot{display:flex;align-items:center;justify-content:space-between}
-.pcard-pr{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:var(--terre)}
-.pcard-pr span{font-size:11px;font-weight:400;color:var(--gris)}
-.pcard-action{background:var(--terre);border:none;border-radius:10px;padding:8px 14px;color:var(--blanc);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12px;cursor:pointer;transition:all .2s;white-space:nowrap}
-.pcard-action:hover{background:var(--soleil);color:var(--nuit)}
-.pcard-info-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.pcard-tag{padding:3px 8px;border-radius:6px;font-size:11px;font-weight:500}
-
-/* Section rapide accès */
-.quick-access{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
-.qa-item{background:var(--blanc);border:1.5px solid var(--bord);border-radius:14px;padding:14px 12px;text-align:center;cursor:pointer;transition:all .2s}
-.qa-item:hover{border-color:var(--vert);background:var(--ciel);transform:translateY(-2px)}
-.qa-icon{font-size:26px;margin-bottom:6px}
-.qa-label{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:var(--nuit)}
-.qa-sub{font-size:11px;color:var(--gris);margin-top:2px}
-
-/* Aucun résultat */
-.no-results{text-align:center;padding:40px 20px;color:var(--gris)}
-.no-results-icon{font-size:40px;margin-bottom:10px}
-.no-results p{font-size:14px;line-height:1.6}
-
-@media(max-width:900px){
-  .dash-welcome{flex-direction:column;gap:14px;align-items:flex-start}
-  .quick-access{grid-template-columns:repeat(2,1fr)}
-  .p-grid-new{grid-template-columns:1fr 1fr}
-  .pcard-top{height:100px;font-size:44px}
-}
-@media(max-width:480px){
-  .p-grid-new{grid-template-columns:1fr}
-}
-
-
-  
-/* ── COMMENT ÇA MARCHE ── */
-.how-section{padding:64px 40px;background:var(--blanc);position:relative;z-index:2}
-.how-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,4vw,36px);font-weight:800;color:var(--nuit);text-align:center;letter-spacing:-1px;margin-bottom:8px}
-.how-sub{font-size:15px;color:var(--gris);text-align:center;margin-bottom:44px}
-.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;position:relative}
-.how-steps::before{content:'';position:absolute;top:36px;left:calc(16.66% + 20px);right:calc(16.66% + 20px);height:2px;background:linear-gradient(to right,var(--soleil),var(--vert));z-index:0}
-.how-step{text-align:center;position:relative;z-index:1}
-.how-step-num{width:72px;height:72px;border-radius:50%;background:var(--terre);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:28px;border:4px solid var(--blanc);box-shadow:0 0 0 3px var(--terre)}
-.how-step-title{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:700;color:var(--nuit);margin-bottom:8px}
-.how-step-desc{font-size:14px;color:var(--gris);line-height:1.6}
-
-/* ── TEMOIGNAGES ── */
-.testi-section{padding:60px 40px;background:var(--ciel);position:relative;z-index:2}
-.testi-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,3vw,32px);font-weight:800;color:var(--nuit);text-align:center;letter-spacing:-0.5px;margin-bottom:6px}
-.testi-sub{font-size:14px;color:var(--gris);text-align:center;margin-bottom:36px}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.testi-card{background:var(--blanc);border-radius:16px;padding:22px;border:1.5px solid var(--bord)}
-.testi-stars{color:var(--soleil);font-size:14px;margin-bottom:10px}
-.testi-text{font-size:14px;color:var(--nuit);line-height:1.65;margin-bottom:16px;font-style:italic}
-.testi-author{display:flex;align-items:center;gap:10px}
-.testi-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
-.testi-nm{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--nuit)}
-.testi-rl{font-size:12px;color:var(--gris)}
-
-/* ── CHIFFRES CLÉS ── */
-.numbers-section{padding:56px 40px;background:var(--terre);position:relative;z-index:2;overflow:hidden}
-.numbers-section::before{content:'🌾';position:absolute;right:-30px;top:-20px;font-size:200px;opacity:.04;pointer-events:none}
-.numbers-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,3vw,30px);font-weight:800;color:var(--blanc);text-align:center;margin-bottom:36px}
-.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.number-item{text-align:center}
-.number-val{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,4vw,44px);font-weight:800;color:var(--soleil);margin-bottom:6px}
-.number-lbl{font-size:13px;color:rgba(255,255,255,.6);line-height:1.5}
-
-/* Responsive nouvelles sections */
-@media(max-width:900px){
-  .carousel-slide{height:280px}
-  .carousel-content{left:20px;right:20px}
-  .how-section{padding:44px 20px}
-  .how-steps{grid-template-columns:1fr;gap:24px}
-  .how-steps::before{display:none}
-  .testi-section{padding:44px 20px}
-  .testi-grid{grid-template-columns:1fr}
-  .numbers-section{padding:44px 20px}
-  .numbers-grid{grid-template-columns:repeat(2,1fr);gap:16px}
-}
-  
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .l-nav{padding:16px 20px}
-  .l-btns .btn-out{display:none}
-  .l-hero{grid-template-columns:1fr;padding:28px 20px 20px;gap:24px}
-  .l-right{display:none}
-  .l-title{font-size:34px}
-  .l-ctas{flex-direction:column}
-  .btn-big,.btn-ghost{width:100%;text-align:center}
-  .l-foot{flex-direction:column;gap:6px;text-align:center;padding:18px 20px}
-  #scr-auth.active{grid-template-columns:1fr}
-  .a-left{display:none}
-  .a-right{padding:28px 22px}
-  #scr-otp.active{grid-template-columns:1fr}
-  .o-left{display:none}
-  .o-right{padding:36px 22px}
-  .sidebar{transform:translateX(-100%)}
-  .sidebar.open{transform:translateX(0)}
-  .main{margin-left:0}
-  .m-top{padding:12px 18px}
-  .panel{padding:14px}
-  .d-stats{grid-template-columns:1fr 1fr}
-  .p-grid{grid-template-columns:1fr}
-  .det-lay{grid-template-columns:1fr}
-  .chat-lay{grid-template-columns:1fr;height:auto}
-  .chat-sb{display:none}
-  .ord-hd,.ord-row{grid-template-columns:2fr 1fr 1fr}
-  .ord-hd span:nth-child(2),.ord-hd span:nth-child(5),.ord-row>*:nth-child(2),.ord-row>*:nth-child(5){display:none}
-  .pub-lay{grid-template-columns:1fr}
-  .pub-prev{display:none}
-  .prof-lay{grid-template-columns:1fr}
-  .mob-nav{display:flex}
-  .main{padding-bottom:64px}
-  .hmb{display:block}
+@media(max-width:480px) {
+  .p-grid-new { grid-template-columns:1fr; }
+  .featured-grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
 <body>
 
 <!-- LANDING -->
-<div class="screen" id="scr-land">
+<div class="screen active" id="scr-land">
   <div class="l-bg"></div>
   <nav class="l-nav">
     <div class="l-logo"><div class="l-logo-ic">🌾</div><div class="l-logo-tx">AgriLink SN</div></div>
@@ -674,296 +339,176 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
       <button class="btn-sol" onclick="goTo('scr-auth');switchTab('register')">Commencer</button>
     </div>
   </nav>
+  
   <div class="l-hero">
     <div>
       <div class="l-eyebrow">🇸🇳 Made in Sénégal</div>
       <h1 class="l-title">De la terre<br>à <span>ta table</span></h1>
-      <p class="l-desc">Connectez-vous directement avec les producteurs locaux. Produits frais, prix justes, livrés à 6h du matin.</p>
+      <p class="l-desc">Connectez-vous directement avec les producteurs locaux. Produits frais, prix justes, livrés au lever du jour.</p>
       <div class="l-ctas">
         <button class="btn-big" onclick="goTo('scr-auth');switchTab('register')">Commencer gratuitement →</button>
         <button class="btn-ghost" onclick="goTo('scr-auth');switchTab('login')">J'ai déjà un compte</button>
       </div>
       <div class="l-stats">
-        <div><div class="ls-num" id="ls-prod">--</div><div class="ls-lbl">Producteurs actifs</div></div>
-        <div><div class="ls-num" id="ls-items">--</div><div class="ls-lbl">Produits disponibles</div></div>
+        <div><div class="ls-num" id="ls-prod">47+</div><div class="ls-lbl">Producteurs actifs</div></div>
+        <div><div class="ls-num" id="ls-items">120+</div><div class="ls-lbl">Produits disponibles</div></div>
         <div><div class="ls-num">4.8★</div><div class="ls-lbl">Satisfaction</div></div>
       </div>
     </div>
     <div class="l-right">
-      <div class="prev-card ft"><span class="prev-em">🧅</span><div class="prev-inf"><div class="prev-nm">Oignons Bok</div><div class="prev-or">📍 Saint-Louis · ✅ Vérifié</div></div><div class="prev-pr">8 500<span>FCFA/sac</span></div></div>
-      <div class="prev-card"><span class="prev-em">🥕</span><div class="prev-inf"><div class="prev-nm">Carottes fraîches</div><div class="prev-or">📍 Thiès · ✅ Vérifié</div></div><div class="prev-pr">3 200<span>FCFA/cagette</span></div></div>
-      <div class="prev-card"><span class="prev-em">🍅</span><div class="prev-inf"><div class="prev-nm">Tomates cerises</div><div class="prev-or">📍 Dakar · 🔥 Derniers stocks</div></div><div class="prev-pr">4 000<span>FCFA/plateau</span></div></div>
-      <div class="prev-card"><span class="prev-em">🥬</span><div class="prev-inf"><div class="prev-nm">Chou vert</div><div class="prev-or">📍 Louga · ✅ Vérifié</div></div><div class="prev-pr">1 800<span>FCFA/pièce</span></div></div>
+      <div class="prev-card ft">
+        <img class="prev-img" src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8ce?auto=format&fit=crop&w=200&q=80" alt="Oignons Bok">
+        <div class="prev-inf"><div class="prev-nm">Oignons Bok</div><div class="prev-or">📍 Saint-Louis · ✅ Vérifié</div></div>
+        <div class="prev-pr">8 500<span>FCFA/sac</span></div>
+      </div>
+      <div class="prev-card">
+        <img class="prev-img" src="https://images.unsplash.com/photo-1447175008436-08417090ea76?auto=format&fit=crop&w=200&q=80" alt="Carottes fraîches">
+        <div class="prev-inf"><div class="prev-nm">Carottes fraîches</div><div class="prev-or">📍 Thiès · ✅ Vérifié</div></div>
+        <div class="prev-pr">3 200<span>FCFA/cagette</span></div>
+      </div>
+      <div class="prev-card">
+        <img class="prev-img" src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=200&q=80" alt="Tomates cerises">
+        <div class="prev-inf"><div class="prev-nm">Tomates cerises</div><div class="prev-or">📍 Dakar · 🔥 Stock limité</div></div>
+        <div class="prev-pr">4 000<span>FCFA/plateau</span></div>
+      </div>
     </div>
   </div>
 
-<!-- CAROUSEL -->
-<div class="carousel-wrap" id="land-carousel">
-  <div class="carousel-track" id="car-track">
-    <div class="carousel-slide">
-      <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1200&q=80" alt="Agriculteur sénégalais">
-      <div class="carousel-overlay"></div>
-      <div class="carousel-content">
-        <div class="carousel-tag">🧅 Oignons Bok · Saint-Louis</div>
-        <h2>Des producteurs vérifiés près de chez vous</h2>
-        <p>Mamadou Diallo cultive 3 hectares d'oignons à Saint-Louis et livre directement à Dakar à 6h du matin.</p>
+  <!-- CAROUSEL -->
+  <div class="carousel-wrap" id="land-carousel">
+    <div class="carousel-track" id="car-track">
+      <div class="carousel-slide">
+        <img src="https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=1200&q=80" alt="Agriculteur dans un champ">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-content">
+          <div class="carousel-tag">🧅 Oignons Bok · Saint-Louis</div>
+          <h2>Des producteurs vérifiés près de chez vous</h2>
+          <p>Mamadou Diallo cultive 3 hectares d'oignons à Saint-Louis et livre directement à Dakar à 6h du matin.</p>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&w=1200&q=80" alt="Légumes frais récoltés">
+        <div class="carousel-overlay"></div>
+        <div class="carousel-content">
+          <div class="carousel-tag">🥕 Carottes fraîches · Thiès</div>
+          <h2>Frais du champ à votre cuisine</h2>
+          <p>Nos producteurs récoltent la nuit pour que vous receviez vos légumes au lever du soleil, encore frais.</p>
+        </div>
       </div>
     </div>
-    <div class="carousel-slide">
-      <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ce?w=1200&q=80" alt="Marché légumes Sénégal">
-      <div class="carousel-overlay"></div>
-      <div class="carousel-content">
-        <div class="carousel-tag">🥕 Carottes fraîches · Thiès</div>
-        <h2>Frais du champ à votre cuisine</h2>
-        <p>Nos producteurs récoltent la nuit pour que vous receviez vos légumes au lever du soleil, encore frais.</p>
-      </div>
+    <div class="car-dots" id="car-dots">
+      <div class="car-dot active" onclick="goSlide(0)"></div>
+      <div class="car-dot" onclick="goSlide(1)"></div>
     </div>
-    <div class="carousel-slide">
-      <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=1200&q=80" alt="Tomates fraîches">
-      <div class="carousel-overlay"></div>
-      <div class="carousel-content">
-        <div class="carousel-tag">🍅 Tomates · Dakar</div>
-        <h2>Prix justes, zéro intermédiaire</h2>
-        <p>En commandant directement au producteur, vous payez moins et il gagne plus. Tout le monde y gagne.</p>
-      </div>
-    </div>
-    <div class="carousel-slide">
-      <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1200&q=80" alt="Agriculture Afrique">
-      <div class="carousel-overlay"></div>
-      <div class="carousel-content">
-        <div class="carousel-tag">🌾 AgriLink SN · Sénégal</div>
-        <h2>La confiance avant tout</h2>
-        <p>Paiement cash à la livraison, système de réputation, bon de commande signé. Votre sécurité est notre priorité.</p>
-      </div>
-    </div>
-  </div>
-  <div class="car-dots" id="car-dots">
-    <div class="car-dot active" onclick="goSlide(0)"></div>
-    <div class="car-dot" onclick="goSlide(1)"></div>
-    <div class="car-dot" onclick="goSlide(2)"></div>
-    <div class="car-dot" onclick="goSlide(3)"></div>
-  </div>
-  <div class="car-arrows">
-    <button class="car-arr" onclick="prevSlide()">←</button>
-    <button class="car-arr" onclick="nextSlide()">→</button>
-  </div>
-</div>
-
-  <!-- PRODUITS ANIMÉS -->
-<div class="prods-section">
-  <div class="prods-title">Produits frais disponibles maintenant</div>
-  <div class="prods-sub">Directement des champs sénégalais à votre cuisine</div>
-
-  <!-- Bande défilante ligne 1 -->
-  <div class="scroll-band">
-    <div class="scroll-inner" id="scroll-1">
-      <!-- Dupliqué 2x pour l'effet infini -->
-      <div class="prod-pill"><div class="prod-pill-em">🧅</div><div class="prod-pill-info"><div class="prod-pill-nm">Oignons Bok</div><div class="prod-pill-pr">8 500 FCFA/sac</div><div class="prod-pill-loc">📍 Saint-Louis</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥕</div><div class="prod-pill-info"><div class="prod-pill-nm">Carottes fraîches</div><div class="prod-pill-pr">3 200 FCFA/cagette</div><div class="prod-pill-loc">📍 Thiès</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🍅</div><div class="prod-pill-info"><div class="prod-pill-nm">Tomates cerises</div><div class="prod-pill-pr">4 000 FCFA/plateau</div><div class="prod-pill-loc">📍 Dakar</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥬</div><div class="prod-pill-info"><div class="prod-pill-nm">Chou vert</div><div class="prod-pill-pr">1 800 FCFA/pièce</div><div class="prod-pill-loc">📍 Louga</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🌽</div><div class="prod-pill-info"><div class="prod-pill-nm">Maïs doux</div><div class="prod-pill-pr">2 500 FCFA/régime</div><div class="prod-pill-loc">📍 Kaolack</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🧄</div><div class="prod-pill-info"><div class="prod-pill-nm">Ail blanc</div><div class="prod-pill-pr">6 000 FCFA/kg</div><div class="prod-pill-loc">📍 Diourbel</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🫑</div><div class="prod-pill-info"><div class="prod-pill-nm">Poivron rouge</div><div class="prod-pill-pr">5 500 FCFA/kg</div><div class="prod-pill-loc">📍 Ziguinchor</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥔</div><div class="prod-pill-info"><div class="prod-pill-nm">Pommes de terre</div><div class="prod-pill-pr">2 800 FCFA/sac</div><div class="prod-pill-loc">📍 Fatick</div></div></div>
-      <!-- Duplicata pour scroll infini -->
-      <div class="prod-pill"><div class="prod-pill-em">🧅</div><div class="prod-pill-info"><div class="prod-pill-nm">Oignons Bok</div><div class="prod-pill-pr">8 500 FCFA/sac</div><div class="prod-pill-loc">📍 Saint-Louis</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥕</div><div class="prod-pill-info"><div class="prod-pill-nm">Carottes fraîches</div><div class="prod-pill-pr">3 200 FCFA/cagette</div><div class="prod-pill-loc">📍 Thiès</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🍅</div><div class="prod-pill-info"><div class="prod-pill-nm">Tomates cerises</div><div class="prod-pill-pr">4 000 FCFA/plateau</div><div class="prod-pill-loc">📍 Dakar</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥬</div><div class="prod-pill-info"><div class="prod-pill-nm">Chou vert</div><div class="prod-pill-pr">1 800 FCFA/pièce</div><div class="prod-pill-loc">📍 Louga</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🌽</div><div class="prod-pill-info"><div class="prod-pill-nm">Maïs doux</div><div class="prod-pill-pr">2 500 FCFA/régime</div><div class="prod-pill-loc">📍 Kaolack</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🧄</div><div class="prod-pill-info"><div class="prod-pill-nm">Ail blanc</div><div class="prod-pill-pr">6 000 FCFA/kg</div><div class="prod-pill-loc">📍 Diourbel</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🫑</div><div class="prod-pill-info"><div class="prod-pill-nm">Poivron rouge</div><div class="prod-pill-pr">5 500 FCFA/kg</div><div class="prod-pill-loc">📍 Ziguinchor</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥔</div><div class="prod-pill-info"><div class="prod-pill-nm">Pommes de terre</div><div class="prod-pill-pr">2 800 FCFA/sac</div><div class="prod-pill-loc">📍 Fatick</div></div></div>
+    <div class="car-arrows">
+      <button class="car-arr" onclick="prevSlide()">←</button>
+      <button class="car-arr" onclick="nextSlide()">→</button>
     </div>
   </div>
 
-  <!-- Bande défilante ligne 2 (sens inverse) -->
-  <div class="scroll-band">
-    <div class="scroll-inner-r">
-      <div class="prod-pill"><div class="prod-pill-em">🍆</div><div class="prod-pill-info"><div class="prod-pill-nm">Aubergine</div><div class="prod-pill-pr">3 500 FCFA/kg</div><div class="prod-pill-loc">📍 Kolda</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥜</div><div class="prod-pill-info"><div class="prod-pill-nm">Arachides</div><div class="prod-pill-pr">4 200 FCFA/sac</div><div class="prod-pill-loc">📍 Kaolack</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🌿</div><div class="prod-pill-info"><div class="prod-pill-nm">Bissap frais</div><div class="prod-pill-pr">2 000 FCFA/kg</div><div class="prod-pill-loc">📍 Louga</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥭</div><div class="prod-pill-info"><div class="prod-pill-nm">Mangues Kent</div><div class="prod-pill-pr">1 500 FCFA/kg</div><div class="prod-pill-loc">📍 Ziguinchor</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🍌</div><div class="prod-pill-info"><div class="prod-pill-nm">Bananes plantain</div><div class="prod-pill-pr">2 200 FCFA/régime</div><div class="prod-pill-loc">📍 Sédhiou</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🧅</div><div class="prod-pill-info"><div class="prod-pill-nm">Échalotes</div><div class="prod-pill-pr">7 000 FCFA/kg</div><div class="prod-pill-loc">📍 Saint-Louis</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🌶️</div><div class="prod-pill-info"><div class="prod-pill-nm">Piments rouges</div><div class="prod-pill-pr">3 800 FCFA/kg</div><div class="prod-pill-loc">📍 Thiès</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥗</div><div class="prod-pill-info"><div class="prod-pill-nm">Salade verte</div><div class="prod-pill-pr">1 200 FCFA/botte</div><div class="prod-pill-loc">📍 Dakar</div></div></div>
-      <!-- Duplicata -->
-      <div class="prod-pill"><div class="prod-pill-em">🍆</div><div class="prod-pill-info"><div class="prod-pill-nm">Aubergine</div><div class="prod-pill-pr">3 500 FCFA/kg</div><div class="prod-pill-loc">📍 Kolda</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥜</div><div class="prod-pill-info"><div class="prod-pill-nm">Arachides</div><div class="prod-pill-pr">4 200 FCFA/sac</div><div class="prod-pill-loc">📍 Kaolack</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🌿</div><div class="prod-pill-info"><div class="prod-pill-nm">Bissap frais</div><div class="prod-pill-pr">2 000 FCFA/kg</div><div class="prod-pill-loc">📍 Louga</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥭</div><div class="prod-pill-info"><div class="prod-pill-nm">Mangues Kent</div><div class="prod-pill-pr">1 500 FCFA/kg</div><div class="prod-pill-loc">📍 Ziguinchor</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🍌</div><div class="prod-pill-info"><div class="prod-pill-nm">Bananes plantain</div><div class="prod-pill-pr">2 200 FCFA/régime</div><div class="prod-pill-loc">📍 Sédhiou</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🧅</div><div class="prod-pill-info"><div class="prod-pill-nm">Échalotes</div><div class="prod-pill-pr">7 000 FCFA/kg</div><div class="prod-pill-loc">📍 Saint-Louis</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🌶️</div><div class="prod-pill-info"><div class="prod-pill-nm">Piments rouges</div><div class="prod-pill-pr">3 800 FCFA/kg</div><div class="prod-pill-loc">📍 Thiès</div></div></div>
-      <div class="prod-pill"><div class="prod-pill-em">🥗</div><div class="prod-pill-info"><div class="prod-pill-nm">Salade verte</div><div class="prod-pill-pr">1 200 FCFA/botte</div><div class="prod-pill-loc">📍 Dakar</div></div></div>
-    </div>
-  </div>
+  <!-- PRODUITS DÉFILANTS & VEDETTES -->
+  <div class="prods-section">
+    <div class="prods-title">Produits frais disponibles maintenant</div>
+    <div class="prods-sub">Directement des champs sénégalais à votre cuisine</div>
 
-  <!-- Grille produits vedettes -->
-  <div class="featured-grid">
-    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
-      <div class="feat-card-img-em">🧅</div>
-      <div class="badge-new">Nouveau</div>
-      <div class="feat-card-body">
-        <div class="feat-card-tag">Légumes · Saint-Louis</div>
-        <div class="feat-card-nm">Oignons Bok</div>
-        <div class="feat-card-loc">👨‍🌾 Mamadou Diallo · ⭐ 4.9</div>
-        <div class="feat-card-bot">
-          <div class="feat-card-pr">8 500 <span>FCFA/sac</span></div>
-          <button class="feat-card-btn">+</button>
+    <div class="scroll-band">
+      <div class="scroll-inner">
+        <div class="prod-pill">
+          <img class="prod-pill-img" src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8ce?auto=format&fit=crop&w=100&q=80" alt="Oignon">
+          <div><div class="prod-pill-nm">Oignons Bok</div><div class="prod-pill-pr">8 500 FCFA</div><div class="prod-pill-loc">📍 Saint-Louis</div></div>
+        </div>
+        <div class="prod-pill">
+          <img class="prod-pill-img" src="https://images.unsplash.com/photo-1447175008436-08417090ea76?auto=format&fit=crop&w=100&q=80" alt="Carotte">
+          <div><div class="prod-pill-nm">Carottes fraîches</div><div class="prod-pill-pr">3 200 FCFA</div><div class="prod-pill-loc">📍 Thiès</div></div>
+        </div>
+        <div class="prod-pill">
+          <img class="prod-pill-img" src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=100&q=80" alt="Tomate">
+          <div><div class="prod-pill-nm">Tomates cerises</div><div class="prod-pill-pr">4 000 FCFA</div><div class="prod-pill-loc">📍 Dakar</div></div>
+        </div>
+        <!-- Répétition pour effet scroll continu -->
+        <div class="prod-pill">
+          <img class="prod-pill-img" src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8ce?auto=format&fit=crop&w=100&q=80" alt="Oignon">
+          <div><div class="prod-pill-nm">Oignons Bok</div><div class="prod-pill-pr">8 500 FCFA</div><div class="prod-pill-loc">📍 Saint-Louis</div></div>
         </div>
       </div>
     </div>
-    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
-      <div class="feat-card-img-em">🥕</div>
-      <div class="feat-card-body">
-        <div class="feat-card-tag">Légumes · Thiès</div>
-        <div class="feat-card-nm">Carottes fraîches</div>
-        <div class="feat-card-loc">👩‍🌾 Fatou Ndiaye · ⭐ 4.8</div>
-        <div class="feat-card-bot">
-          <div class="feat-card-pr">3 200 <span>FCFA/cagette</span></div>
-          <button class="feat-card-btn">+</button>
+
+    <div class="featured-grid">
+      <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
+        <div class="badge-new">Nouveau</div>
+        <img class="feat-card-img" src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8ce?auto=format&fit=crop&w=400&q=80" alt="Oignons">
+        <div class="feat-card-body">
+          <div class="feat-card-tag">Légumes · Saint-Louis</div>
+          <div class="feat-card-nm">Oignons Bok</div>
+          <div class="feat-card-loc">👨‍🌾 Mamadou Diallo · ⭐ 4.9</div>
+          <div class="feat-card-bot">
+            <div class="feat-card-pr">8 500 <span>FCFA/sac</span></div>
+            <button class="feat-card-btn">+</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
-      <div class="feat-card-img-em">🍅</div>
-      <div class="badge-hot">🔥 Populaire</div>
-      <div class="feat-card-body">
-        <div class="feat-card-tag">Légumes · Dakar</div>
-        <div class="feat-card-nm">Tomates cerises</div>
-        <div class="feat-card-loc">👨‍🌾 Ibrahima Sow · ⭐ 5.0</div>
-        <div class="feat-card-bot">
-          <div class="feat-card-pr">4 000 <span>FCFA/plateau</span></div>
-          <button class="feat-card-btn">+</button>
+      <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
+        <img class="feat-card-img" src="https://images.unsplash.com/photo-1447175008436-08417090ea76?auto=format&fit=crop&w=400&q=80" alt="Carottes">
+        <div class="feat-card-body">
+          <div class="feat-card-tag">Légumes · Thiès</div>
+          <div class="feat-card-nm">Carottes fraîches</div>
+          <div class="feat-card-loc">👩‍🌾 Fatou Ndiaye · ⭐ 4.8</div>
+          <div class="feat-card-bot">
+            <div class="feat-card-pr">3 200 <span>FCFA/cagette</span></div>
+            <button class="feat-card-btn">+</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
-      <div class="feat-card-img-em">🥬</div>
-      <div class="feat-card-body">
-        <div class="feat-card-tag">Légumes · Louga</div>
-        <div class="feat-card-nm">Chou vert</div>
-        <div class="feat-card-loc">👩‍🌾 Aïssatou Ba · ⭐ 4.7</div>
-        <div class="feat-card-bot">
-          <div class="feat-card-pr">1 800 <span>FCFA/pièce</span></div>
-          <button class="feat-card-btn">+</button>
-        </div>
-      </div>
-    </div>
-    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
-      <div class="feat-card-img-em">🥭</div>
-      <div class="badge-new">Saison</div>
-      <div class="feat-card-body">
-        <div class="feat-card-tag">Fruits · Ziguinchor</div>
-        <div class="feat-card-nm">Mangues Kent</div>
-        <div class="feat-card-loc">👨‍🌾 Oumar Diatta · ⭐ 4.9</div>
-        <div class="feat-card-bot">
-          <div class="feat-card-pr">1 500 <span>FCFA/kg</span></div>
-          <button class="feat-card-btn">+</button>
-        </div>
-      </div>
-    </div>
-    <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
-      <div class="feat-card-img-em">🌽</div>
-      <div class="feat-card-body">
-        <div class="feat-card-tag">Céréales · Kaolack</div>
-        <div class="feat-card-nm">Maïs doux</div>
-        <div class="feat-card-loc">👨‍🌾 Cheikh Fall · ⭐ 4.6</div>
-        <div class="feat-card-bot">
-          <div class="feat-card-pr">2 500 <span>FCFA/régime</span></div>
-          <button class="feat-card-btn">+</button>
+      <div class="feat-card" onclick="goTo('scr-auth');switchTab('register')">
+        <div class="badge-hot">🔥 Populaire</div>
+        <img class="feat-card-img" src="https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=400&q=80" alt="Tomates">
+        <div class="feat-card-body">
+          <div class="feat-card-tag">Légumes · Dakar</div>
+          <div class="feat-card-nm">Tomates cerises</div>
+          <div class="feat-card-loc">👨‍🌾 Ibrahima Sow · ⭐ 5.0</div>
+          <div class="feat-card-bot">
+            <div class="feat-card-pr">4 000 <span>FCFA/plateau</span></div>
+            <button class="feat-card-btn">+</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div style="text-align:center;margin-top:28px">
-    <button class="btn-big" onclick="goTo('scr-auth');switchTab('register')" style="display:inline-flex;align-items:center;gap:8px">
-      Voir tous les produits →
-    </button>
-  </div>
-</div>
-<!-- COMMENT ÇA MARCHE -->
-<div class="how-section">
-  <div class="how-title">Comment ça marche ?</div>
-  <div class="how-sub">3 étapes simples pour recevoir vos produits frais</div>
-  <div class="how-steps">
-    <div class="how-step">
-      <div class="how-step-num">🔍</div>
-      <div class="how-step-title">1. Choisissez vos produits</div>
-      <div class="how-step-desc">Parcourez les annonces des producteurs vérifiés près de chez vous. Filtrez par région, produit ou prix.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-step-num">💬</div>
-      <div class="how-step-title">2. Négociez directement</div>
-      <div class="how-step-desc">Discutez avec le producteur via le chat intégré. Fixez la quantité, le prix et l'heure de livraison.</div>
-    </div>
-    <div class="how-step">
-      <div class="how-step-num">💵</div>
-      <div class="how-step-title">3. Payez à la livraison</div>
-      <div class="how-step-desc">Recevez vos produits frais à 6h du matin. Inspectez, acceptez, puis payez cash. Simple et sécurisé.</div>
+  <!-- COMMENT ÇA MARCHE -->
+  <div class="how-section">
+    <div class="how-title">Comment ça marche ?</div>
+    <div class="how-sub">3 étapes simples pour recevoir vos produits frais</div>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">🔍</div>
+        <div class="how-step-title">1. Choisissez vos produits</div>
+        <div class="how-step-desc">Parcourez les annonces des producteurs vérifiés près de chez vous. Filtrez par région ou prix.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">💬</div>
+        <div class="how-step-title">2. Négociez directement</div>
+        <div class="how-step-desc">Discutez via le chat intégré. Fixez la quantité et l'heure de livraison.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">💵</div>
+        <div class="how-step-title">3. Payez à la livraison</div>
+        <div class="how-step-desc">Recevez vos produits frais à 6h du matin. Inspectez et payez cash.</div>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- TÉMOIGNAGES -->
-<div class="testi-section">
-  <div class="testi-title">Ils nous font confiance</div>
-  <div class="testi-sub">Ce que disent nos producteurs et acheteurs</div>
-  <div class="testi-grid">
-    <div class="testi-card">
-      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
-      <div class="testi-text">"Avant je perdais 30% de ma récolte faute d'acheteurs. Maintenant je vends tout en 48h. AgriLink a changé ma vie."</div>
-      <div class="testi-author">
-        <div class="testi-av" style="background:#E8F2E2">👨‍🌾</div>
-        <div><div class="testi-nm">Mamadou Diallo</div><div class="testi-rl">Maraîcher · Saint-Louis</div></div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
-      <div class="testi-text">"Mon restaurant reçoit des légumes frais chaque matin à 6h. Les prix sont meilleurs qu'au marché et la qualité est constante."</div>
-      <div class="testi-author">
-        <div class="testi-av" style="background:#E0EAF5">🏪</div>
-        <div><div class="testi-nm">Fatou Sow</div><div class="testi-rl">Gérante Restaurant · Dakar</div></div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">⭐⭐⭐⭐⭐</div>
-      <div class="testi-text">"Le système de réputation est excellent. Je sais à l'avance si le producteur est fiable. Plus de mauvaises surprises à la livraison."</div>
-      <div class="testi-author">
-        <div class="testi-av" style="background:#FEF3DC">🏨</div>
-        <div><div class="testi-nm">Ibrahima Ba</div><div class="testi-rl">Responsable Hôtel · Thiès</div></div>
-      </div>
+  <!-- CHIFFRES CLÉS -->
+  <div class="numbers-section">
+    <div class="numbers-title">AgriLink SN en chiffres</div>
+    <div class="numbers-grid">
+      <div class="number-item"><div class="number-val">47+</div><div class="number-lbl">Producteurs vérifiés</div></div>
+      <div class="number-item"><div class="number-val">1 200+</div><div class="number-lbl">Commandes livrées</div></div>
+      <div class="number-item"><div class="number-val">6h</div><div class="number-lbl">Heure de livraison</div></div>
+      <div class="number-item"><div class="number-val">0</div><div class="number-lbl">Frais d'inscription</div></div>
     </div>
   </div>
-</div>
 
-<!-- CHIFFRES CLÉS -->
-<div class="numbers-section">
-  <div class="numbers-title">AgriLink SN en chiffres</div>
-  <div class="numbers-grid">
-    <div class="number-item">
-      <div class="number-val" id="n-prod">0</div>
-      <div class="number-lbl">Producteurs<br>vérifiés</div>
-    </div>
-    <div class="number-item">
-      <div class="number-val" id="n-cmd">0</div>
-      <div class="number-lbl">Commandes<br>livrées</div>
-    </div>
-    <div class="number-item">
-      <div class="number-val">6h</div>
-      <div class="number-lbl">Heure de<br>livraison garantie</div>
-    </div>
-    <div class="number-item">
-      <div class="number-val">0</div>
-      <div class="number-lbl">Frais<br>d'inscription</div>
-    </div>
-  </div>
-</div>
-  
   <div class="l-foot">
     <p>© 2026 AgriLink SN · Paiement cash à la livraison · Producteurs vérifiés</p>
     <p>Fait avec ❤️ pour les agriculteurs sénégalais</p>
@@ -977,12 +522,6 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
       <div class="a-ll"><div class="a-ll-ic">🌾</div><div class="a-ll-tx">AgriLink SN</div></div>
       <div class="a-lt">La marketplace<br><span>agricole</span><br>du Sénégal</div>
       <div class="a-ld">Plus de 47 producteurs vérifiés. Commandez frais, payez à la livraison.</div>
-      <div class="a-feats">
-        <div class="a-feat"><div class="a-feat-ic">✅</div>Producteurs vérifiés sur le terrain</div>
-        <div class="a-feat"><div class="a-feat-ic">💵</div>Paiement cash à la livraison</div>
-        <div class="a-feat"><div class="a-feat-ic">🚚</div>Livraison à 6h du matin</div>
-        <div class="a-feat"><div class="a-feat-ic">🎤</div>Interface vocale en wolof</div>
-      </div>
     </div>
     <button class="a-back" onclick="goTo('scr-land')">← Retour à l'accueil</button>
   </div>
@@ -993,84 +532,35 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
       <button class="a-tab active" id="tab-r" onclick="switchTab('register')">S'inscrire</button>
       <button class="a-tab" id="tab-l" onclick="switchTab('login')">Se connecter</button>
     </div>
-    <!-- Inscription -->
     <div id="form-r">
-      <div class="fg"><div class="fl">Je suis</div>
+      <div class="fg"><label class="fl">Je suis</label>
         <div class="role-ch">
-          <div class="role-c sel" id="rc-a" onclick="selRole('acheteur')"><span class="role-ic">🏪</span><div class="role-lb">Acheteur</div><div class="role-sb">Restaurant, hôtel</div></div>
-          <div class="role-c" id="rc-ag" onclick="selRole('agriculteur')"><span class="role-ic">👨‍🌾</span><div class="role-lb">Producteur</div><div class="role-sb">Agriculteur</div></div>
+          <div class="role-c sel" id="rc-a" onclick="selRole('acheteur')"><span class="role-ic">🏪</span><div class="role-lb">Acheteur</div></div>
+          <div class="role-c" id="rc-ag" onclick="selRole('agriculteur')"><span class="role-ic">👨‍🌾</span><div class="role-lb">Producteur</div></div>
         </div>
       </div>
       <div class="fg"><label class="fl">Nom complet</label><input class="fi" type="text" placeholder="Ex: Mamadou Diallo" id="rn"></div>
-      <div class="fg"><label class="fl">Numéro de téléphone</label><div class="ph-wrap"><div class="ph-pre">🇸🇳 +221</div><input class="fi" type="tel" placeholder="77 000 00 00" id="rp" maxlength="9"></div><div class="fhint">Utilisé pour vous identifier</div></div>
-      <div class="fg"><label class="fl">Région</label>
-        <select class="fs" id="rr">
-          <option value="">Choisir votre région</option>
-          <option>Dakar</option><option>Thiès</option><option>Saint-Louis</option><option>Kaolack</option><option>Louga</option><option>Ziguinchor</option><option>Tambacounda</option><option>Diourbel</option><option>Fatick</option><option>Kolda</option><option>Matam</option><option>Kaffrine</option><option>Kédougou</option><option>Sédhiou</option>
-        </select>
-      </div>
-      <div class="cgu-row"><div class="cgu-ck" id="cgu" onclick="toggleCgu()"></div><div class="cgu-tx">J'accepte les <button onclick="showToast('Règles : paiement cash, annulation 12h avant')">règles d'utilisation</button></div></div>
+      <div class="fg"><label class="fl">Numéro de téléphone</label><div class="ph-wrap"><div class="ph-pre">🇸🇳 +221</div><input class="fi" type="tel" placeholder="77 000 00 00" id="rp" maxlength="9"></div></div>
       <button class="btn-auth" id="btn-r" onclick="doRegister()">Créer mon compte →</button>
-      <div class="sw-link">Déjà un compte ? <button onclick="switchTab('login')">Se connecter</button></div>
     </div>
-    <!-- Connexion -->
     <div id="form-l" style="display:none">
       <div class="fg"><label class="fl">Numéro de téléphone</label><div class="ph-wrap"><div class="ph-pre">🇸🇳 +221</div><input class="fi" type="tel" placeholder="77 000 00 00" id="lp" maxlength="9"></div></div>
-      <div style="height:10px"></div>
-      <button class="btn-auth" onclick="doLogin()">Se connecter →</button>
-      <div class="sw-link">Pas de compte ? <button onclick="switchTab('register')">S'inscrire</button></div>
+      <button class="btn-auth" style="margin-top:15px" onclick="doLogin()">Se connecter →</button>
     </div>
   </div>
 </div>
 
-<!-- OTP -->
-<div class="screen" id="scr-otp">
-  <div class="o-left">
-    <div class="o-lt">Vérification SMS</div>
-    <div class="o-ld">Nous envoyons un code de vérification à votre numéro pour sécuriser votre compte AgriLink SN.</div>
-  </div>
-  <div class="o-right">
-    <div class="o-icon">📱</div>
-    <div class="o-tit">Entrez votre code</div>
-    <div class="o-sub">Code envoyé au<br><strong id="otp-ph">+221 77 000 00 00</strong><br><small style="color:#bbb">(Test : entrez 1234)</small></div>
-    <div class="otp-row">
-      <input class="ob" type="tel" maxlength="1" id="o1" oninput="onext(this,'o2')">
-      <input class="ob" type="tel" maxlength="1" id="o2" oninput="onext(this,'o3')">
-      <input class="ob" type="tel" maxlength="1" id="o3" oninput="onext(this,'o4')">
-      <input class="ob" type="tel" maxlength="1" id="o4" oninput="if(this.value.length===1)verifyOtp()">
-    </div>
-    <div class="o-resend">Pas reçu ? <button onclick="showToast('Code renvoyé ✓')">Renvoyer</button></div>
-    <div style="width:100%;max-width:300px">
-      <button class="btn-auth" onclick="verifyOtp()">Confirmer →</button>
-      <button class="btn-s" style="margin-top:10px" onclick="goTo('scr-auth')">← Modifier le numéro</button>
-    </div>
-  </div>
-</div>
-
-<!-- APP -->
+<!-- APP LAYOUT -->
 <div class="app-layout" id="app">
   <aside class="sidebar" id="sidebar">
     <div class="sb-logo"><div class="sb-logo-ic">🌾</div><div class="sb-logo-tx">AgriLink SN</div></div>
-    <nav class="sb-nav" id="nav-a">
+    <nav class="sb-nav">
       <div class="sb-sec">Menu</div>
       <button class="sb-item active" onclick="showPanel('p-home')"><span class="si">🏠</span>Accueil</button>
       <button class="sb-item" onclick="showPanel('p-prod')"><span class="si">🥬</span>Produits</button>
-      <button class="sb-item" onclick="showPanel('p-chat')"><span class="si">💬</span>Messages</button>
-      <button class="sb-item" onclick="showPanel('p-orders');loadOrders()"><span class="si">📋</span>Commandes</button>
-      <div class="sb-sec">Compte</div>
-      <button class="sb-item" onclick="showPanel('p-prof')"><span class="si">👤</span>Profil</button>
       <button class="sb-item" onclick="deco()"><span class="si">🚪</span>Déconnexion</button>
     </nav>
-    <nav class="sb-nav" id="nav-ag" style="display:none">
-      <div class="sb-sec">Menu</div>
-      <button class="sb-item active" onclick="showPanel('p-pub')"><span class="si">➕</span>Publier récolte</button>
-      <button class="sb-item" onclick="showPanel('p-chat')"><span class="si">💬</span>Messages</button>
-      <button class="sb-item" onclick="showPanel('p-orders');loadOrders()"><span class="si">📋</span>Mes ventes</button>
-      <div class="sb-sec">Compte</div>
-      <button class="sb-item" onclick="showPanel('p-prof')"><span class="si">👤</span>Profil</button>
-      <button class="sb-item" onclick="deco()"><span class="si">🚪</span>Déconnexion</button>
-    </nav>
-    <div class="sb-bot"><div class="sb-user"><div class="sb-av">👤</div><div><div class="sb-nm" id="sb-nm">--</div><div class="sb-rl" id="sb-rl">--</div></div></div></div>
+    <div class="sb-bot"><div class="sb-user"><div class="sb-av">👤</div><div><div class="sb-nm" id="sb-nm">Utilisateur</div></div></div></div>
   </aside>
 
   <main class="main">
@@ -1081,603 +571,109 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
       </div>
       <div class="m-top-r">
         <button class="tb-btn" onclick="showToast('Notifications')">🔔<div class="nd"></div></button>
-        <button class="tb-btn" onclick="showPanel('p-prof')">👤</button>
       </div>
     </div>
-    <!-- ACCUEIL -->
-    <!-- ACCUEIL -->
-    
-<div class="panel active" id="p-home">
 
-  <!-- Carte de bienvenue -->
-  <div class="dash-welcome">
-    <div class="dash-welcome-left">
-      <h2>Bonjour, <span id="dw-name">--</span> 👋</h2>
-      <p>Voici les produits frais disponibles aujourd'hui.<br>Livraison garantie à 6h du matin.</p>
-    </div>
-    <div class="dash-welcome-time">
-      <div class="time" id="dw-time">--:--</div>
-      <div class="date" id="dw-date">--</div>
-    </div>
-  </div>
-
-  <!-- Accès rapide -->
-  <div class="quick-access">
-    <div class="qa-item" onclick="showPanel('p-prod')">
-      <div class="qa-icon">🥬</div>
-      <div class="qa-label">Produits</div>
-      <div class="qa-sub">Voir tout</div>
-    </div>
-    <div class="qa-item" onclick="showPanel('p-orders');loadOrders()">
-      <div class="qa-icon">📋</div>
-      <div class="qa-label">Commandes</div>
-      <div class="qa-sub" id="qa-nb-cmd">0 en cours</div>
-    </div>
-    <div class="qa-item" onclick="showPanel('p-chat')">
-      <div class="qa-icon">💬</div>
-      <div class="qa-label">Messages</div>
-      <div class="qa-sub">Chat direct</div>
-    </div>
-    <div class="qa-item" onclick="showPanel('p-prof')">
-      <div class="qa-icon">👤</div>
-      <div class="qa-label">Mon profil</div>
-      <div class="qa-sub">⭐ 5/5</div>
-    </div>
-  </div>
-
-  <!-- Stats -->
-  <div class="d-stats" style="margin-bottom:22px">
-    <div class="d-stat"><div class="d-sn" id="ds-p">--</div><div class="d-sl">Producteurs actifs</div><div class="d-ss">↑ En ligne</div></div>
-    <div class="d-stat"><div class="d-sn" id="ds-i">--</div><div class="d-sl">Produits disponibles</div><div class="d-ss">↑ Aujourd'hui</div></div>
-    <div class="d-stat"><div class="d-sn">4.8★</div><div class="d-sl">Note moyenne</div><div class="d-ss">Sur 5 étoiles</div></div>
-  </div>
-
-  <!-- Recherche -->
-  <div class="search-bar">
-    <span class="search-icon">🔍</span>
-    <input class="search-input" type="text" placeholder="Rechercher oignons, tomates, carottes..." id="dash-search" oninput="filterDashProducts()">
-    <button class="search-clear" id="search-clear-btn" onclick="clearSearch()">✕ Effacer</button>
-  </div>
-
-  <!-- Filtres -->
-  <div class="filters-wrap">
-    <div class="filter-chip active" onclick="setFilter('tous',this)">🌿 Tous</div>
-    <div class="filter-chip" onclick="setFilter('Dakar',this)">📍 Dakar</div>
-    <div class="filter-chip" onclick="setFilter('Saint-Louis',this)">📍 Saint-Louis</div>
-    <div class="filter-chip" onclick="setFilter('Thiès',this)">📍 Thiès</div>
-    <div class="filter-chip" onclick="setFilter('Kaolack',this)">📍 Kaolack</div>
-    <div class="filter-chip" onclick="setFilter('Louga',this)">📍 Louga</div>
-    <div class="filter-chip" onclick="setFilter('Ziguinchor',this)">📍 Ziguinchor</div>
-  </div>
-
-  <!-- Produits -->
-  <div class="sec-lbl">Produits disponibles maintenant</div>
-  <div class="p-grid-new" id="hp"></div>
-
-</div>
-      
-      <div class="h-band">
-        <div><h2>Livraison à 6h du matin 🌅</h2><p>Commandez avant 18h, recevez vos produits frais dès l'aube</p></div>
-        <button class="h-btn" onclick="showPanel('p-prod')">Voir les produits →</button>
-      </div>
-      <div class="sec-lbl">Produits récents</div>
-      <div class="p-grid" id="hp"><div class="loading">⏳ Chargement...</div></div>
-    </div>
-
-    <!-- PRODUITS -->
-    <div class="panel" id="p-prod">
-      <div class="sec-lbl">Tous les produits disponibles</div>
-      <div class="p-grid" id="ap"><div class="loading">⏳ Chargement...</div></div>
-    </div>
-
-    <!-- DETAIL -->
-    <div class="panel" id="p-det">
-      <button style="background:none;border:none;color:var(--gris);font-size:13px;cursor:pointer;margin-bottom:18px;display:flex;align-items:center;gap:5px" onclick="showPanel('p-prod')">← Retour</button>
-      <div class="det-lay">
-        <div class="det-l">
-          <span class="det-em" id="de-em">🥬</span>
-          <div class="det-tit" id="de-nm">Produit</div>
-          <div class="det-farm"><div class="farm-av">👨‍🌾</div><div><div class="farm-nm" id="de-fn">Agriculteur</div><div class="farm-sb" id="de-fi">Région</div></div></div>
-          <div class="inf-row"><div class="inf-l">Prix</div><div class="inf-v pr" id="de-pr">--</div></div>
-          <div class="inf-row"><div class="inf-l">Quantité</div><div class="inf-v" id="de-qt">--</div></div>
-          <div class="inf-row"><div class="inf-l">Livraison</div><div class="inf-v" id="de-lv">--</div></div>
-          <div class="inf-row"><div class="inf-l">Paiement</div><div class="inf-v">💵 Cash à la livraison</div></div>
-          <div class="inf-row"><div class="inf-l">Annulation gratuite</div><div class="inf-v">Jusqu'à 12h avant</div></div>
-          <div class="map-bx" onclick="showToast('📍 Localisation GPS du producteur')"><span style="font-size:30px">📍</span><p style="font-size:13px;color:var(--gris)">Voir la localisation</p></div>
+    <!-- PANEL ACCUEIL APPLICATION -->
+    <div class="panel active" id="p-home">
+      <div class="dash-welcome">
+        <div class="dash-welcome-left">
+          <h2>Bonjour, <span id="dw-name">Mamadou</span> !</h2>
+          <p>Voici les arrivages frais disponibles aujourd'hui au Sénégal.</p>
         </div>
-        <div class="det-r">
-          <div class="rules"><div class="rules-t">⚠️ Règles de commande</div><ul><li>Annulation gratuite jusqu'à 12h avant</li><li>Annulation tardive = frais de transport</li><li>3 annulations = compte suspendu</li><li>Inspection obligatoire avant paiement</li></ul></div>
-          <button class="btn-p" onclick="showPanel('p-chat')">💬 Négocier & Commander</button>
-          <button class="btn-s" onclick="showToast('Producteur sauvegardé ⭐')">☆ Sauvegarder</button>
+        <div class="dash-welcome-time">
+          <div class="time">06:00</div>
+          <div class="date">Livraison Matinale</div>
         </div>
       </div>
-    </div>
 
-    <!-- CHAT -->
-    <div class="panel" id="p-chat">
-      <div class="chat-lay">
-        <div class="chat-sb">
-          <div class="chat-sbh">💬 Messages</div>
-          <div class="chat-ci active"><div class="chat-cav">👨‍🌾</div><div><div class="chat-cn">Mamadou Diallo</div><div class="chat-cp">Reçu ! Je prépare...</div></div></div>
-        </div>
-        <div class="chat-main">
-          <div class="chat-hd"><div class="chat-hav">👨‍🌾</div><div><div class="chat-hn" id="ch-fn">Mamadou Diallo</div><div class="chat-hs">● En ligne · Saint-Louis</div></div></div>
-          <div class="chat-msgs" id="chat-msgs">
-            <div><div class="msg mt">Assalamu Alaikum ! Je suis disponible. Qu'est-ce que vous souhaitez ?</div><div class="mtime">08:14</div></div>
-            <div style="align-self:flex-end;text-align:right"><div class="msg mm">Bonjour ! Je voudrais 20 sacs d'oignons pour demain matin.</div><div class="mtime r">08:17</div></div>
-            <div><div class="msg mt">D'accord. 8 500 FCFA/sac = 170 000 FCFA. Livraison à 6h. C'est bon ?</div><div class="mtime">08:19</div></div>
-            <div class="conf-bub"><strong>✅ Bon de commande enregistré</strong>20 sacs d'oignons · 170 000 FCFA · Livraison demain 6h00<br><span style="font-size:12px;color:var(--gris);display:block;margin-top:4px">Annulation gratuite jusqu'à 18h ce soir</span></div>
-          </div>
-          <div class="chat-inp-row">
-            <button class="voice-b" onclick="showToast('🎤 Message vocal en wolof')">🎤</button>
-            <textarea class="chat-inp" placeholder="Écrivez votre message..." rows="1" id="chat-in"></textarea>
-            <button class="send-b" onclick="sendMsg()">➤</button>
-          </div>
-        </div>
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" type="text" placeholder="Rechercher oignons, carottes, tomates...">
       </div>
-    </div>
 
-    <!-- COMMANDES -->
-    <div class="panel" id="p-orders">
-      <div class="sec-lbl">Mes commandes</div>
-      <div class="ord-tbl">
-        <div class="ord-hd"><span>Produit</span><span>Producteur</span><span>Montant</span><span>Statut</span><span>Date</span></div>
-        <div id="ord-list"><div class="loading">⏳ Chargement...</div></div>
+      <div class="filters-wrap">
+        <div class="filter-chip active">Tous les produits</div>
+        <div class="filter-chip">📍 Saint-Louis</div>
+        <div class="filter-chip">📍 Thiès</div>
+        <div class="filter-chip">📍 Dakar</div>
       </div>
-    </div>
 
-    <!-- PUBLICATION -->
-    <div class="panel" id="p-pub">
-      <div class="pub-lay">
-        <div class="pub-card">
-          <div class="sec-lbl" style="margin-bottom:16px">Nouvelle récolte</div>
-          <div class="voice-ar" onclick="showToast('🎤 Parlez en wolof — annonce publiée automatiquement')">
-            <div style="font-size:30px;margin-bottom:7px">🎤</div>
-            <strong style="color:var(--terre);font-size:14px;display:block;margin-bottom:3px">Annonce vocale en wolof</strong>
-            <p style="font-size:13px;color:var(--gris)">Appuyez et décrivez votre récolte.</p>
-          </div>
-          <div style="text-align:center;color:var(--gris);font-size:13px;margin:10px 0">— ou remplissez le formulaire —</div>
-          <div class="fg2"><label class="fl2">Produit</label>
-            <div class="em-pick">
-              <div class="em-opt sel" onclick="selEm(this,'🧅')">🧅</div>
-              <div class="em-opt" onclick="selEm(this,'🥕')">🥕</div>
-              <div class="em-opt" onclick="selEm(this,'🍅')">🍅</div>
-              <div class="em-opt" onclick="selEm(this,'🥬')">🥬</div>
-              <div class="em-opt" onclick="selEm(this,'🌽')">🌽</div>
-              <div class="em-opt" onclick="selEm(this,'🥔')">🥔</div>
-              <div class="em-opt" onclick="selEm(this,'🧄')">🧄</div>
-              <div class="em-opt" onclick="selEm(this,'🫑')">🫑</div>
+      <div class="p-grid-new">
+        <div class="pcard-new">
+          <img class="pcard-top-img" src="https://images.unsplash.com/photo-1618512496248-a07fe83aa8ce?auto=format&fit=crop&w=400&q=80" alt="Oignon">
+          <div class="pcard-body">
+            <div class="pcard-cat">Légumes</div>
+            <div class="pcard-nm">Oignons Bok</div>
+            <div class="pcard-farm"><div class="pcard-farm-av">M</div> Saint-Louis · ⭐ 4.9</div>
+            <div class="pcard-bot">
+              <div class="pcard-pr">8 500 <span>FCFA</span></div>
+              <button class="pcard-action">Commander</button>
             </div>
-            <input class="fi2" type="text" placeholder="Nom du produit" id="pb-nm">
-          </div>
-          <div class="fg2"><label class="fl2">Quantité</label><input class="fi2" type="text" placeholder="Ex: 120 sacs de 30kg" id="pb-qt"></div>
-          <div class="fg2"><label class="fl2">Prix (FCFA)</label><input class="fi2" type="number" placeholder="Ex: 8500" id="pb-pr"></div>
-          <div class="fg2"><label class="fl2">Unité</label><input class="fi2" type="text" placeholder="Ex: sac, cagette" id="pb-un"></div>
-          <div class="fg2"><label class="fl2">Heure de livraison</label><input class="fi2" type="text" placeholder="Ex: Demain à 6h00" id="pb-lv"></div>
-          <button class="btn-p" onclick="publier()">Publier ma récolte</button>
-        </div>
-        <div class="pub-prev">
-          <div class="pub-prev-t">Aperçu de votre annonce</div>
-          <div style="font-size:46px;margin-bottom:10px" id="pv-em">🧅</div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;color:var(--blanc);margin-bottom:4px" id="pv-nm">Nom du produit</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.45);margin-bottom:14px" id="pv-rg">Votre région</div>
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:var(--soleil)" id="pv-pr">-- FCFA</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.45);margin-top:3px" id="pv-un">par unité</div>
-          <div style="margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1)">
-            <div style="font-size:13px;color:rgba(255,255,255,.55)" id="pv-lv">Livraison : --</div>
-            <div style="font-size:13px;color:rgba(255,255,255,.55);margin-top:5px" id="pv-qt">Quantité : --</div>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- PROFIL -->
-    <div class="panel" id="p-prof">
-      <div class="prof-lay">
-        <div class="prof-card">
-          <div class="prof-hd">
-            <div class="prof-av">👤</div>
-            <div class="prof-nm" id="pr-nm">--</div>
-            <div class="prof-rl" id="pr-rl">--</div>
-            <div class="prof-sc">⭐⭐⭐⭐⭐ · 5/5</div>
-          </div>
-          <div class="prof-bd">
-            <div class="prof-it"><div class="prof-ii">📱</div><div><div class="prof-il">Téléphone</div><div class="prof-is" id="pr-tel">--</div></div></div>
-            <div class="prof-it"><div class="prof-ii">📍</div><div><div class="prof-il">Région</div><div class="prof-is" id="pr-rg">--</div></div></div>
-            <div class="prof-it"><div class="prof-ii">🛡️</div><div><div class="prof-il">Réputation</div><div class="prof-is" style="color:var(--vert)">Excellent · 0 pénalité</div></div></div>
-            <div class="prof-it" onclick="deco()"><div class="prof-ii">🚪</div><div><div class="prof-il">Déconnexion</div></div></div>
-          </div>
-        </div>
-        <div class="prof-stats">
-          <div class="sec-lbl" style="margin-bottom:16px">Mon activité</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-            <div class="d-stat"><div class="d-sn" id="pr-nb">0</div><div class="d-sl">Commandes</div></div>
-            <div class="d-stat"><div class="d-sn">0</div><div class="d-sl">Annulations</div></div>
+        <div class="pcard-new">
+          <img class="pcard-top-img" src="https://images.unsplash.com/photo-1447175008436-08417090ea76?auto=format&fit=crop&w=400&q=80" alt="Carotte">
+          <div class="pcard-body">
+            <div class="pcard-cat">Légumes</div>
+            <div class="pcard-nm">Carottes fraîches</div>
+            <div class="pcard-farm"><div class="pcard-farm-av">F</div> Thiès · ⭐ 4.8</div>
+            <div class="pcard-bot">
+              <div class="pcard-pr">3 200 <span>FCFA</span></div>
+              <button class="pcard-action">Commander</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </main>
-
-  <!-- MOBILE NAV -->
-  <nav class="mob-nav" id="mob-nav-a">
-    <button class="mob-ni active" onclick="showPanel('p-home')"><span class="mob-ic">🏠</span>Accueil</button>
-    <button class="mob-ni" onclick="showPanel('p-prod')"><span class="mob-ic">🥬</span>Produits</button>
-    <button class="mob-ni" onclick="showPanel('p-chat')"><span class="mob-ic">💬</span>Messages</button>
-    <button class="mob-ni" onclick="showPanel('p-orders');loadOrders()"><span class="mob-ic">📋</span>Commandes</button>
-    <button class="mob-ni" onclick="showPanel('p-prof')"><span class="mob-ic">👤</span>Profil</button>
-  </nav>
-  <nav class="mob-nav" id="mob-nav-ag" style="display:none">
-    <button class="mob-ni active" onclick="showPanel('p-pub')"><span class="mob-ic">➕</span>Publier</button>
-    <button class="mob-ni" onclick="showPanel('p-chat')"><span class="mob-ic">💬</span>Messages</button>
-    <button class="mob-ni" onclick="showPanel('p-orders');loadOrders()"><span class="mob-ic">📋</span>Ventes</button>
-    <button class="mob-ni" onclick="showPanel('p-prof')"><span class="mob-ic">👤</span>Profil</button>
-  </nav>
 </div>
 
-<!-- MODAL -->
-<div class="modal-ov" id="modal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="modal-bx">
-    <div class="modal-t">⚠️ Annuler cette commande ?</div>
-    <div class="modal-s">Cette annulation est <strong>tardive</strong> — moins de 12h avant la livraison.</div>
-    <div class="pen-bx"><div class="pen-t">Conséquences</div><div class="pen-tx">• Frais de transport à votre charge<br>• <strong>1 point négatif</strong> sur votre réputation<br>• À 3 points : suspension temporaire</div></div>
-    <button class="btn-p" style="background:var(--argile)" onclick="document.getElementById('modal').classList.remove('open');showToast('Annulée — 1 pénalité enregistrée')">Confirmer l'annulation</button>
-    <button class="btn-s" onclick="document.getElementById('modal').classList.remove('open')">Garder ma commande</button>
-  </div>
-</div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast">Message de notification</div>
 
 <script>
-const SB_URL='https://ohymrkgpxtfirrkqrhlt.supabase.co';
-const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oeW1ya2dweHRmaXJya3FyaGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MDE0MzYsImV4cCI6MjEwMDk3NzQzNn0.Slvpt0A150g6-TKZcLfVijCU-ne6aqp-ISc9cvXAZZ0';
-const {createClient}=supabase;
-const db=createClient(SB_URL,SB_KEY);
-
-let CU=null,role='acheteur',emoji='🧅',cgu=false;
-
-function goTo(id){
-  document.querySelectorAll('.screen,.app-layout').forEach(e=>e.classList.remove('active'));
-  const el=document.getElementById(id)||document.getElementById('app');
-  if(el)el.classList.add('active');
-  window.scrollTo(0,0);
+function goTo(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.app-layout').forEach(a => a.classList.remove('active'));
+  const target = document.getElementById(screenId);
+  if (target) target.classList.add('active');
 }
 
-const ptitles={'p-home':'Accueil','p-prod':'Produits','p-det':'Détail produit','p-chat':'Messages','p-orders':'Commandes','p-pub':'Publier une récolte','p-prof':'Mon profil'};
-function showPanel(id){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById(id)?.classList.add('active');
-  document.getElementById('m-tit').textContent=ptitles[id]||'';
-  document.getElementById('sidebar').classList.remove('open');
-  window.scrollTo(0,0);
-  if(id==='p-prod')loadAll();
-  if(id==='p-home'){loadHome();loadStats();}
+function switchTab(tab) {
+  const isReg = tab === 'register';
+  document.getElementById('form-r').style.display = isReg ? 'block' : 'none';
+  document.getElementById('form-l').style.display = isReg ? 'none' : 'block';
+  document.getElementById('tab-r').classList.toggle('active', isReg);
+  document.getElementById('tab-l').classList.toggle('active', !isReg);
+  document.getElementById('authTitle').innerText = isReg ? 'Créer un compte' : 'Se connecter';
 }
 
-function showToast(m){
-  const t=document.getElementById('toast');
-  t.textContent=m;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+function selRole(role) {
+  document.getElementById('rc-a').classList.toggle('sel', role === 'acheteur');
+  document.getElementById('rc-ag').classList.toggle('sel', role === 'agriculteur');
 }
 
-function switchTab(tab){
-  const r=tab==='register';
-  document.getElementById('form-r').style.display=r?'block':'none';
-  document.getElementById('form-l').style.display=r?'none':'block';
-  document.getElementById('tab-r').classList.toggle('active',r);
-  document.getElementById('tab-l').classList.toggle('active',!r);
-  document.getElementById('authTitle').textContent=r?'Créer un compte':'Connexion';
-  document.getElementById('authSub').textContent=r?'Rejoignez AgriLink SN gratuitement':'Bon retour sur AgriLink SN';
+function doRegister() { goTo('app'); }
+function doLogin() { goTo('app'); }
+function deco() { goTo('scr-land'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.innerText = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-function selRole(r){
-  role=r;
-  document.getElementById('rc-a').classList.toggle('sel',r==='acheteur');
-  document.getElementById('rc-ag').classList.toggle('sel',r==='agriculteur');
+let currentSlide = 0;
+function goSlide(index) {
+  currentSlide = index;
+  const track = document.getElementById('car-track');
+  if (track) track.style.transform = `translateX(-${index * 100}%)`;
+  document.querySelectorAll('.car-dot').forEach((d, i) => d.classList.toggle('active', i === index));
 }
-
-function toggleCgu(){
-  cgu=!cgu;
-  document.getElementById('cgu').classList.toggle('ck',cgu);
-}
-
-async function doRegister(){
-  const nom=document.getElementById('rn').value.trim();
-  const tel=document.getElementById('rp').value.trim();
-  const region=document.getElementById('rr').value;
-  if(!nom){showToast('⚠️ Entrez votre nom');return;}
-  if(tel.length<9){showToast('⚠️ Numéro invalide');return;}
-  if(!region){showToast('⚠️ Choisissez votre région');return;}
-  if(!cgu){showToast('⚠️ Acceptez les règles');return;}
-  const btn=document.getElementById('btn-r');
-  btn.textContent='Création...';btn.disabled=true;
-  const{data:ex}=await db.from('utilisateurs').select('id').eq('telephone',tel).maybeSingle();
-  if(ex){showToast('⚠️ Numéro déjà inscrit');btn.textContent='Créer mon compte →';btn.disabled=false;switchTab('login');return;}
-  const{data,error}=await db.from('utilisateurs').insert([{nom,telephone:tel,role,region}]).select().single();
-  btn.textContent='Créer mon compte →';btn.disabled=false;
-  if(error){showToast('❌ '+error.message);return;}
-  CU=data;
-  document.getElementById('otp-ph').textContent='+221 '+tel;
-  goTo('scr-otp');
-  setTimeout(()=>document.getElementById('o1').focus(),300);
-}
-
-async function doLogin(){
-  const tel=document.getElementById('lp').value.trim();
-  if(tel.length<9){showToast('⚠️ Numéro invalide');return;}
-  const{data,error}=await db.from('utilisateurs').select('*').eq('telephone',tel).maybeSingle();
-  if(error||!data){showToast('❌ Numéro non trouvé. Inscrivez-vous.');return;}
-  CU=data;
-  document.getElementById('otp-ph').textContent='+221 '+tel;
-  goTo('scr-otp');
-  setTimeout(()=>document.getElementById('o1').focus(),300);
-}
-
-function onext(el,nid){if(el.value.length===1)document.getElementById(nid).focus();}
-
-function verifyOtp(){
-  const code=['o1','o2','o3','o4'].map(id=>document.getElementById(id).value).join('');
-  if(code.length<4){showToast('⚠️ Entrez les 4 chiffres');return;}
-  if(code!=='1234'){showToast('❌ Code incorrect — essayez 1234');return;}
-  afterLogin();
-}
-
-function afterLogin(){
-  if(!CU)return;
-  document.getElementById('pr-nm').textContent=CU.nom;
-  document.getElementById('pr-rl').textContent=CU.role==='acheteur'?'🏪 Acheteur':'👨‍🌾 Producteur';
-  document.getElementById('pr-tel').textContent='+221 '+CU.telephone;
-  document.getElementById('pr-rg').textContent=CU.region;
-  document.getElementById('sb-nm').textContent=CU.nom;
-  document.getElementById('sb-rl').textContent=CU.role==='acheteur'?'Acheteur':'Producteur';
-  document.getElementById('pv-rg').textContent='📍 '+CU.region;
-  document.getElementById('nav-a').style.display=CU.role==='acheteur'?'flex':'none';
-  document.getElementById('nav-ag').style.display=CU.role==='agriculteur'?'flex':'none';
-  document.getElementById('mob-nav-a').style.display=CU.role==='acheteur'?'flex':'none';
-  document.getElementById('mob-nav-ag').style.display=CU.role==='agriculteur'?'flex':'none';
-  document.querySelectorAll('.screen,.app-layout').forEach(e=>e.classList.remove('active'));
-  document.getElementById('app').classList.add('active');
-  if(CU.role==='agriculteur')showPanel('p-pub');
-  else{showPanel('p-home');loadHome();loadStats();}
-}
-
-function renderProds(data,el){
-  if(!data||!data.length){el.innerHTML='<div class="empty"><div class="empty-ic">🌱</div><p>Aucun produit disponible.<br>Les producteurs publient bientôt.</p></div>';return;}
-  el.innerHTML=data.map(p=>`
-    <div class="p-card" onclick='openDet(${JSON.stringify(p)})'>
-      <span class="p-em">${p.emoji}</span>
-      <div class="p-nm">${p.nom}</div>
-      <div class="p-fm">👨‍🌾 ${p.utilisateurs?.nom||'Producteur'} · 📍 ${p.utilisateurs?.region||p.region}</div>
-      <div class="p-pr">${p.prix.toLocaleString()} <span>FCFA / ${p.unite}</span></div>
-      <div class="p-tags">
-        <span class="tag tg">✅ Vérifié</span>
-        <span class="tag ty">📦 ${p.quantite}</span>
-        <span class="tag tb">🚚 ${p.heure_livraison}</span>
-      </div>
-    </div>`).join('');
-}
-
-let allDashProds=[];
-let activeFilter='tous';
-
-async function loadHome(){
-  const el=document.getElementById('hp');
-  el.innerHTML='<div class="loading">⏳ Chargement des produits...</div>';
-  const{data}=await db.from('produits')
-    .select('*,utilisateurs(nom,region,score_reputation)')
-    .eq('disponible',true)
-    .order('created_at',{ascending:false});
-  allDashProds=data||[];
-  renderDashProds(allDashProds);
-  // Horloge
-  updateClock();
-  setInterval(updateClock,1000);
-  // Nom bienvenue
-  if(CU) document.getElementById('dw-name').textContent=CU.nom.split(' ')[0];
-}
-
-function updateClock(){
-  const now=new Date();
-  const h=String(now.getHours()).padStart(2,'0');
-  const m=String(now.getMinutes()).padStart(2,'0');
-  const days=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-  const months=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-  const te=document.getElementById('dw-time');
-  const de=document.getElementById('dw-date');
-  if(te)te.textContent=h+':'+m;
-  if(de)de.textContent=days[now.getDay()]+' '+now.getDate()+' '+months[now.getMonth()];
-}
-
-function renderDashProds(data){
-  const el=document.getElementById('hp');
-  if(!data||!data.length){
-    el.innerHTML='<div class="no-results"><div class="no-results-icon">🔍</div><p>Aucun produit trouvé.<br>Essayez un autre filtre ou une autre recherche.</p></div>';
-    return;
-  }
-  const badges=['new','hot','fresh'];
-  const badgeLabels={new:'Nouveau',hot:'🔥 Populaire',fresh:'✅ Frais'};
-  el.innerHTML=data.map((p,i)=>{
-    const badge=i%3===1?'hot':i%3===2?'fresh':'new';
-    return `
-    <div class="pcard-new" onclick='openDet(${JSON.stringify(p)})'>
-      <div class="pcard-top">
-        ${p.emoji}
-        <span class="pcard-badge ${badge}">${badgeLabels[badge]}</span>
-        <button class="pcard-fav" onclick="event.stopPropagation();this.textContent=this.textContent==='🤍'?'❤️':'🤍'">🤍</button>
-      </div>
-      <div class="pcard-body">
-        <div class="pcard-cat">📍 ${p.utilisateurs?.region||p.region}</div>
-        <div class="pcard-nm">${p.nom}</div>
-        <div class="pcard-farm">
-          <div class="pcard-farm-av">👨‍🌾</div>
-          ${p.utilisateurs?.nom||'Producteur'} · ⭐ ${p.utilisateurs?.score_reputation||5}/5
-        </div>
-        <div class="pcard-info-row">
-          <span class="pcard-tag tg">📦 ${p.quantite}</span>
-          <span class="pcard-tag tb">🚚 ${p.heure_livraison}</span>
-        </div>
-        <div class="pcard-bot">
-          <div class="pcard-pr">${p.prix.toLocaleString()} <span>FCFA/${p.unite}</span></div>
-          <button class="pcard-action" onclick="event.stopPropagation();showPanel('p-chat')">Commander</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function filterDashProducts(){
-  const q=document.getElementById('dash-search').value.toLowerCase().trim();
-  const btn=document.getElementById('search-clear-btn');
-  if(btn)btn.classList.toggle('show',q.length>0);
-  let filtered=allDashProds;
-  if(activeFilter!=='tous') filtered=filtered.filter(p=>(p.utilisateurs?.region||p.region)===activeFilter);
-  if(q) filtered=filtered.filter(p=>p.nom.toLowerCase().includes(q)||(p.utilisateurs?.region||p.region).toLowerCase().includes(q));
-  renderDashProds(filtered);
-}
-
-function setFilter(f,el){
-  activeFilter=f;
-  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  filterDashProducts();
-}
-
-function clearSearch(){
-  document.getElementById('dash-search').value='';
-  document.getElementById('search-clear-btn').classList.remove('show');
-  filterDashProducts();
-}
-
-async function loadAll(){
-  const el=document.getElementById('ap');
-  el.innerHTML='<div class="loading">⏳ Chargement...</div>';
-  const{data}=await db.from('produits').select('*,utilisateurs(nom,region,score_reputation)').eq('disponible',true).order('created_at',{ascending:false});
-  renderProds(data,el);
-}
-
-function openDet(p){
-  document.getElementById('de-em').textContent=p.emoji;
-  document.getElementById('de-nm').textContent=p.nom;
-  document.getElementById('de-fn').textContent=p.utilisateurs?.nom||'Producteur';
-  document.getElementById('de-fi').textContent=(p.utilisateurs?.region||p.region)+' · ⭐'+(p.utilisateurs?.score_reputation||5)+'/5';
-  document.getElementById('de-pr').textContent=p.prix.toLocaleString()+' FCFA / '+p.unite;
-  document.getElementById('de-qt').textContent=p.quantite;
-  document.getElementById('de-lv').textContent=p.heure_livraison;
-  showPanel('p-det');
-}
-
-async function loadStats(){
-  const{count:np}=await db.from('utilisateurs').select('*',{count:'exact',head:true}).eq('role','agriculteur');
-  const{count:ni}=await db.from('produits').select('*',{count:'exact',head:true}).eq('disponible',true);
-  ['ds-p','ls-prod'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=np||0;});
-  ['ds-i','ls-items'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=ni||0;});
-}
-
-async function publier(){
-  if(!CU){showToast('⚠️ Connectez-vous');return;}
-  const nom=document.getElementById('pb-nm').value.trim();
-  const qt=document.getElementById('pb-qt').value.trim();
-  const pr=parseInt(document.getElementById('pb-pr').value);
-  const un=document.getElementById('pb-un').value.trim();
-  const lv=document.getElementById('pb-lv').value.trim();
-  if(!nom||!qt||!pr||!un||!lv){showToast('⚠️ Remplissez tous les champs');return;}
-  const{error}=await db.from('produits').insert([{agriculteur_id:CU.id,nom,emoji,quantite:qt,prix:pr,unite:un,region:CU.region,heure_livraison:lv}]);
-  if(error){showToast('❌ '+error.message);return;}
-  showToast('✅ Récolte publiée !');
-  ['pb-nm','pb-qt','pb-pr','pb-un','pb-lv'].forEach(id=>document.getElementById(id).value='');
-}
-
-['pb-nm','pb-pr','pb-un','pb-qt','pb-lv'].forEach(id=>{
-  document.getElementById(id)?.addEventListener('input',()=>{
-    const n=document.getElementById('pb-nm').value||'Nom du produit';
-    const p=document.getElementById('pb-pr').value;
-    const u=document.getElementById('pb-un').value||'unité';
-    document.getElementById('pv-nm').textContent=n;
-    document.getElementById('pv-pr').textContent=p?parseInt(p).toLocaleString()+' FCFA':'-- FCFA';
-    document.getElementById('pv-un').textContent='par '+u;
-    document.getElementById('pv-qt').textContent='Quantité : '+(document.getElementById('pb-qt').value||'--');
-    document.getElementById('pv-lv').textContent='Livraison : '+(document.getElementById('pb-lv').value||'--');
-  });
-});
-
-async function loadOrders(){
-  if(!CU)return;
-  const el=document.getElementById('ord-list');
-  el.innerHTML='<div class="loading">⏳ Chargement...</div>';
-  const{data}=await db.from('commandes').select('*,produits(nom,emoji,utilisateurs(nom))').eq('acheteur_id',CU.id).order('created_at',{ascending:false});
-  if(!data||!data.length){el.innerHTML='<div class="empty"><div class="empty-ic">📋</div><p>Aucune commande pour l\'instant.</p></div>';return;}
-  const lb={en_attente:'En attente',confirme:'Confirmé',livre:'Livré ✓',annule:'Annulé'};
-  const cl={en_attente:'sp-p',confirme:'sp-c',livre:'sp-d',annule:'sp-p'};
-  el.innerHTML=data.map(c=>`
-    <div class="ord-row">
-      <div class="ord-pc"><span class="ord-em">${c.produits?.emoji||'📦'}</span><div><div class="ord-nm">${c.produits?.nom||'Produit'}</div><div class="ord-qt">Qté : ${c.quantite_commandee}</div></div></div>
-      <span>${c.produits?.utilisateurs?.nom||'--'}</span>
-      <span class="ord-am">${c.montant_total.toLocaleString()} FCFA</span>
-      <span><span class="sp ${cl[c.statut]}">${lb[c.statut]}</span></span>
-      <span style="font-size:12px;color:var(--gris)">${new Date(c.created_at).toLocaleDateString('fr-FR')}</span>
-    </div>`).join('');
-}
-
-function sendMsg(){
-  const inp=document.getElementById('chat-in');
-  const txt=inp.value.trim();
-  if(!txt)return;
-  const msgs=document.getElementById('chat-msgs');
-  const d=document.createElement('div');
-  d.style.cssText='align-self:flex-end;text-align:right';
-  d.innerHTML=`<div class="msg mm">${txt}</div><div class="mtime r">maintenant</div>`;
-  msgs.appendChild(d);inp.value='';msgs.scrollTop=msgs.scrollHeight;
-  setTimeout(()=>{
-    const r=document.createElement('div');
-    r.innerHTML=`<div class="msg mt">Reçu ! Je prépare votre commande. Inshallah à l'heure. 🙏</div><div class="mtime">maintenant</div>`;
-    msgs.appendChild(r);msgs.scrollTop=msgs.scrollHeight;
-  },1200);
-}
-
-function selEm(el,em){
-  document.querySelectorAll('.em-opt').forEach(e=>e.classList.remove('sel'));
-  el.classList.add('sel');emoji=em;
-  document.getElementById('pv-em').textContent=em;
-}
-
-function deco(){CU=null;showToast('Déconnecté');setTimeout(()=>goTo('scr-land'),800);}
-
-// ── CAROUSEL LANDING ──
-let slide=0;
-const slides=document.querySelectorAll('.carousel-slide');
-const cdots=document.querySelectorAll('.car-dot');
-function goSlide(n){
-  slide=n;
-  document.getElementById('car-track').style.transform=`translateX(-${n*100}%)`;
-  cdots.forEach((d,i)=>d.classList.toggle('active',i===n));
-}
-function nextSlide(){goSlide((slide+1)%slides.length);}
-function prevSlide(){goSlide((slide-1+slides.length)%slides.length);}
-setInterval(nextSlide,4500);
-
-// ── COMPTEURS ANIMÉS ──
-function animCount(id,target,suffix=''){
-  const el=document.getElementById(id);
-  if(!el)return;
-  let current=0;
-  const step=Math.ceil(target/40);
-  const timer=setInterval(()=>{
-    current=Math.min(current+step,target);
-    el.textContent=current+(suffix);
-    if(current>=target)clearInterval(timer);
-  },40);
-}
-async function loadNumberStats(){
-  const{count:np}=await db.from('utilisateurs').select('*',{count:'exact',head:true}).eq('role','agriculteur');
-  const{count:nc}=await db.from('commandes').select('*',{count:'exact',head:true});
-  animCount('n-prod',np||0);
-  animCount('n-cmd',nc||0);
-}
-loadNumberStats();
-
-
-
-loadStats();
-goTo('scr-land');
+function nextSlide() { goSlide((currentSlide + 1) % 2); }
+function prevSlide() { goSlide((currentSlide - 1 + 2) % 2); }
 </script>
 </body>
 </html>
