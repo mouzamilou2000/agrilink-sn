@@ -1535,6 +1535,7 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
         <button class="tb-btn" onclick="showPanel('p-prof')">👤</button>
       </div>
     </div>
+    
     <!-- ACCUEIL -->
 
     <!-- ACCUEIL MODERNE -->
@@ -2125,7 +2126,6 @@ body{font-family:'Noto Sans',sans-serif;background:var(--ciel);color:var(--nuit)
   </div>
 </div>
 <div class="toast" id="toast"></div>
-
 <script>
 const SB_URL='https://ohymrkgpxtfirrkqrhlt.supabase.co';
 const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9oeW1ya2dweHRmaXJya3FyaGx0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU0MDE0MzYsImV4cCI6MjEwMDk3NzQzNn0.Slvpt0A150g6-TKZcLfVijCU-ne6aqp-ISc9cvXAZZ0';
@@ -2147,7 +2147,11 @@ function showPanel(id){
   document.getElementById(id)?.classList.add('active');
   document.getElementById('m-tit').textContent=ptitles[id]||'';
   document.getElementById('sidebar').classList.remove('open');
-  window.scrollTo(0,0);
+  requestAnimationFrame(()=>{
+    window.scrollTo(0,0);
+    document.documentElement.scrollTop=0;
+    document.body.scrollTop=0;
+  });
   if(id==='p-prod')loadAll();
   if(id==='p-home'){loadHome();loadStats();}
 }
@@ -2267,10 +2271,8 @@ async function loadHome(){
     .order('created_at',{ascending:false});
   allDashProds=data||[];
   renderDashProds(allDashProds);
-  // Horloge
   updateClock();
   setInterval(updateClock,1000);
-  // Nom bienvenue
   if(CU) document.getElementById('dw-name').textContent=CU.nom.split(' ')[0];
 }
 
@@ -2439,19 +2441,6 @@ function selEm(el,em){
 }
 
 function deco(){CU=null;showToast('Déconnecté');setTimeout(()=>goTo('scr-land'),800);}
-
-// ── CAROUSEL LANDING ──
-let slide=0;
-const slides=document.querySelectorAll('.carousel-slide');
-const cdots=document.querySelectorAll('.car-dot');
-function goSlide(n){
-  slide=n;
-  document.getElementById('car-track').style.transform=`translateX(-${n*100}%)`;
-  cdots.forEach((d,i)=>d.classList.toggle('active',i===n));
-}
-function nextSlide(){goSlide((slide+1)%slides.length);}
-function prevSlide(){goSlide((slide-1+slides.length)%slides.length);}
-setInterval(nextSlide,4500);
 
 // ── COMPTEURS ANIMÉS ──
 function animCount(id,target,suffix=''){
